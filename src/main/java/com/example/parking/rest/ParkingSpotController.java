@@ -29,25 +29,12 @@ public class ParkingSpotController {
 
     @GetMapping("/parking-spot/{id}")
     public ParkingSpot getParkingSpotsById(@PathVariable int id){
-        ParkingSpot parkingSpots = parkingSpotService.findParkingSpotById(id);
-
-        if(parkingSpots == null){
-            throw new ParkingException("There is no parking spot with id: " + id);
-        }
-
-        return parkingSpots;
+        return parkingSpotService.findParkingSpotById(id);
     }
 
     @GetMapping("/parking-zone/{zoneId}/parking-spots")
     public List<ParkingSpot> getParkingSpotsByParkingZone(@PathVariable("zoneId") int zoneId){
-        ParkingZone parkingZone = new ParkingZone();
-        parkingZone.setId(zoneId);
-
-        if(parkingSpotService.findAllByParkingZone(parkingZone).isEmpty()){
-            throw new ParkingException("There are no parking spots in the parking zone of id: " + zoneId);
-        }
-
-        return parkingSpotService.findAllByParkingZone(parkingZone);
+        return parkingSpotService.findAllSpotsByParkingZone(zoneId);
     }
 
 }

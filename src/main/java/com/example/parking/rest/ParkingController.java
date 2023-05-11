@@ -1,7 +1,6 @@
 package com.example.parking.rest;
 
 import com.example.parking.entity.Parking;
-import com.example.parking.exception.ParkingException;
 import com.example.parking.service.ParkingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,21 +24,12 @@ public class ParkingController {
 
     @GetMapping("/parking/{id}")
     public Parking getParkingById(@PathVariable int id){
-        Parking parking = parkingService.findParkingById(id);
-
-        if(parking == null){
-            throw new ParkingException("There is no parking with id: " + id);
-        }
-
-        return parking;
+        return parkingService.findParkingById(id);
     }
 
     @PostMapping("/parking")
     public Parking addNewParking(@RequestBody Parking parking){
         parking.setId(0);
-
-        Parking newParking = parkingService.saveParking(parking);
-
-        return newParking;
+        return parkingService.saveParking(parking);
     }
 }
