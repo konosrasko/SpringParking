@@ -1,4 +1,4 @@
-package com.example.parking.entity;
+/*package com.example.parking.entity;
 
 import jakarta.persistence.*;
 
@@ -101,3 +101,4 @@ public class ParkingHistory {
         this.vehiclePlate = vehiclePlate;
     }
 }
+*/
