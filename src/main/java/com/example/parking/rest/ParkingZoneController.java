@@ -27,13 +27,5 @@ public class ParkingZoneController {
         return parkingZoneService.findParkingZoneById(id);
     }
 
-    @GetMapping("/parking/{parkId}/parking-zones")
-    public List<ParkingZone> getAllParkingSpotsByZone(@PathVariable("parkId") int parkId) {
-        return parkingZoneService.findAllParkingZonesByParking(parkId);
-    }
-    @PostMapping("/parking/{parkId}/parking-zones")
-    public void addZone(@PathVariable("parkId") int parkId,@RequestBody ParkingZone zone){
-        parkingZoneService.addZone(parkId,zone);
-    }
 
 }

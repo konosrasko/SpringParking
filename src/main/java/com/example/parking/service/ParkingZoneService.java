@@ -37,9 +37,5 @@ public class ParkingZoneService {
         return parkingZone;
     }
 
-    public List<ParkingZone> getAllParkingZonesByParking(Parking parking){
-        return parkingZoneRepo.findAllByParking(parking);
-    }
-
 
 }
