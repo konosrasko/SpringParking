@@ -1,5 +1,9 @@
-
-
+DROP TABLE IF EXISTS `parking`;
+DROP TABLE IF EXISTS `parking_history`;
+DROP TABLE IF EXISTS `price_scale`;
+DROP TABLE IF EXISTS `price_list`;
+DROP TABLE IF EXISTS `parking_zone`;
+DROP TABLE IF EXISTS `parking_spot`;
 
 CREATE TABLE `parking` (
   `id` int NOT NULL AUTO_INCREMENT,
