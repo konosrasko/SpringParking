@@ -14,8 +14,6 @@ import java.util.Optional;
 public class ParkingZoneService {
     private final ParkingZoneRepo parkingZoneRepo;
 
-    private ParkingService parkingService;
-
     @Autowired
     public ParkingZoneService(ParkingZoneRepo parkingZoneRepo) {
         this.parkingZoneRepo = parkingZoneRepo;
@@ -43,19 +41,5 @@ public class ParkingZoneService {
         return parkingZoneRepo.findAllByParking(parking);
     }
 
-    public void addZone(int parkId,ParkingZone parkingZone){
-        Parking parking = parkingService.findParkingById(parkId);
-        parkingZone.setParking(parking);
-        parkingZoneRepo.save(parkingZone);
-    }
 
-
-    public ParkingService getParkingService() {
-        return parkingService;
-    }
-
-    @Autowired
-    public void setParkingService(ParkingService parkingService) {
-        this.parkingService = parkingService;
-    }
 }

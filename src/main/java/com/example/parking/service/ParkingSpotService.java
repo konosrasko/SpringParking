@@ -37,7 +37,17 @@ public class ParkingSpotService {
         return parkingSpot;
     }
 
-    public List<ParkingSpot> findAllByParkingZone(ParkingZone parkingZone){
-        return parkingSpotRepo.findAllByParkingZone(parkingZone);
+    public List<ParkingSpot> findAllSpotsByParkingZone(int id){
+        ParkingZone parkingZone = new ParkingZone();
+        parkingZone.setId(id);
+
+        List<ParkingSpot> result = parkingSpotRepo.findSpotByParkingZone(parkingZone);
+
+        if(result.isEmpty()){
+            throw new ParkingException("There are no parking spots in the parking zone of id: " + id);
+        }
+
+        return parkingSpotRepo.findSpotByParkingZone(parkingZone);
+
     }
 }
