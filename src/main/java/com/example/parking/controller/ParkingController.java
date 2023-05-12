@@ -1,8 +1,8 @@
-package com.example.parking.rest;
+package com.example.parking.controller;
 
 import com.example.parking.dto.ParkingDTO;
 import com.example.parking.entity.Parking;
-import com.example.parking.service.ParkingService;
+import com.example.parking.service.impl.ParkingServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,25 +11,25 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class ParkingController {
-    private final ParkingService parkingService;
+    private final ParkingServiceImpl parkingServiceImpl;
 
     @Autowired
-    public ParkingController(ParkingService parkingService) {
-        this.parkingService = parkingService;
+    public ParkingController(ParkingServiceImpl parkingServiceImpl) {
+        this.parkingServiceImpl = parkingServiceImpl;
     }
 
     @GetMapping("/parking")
     public List<ParkingDTO> getAllParkings(){
-        return parkingService.findAllParkings();
+        return parkingServiceImpl.findAllParkings();
     }
 
     @GetMapping("/parking/{id}")
     public ParkingDTO getParkingById(@PathVariable int id){
-        return parkingService.findParkingById(id);
+        return parkingServiceImpl.findParkingById(id);
     }
 
     @PostMapping("/parking")
     public Parking addNewParking(@RequestBody ParkingDTO parkingDTO){
-        return parkingService.saveParking(parkingDTO);
+        return parkingServiceImpl.saveParking(parkingDTO);
     }
 }

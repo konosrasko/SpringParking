@@ -1,4 +1,4 @@
-package com.example.parking.rest;
+package com.example.parking.controller;
 
 import com.example.parking.dto.ParkingSpotDTO;
 import com.example.parking.service.ParkingSpotService;
