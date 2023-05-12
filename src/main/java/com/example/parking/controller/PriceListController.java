@@ -1,4 +1,4 @@
-package com.example.parking.rest;
+package com.example.parking.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
