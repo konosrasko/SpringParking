@@ -1,5 +1,6 @@
 package com.example.parking.rest;
 
+import com.example.parking.dto.ParkingSpotDTO;
 import com.example.parking.entity.ParkingSpot;
 import com.example.parking.repository.ParkingSpotRepo;
 import com.example.parking.service.ParkingSpotService;
@@ -20,18 +21,13 @@ public class ParkingSpotController {
     ParkingSpotService parkingSpotServiceImpl;
 
     @GetMapping("/parking-spots")
-    public List<ParkingSpot> getParkingZones(){
+    public List<ParkingSpotDTO> getParkingZones(){
         return parkingSpotServiceImpl.findAllParkingSpots();
     }
 
     @GetMapping("/parking-spot/{id}")
-    public ParkingSpot getParkingSpotsById(@PathVariable int id){
+    public ParkingSpotDTO getParkingSpotsById(@PathVariable int id){
         return parkingSpotServiceImpl.findParkingSpotById(id);
-    }
-
-    @GetMapping("/parking-zone/{zoneId}/parking-spots")
-    public List<ParkingSpot> getParkingSpotsByParkingZone(@PathVariable("zoneId") int zoneId){
-        return parkingSpotServiceImpl.findAllSpotsByParkingZone(zoneId);
     }
 
 }

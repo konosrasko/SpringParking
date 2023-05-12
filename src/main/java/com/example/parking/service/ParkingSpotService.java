@@ -1,16 +1,15 @@
 package com.example.parking.service;
 
+import com.example.parking.dto.ParkingSpotDTO;
 import com.example.parking.entity.ParkingSpot;
 
 import java.util.List;
 
 public interface ParkingSpotService {
 
-    public List<ParkingSpot> findAllParkingSpots();
+    public List<ParkingSpotDTO> findAllParkingSpots();
 
-    public ParkingSpot findParkingSpotById(int id);
-
-    public List<ParkingSpot> findAllSpotsByParkingZone(int id);
+    public ParkingSpotDTO findParkingSpotById(int id);
 
 
 }
