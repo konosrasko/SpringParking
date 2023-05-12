@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 public class ParkingService {
     private final ParkingRepo parkingRepo;
     private final ParkingZoneRepo parkingZoneRepo;
+    public List<ParkingDTO> parkingDTOList;
 
     @Autowired
     public ParkingService(ParkingRepo parkingRepo, ParkingZoneRepo parkingZoneRepo) {
