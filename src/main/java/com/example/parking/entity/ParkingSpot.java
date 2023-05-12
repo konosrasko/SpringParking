@@ -1,6 +1,5 @@
 package com.example.parking.entity;
 
-
 import jakarta.persistence.*;
 
 @Entity
@@ -12,9 +11,8 @@ public class ParkingSpot {
     @Column(name = "id")
     private int id;
 
-    @ManyToOne
-    @JoinColumn(name = "zone_id")
-    private ParkingZone parkingZone;
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "type")
     private String type;
@@ -25,7 +23,9 @@ public class ParkingSpot {
     public ParkingSpot() {
     }
 
-    public ParkingSpot(String type, boolean occupied) {
+    public ParkingSpot(int id, String name, String type, boolean occupied) {
+        this.id = id;
+        this.name = name;
         this.type = type;
         this.occupied = occupied;
     }
@@ -38,12 +38,12 @@ public class ParkingSpot {
         this.id = id;
     }
 
-    public ParkingZone getParkingZone() {
-        return parkingZone;
+    public String getName() {
+        return name;
     }
 
-    public void setParkingZone(ParkingZone parkingZone) {
-        this.parkingZone = parkingZone;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getType() {

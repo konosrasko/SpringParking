@@ -10,6 +10,4 @@ import java.util.List;
 @Repository
 public interface ParkingSpotRepo extends JpaRepository<ParkingSpot, Integer> {
 
-    List<ParkingSpot> findSpotByParkingZone(ParkingZone parkingZone);
-
 }
