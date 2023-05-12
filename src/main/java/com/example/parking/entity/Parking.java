@@ -17,7 +17,8 @@ public class Parking {
     public Parking() {
     }
 
-    public Parking(String name) {
+    public Parking(int id, String name) {
+        this.id = id;
         this.name = name;
     }
 

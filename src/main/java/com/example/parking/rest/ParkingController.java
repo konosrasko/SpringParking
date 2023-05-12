@@ -1,5 +1,6 @@
 package com.example.parking.rest;
 
+import com.example.parking.dto.ParkingDTO;
 import com.example.parking.entity.Parking;
 import com.example.parking.service.ParkingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class ParkingController {
     }
 
     @GetMapping("/parking")
-    public List<Parking> getAllParkings(){
+    public List<ParkingDTO> getAllParkings(){
         return parkingService.findAllParkings();
     }
 
