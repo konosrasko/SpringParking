@@ -1,9 +1,10 @@
-package com.example.parking.service;
+package com.example.parking.service.impl;
 
 import com.example.parking.dto.ParkingSpotDTO;
 import com.example.parking.entity.ParkingSpot;
 import com.example.parking.exception.ParkingException;
 import com.example.parking.repository.ParkingSpotRepo;
+import com.example.parking.service.ParkingSpotService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ParkingSpotServiceImpl implements ParkingSpotService{
+public class ParkingSpotServiceImpl implements ParkingSpotService {
 
     private final ParkingSpotRepo parkingSpotRepo;
 
