@@ -24,13 +24,12 @@ public class ParkingController {
     }
 
     @GetMapping("/parking/{id}")
-    public Parking getParkingById(@PathVariable int id){
+    public ParkingDTO getParkingById(@PathVariable int id){
         return parkingService.findParkingById(id);
     }
 
     @PostMapping("/parking")
-    public Parking addNewParking(@RequestBody Parking parking){
-        parking.setId(0);
-        return parkingService.saveParking(parking);
+    public Parking addNewParking(@RequestBody ParkingDTO parkingDTO){
+        return parkingService.saveParking(parkingDTO);
     }
 }

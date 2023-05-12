@@ -37,4 +37,12 @@ public class ParkingDTO {
     public void setName(String name) {
         this.name = name;
     }
+
+    public List<ParkingZoneDTO> getParkingZoneDTOList() {
+        return parkingZoneDTOList;
+    }
+
+    public void setParkingZoneDTOList(List<ParkingZoneDTO> parkingZoneDTOList) {
+        this.parkingZoneDTOList = parkingZoneDTOList;
+    }
 }
