@@ -1,6 +1,5 @@
 package com.example.parking.entity;
 
-
 import jakarta.persistence.*;
 
 @Entity
@@ -11,10 +10,6 @@ public class ParkingSpot {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-
-//    @ManyToOne
-//    @JoinColumn(name = "zone_id")
-//    private ParkingZone parkingZone;
 
     @Column(name = "name")
     private String name;
@@ -42,14 +37,6 @@ public class ParkingSpot {
     public void setId(int id) {
         this.id = id;
     }
-
-//    public ParkingZone getParkingZone() {
-//        return parkingZone;
-//    }
-
-//    public void setParkingZone(ParkingZone parkingZone) {
-//        this.parkingZone = parkingZone;
-//    }
 
     public String getName() {
         return name;
