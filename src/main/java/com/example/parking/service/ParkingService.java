@@ -12,4 +12,5 @@ public interface ParkingService {
     List<ParkingDTO> findAllParkings();
     ParkingDTO findParkingById(int id);
     Parking saveParking(ParkingDTO parkingDTO);
+    public Boolean findIfParkingExistById(int parkingId);
 }

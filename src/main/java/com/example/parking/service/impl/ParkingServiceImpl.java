@@ -19,6 +19,7 @@ public class ParkingServiceImpl implements ParkingService {
     private final ParkingRepo parkingRepo;
 
     private final ParkingZoneService parkingZoneService;
+    private Boolean exist;
 
     @Autowired
     public ParkingServiceImpl(ParkingRepo parkingRepo, ParkingZoneService parkingZoneService) {
@@ -55,6 +56,19 @@ public class ParkingServiceImpl implements ParkingService {
 
         return parkingDTO;
     }
+
+    public Boolean findIfParkingExistById(int parkingId){
+
+        Optional<Parking> result = parkingRepo.findById(parkingId);
+
+        if(result.isPresent()){
+            exist = true;
+        }else{exist = false;}
+
+        return exist;
+    }
+
+
     @Override
     public Parking saveParking(ParkingDTO parkingDTO){
 
