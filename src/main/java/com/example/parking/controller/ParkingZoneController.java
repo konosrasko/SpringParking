@@ -15,6 +15,7 @@ import java.util.List;
 public class ParkingZoneController {
     @Autowired
     private final ParkingZoneService parkingZoneService;
+    private ParkingService parkingService;
 
     public ParkingZoneController(ParkingZoneService parkingZoneService) {
         this.parkingZoneService = parkingZoneService;
@@ -32,6 +33,9 @@ public class ParkingZoneController {
 
     @PostMapping("/Parking/Zone")
     public ParkingZone addNewParkingZone(@RequestBody ParkingZoneDTO parkingZoneDTO){
+        if (parkingService.findIfParkingExistById(parkingZoneDTO.getParkingId()).equals(false)){
+            throw new ParkingException("The Parking with this id is not valid");
+        }
         return parkingZoneService.saveParkingZone(parkingZoneDTO);
     }
 
