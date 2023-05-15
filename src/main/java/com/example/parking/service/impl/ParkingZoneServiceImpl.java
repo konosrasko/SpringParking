@@ -1,6 +1,7 @@
 package com.example.parking.service.impl;
 
 import com.example.parking.dto.ParkingZoneDTO;
+import com.example.parking.entity.Parking;
 import com.example.parking.entity.ParkingZone;
 import com.example.parking.repository.ParkingRepo;
 import com.example.parking.repository.ParkingSpotRepo;
@@ -11,25 +12,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ParkingZoneServiceImpl implements ParkingZoneService {
-    @Autowired
-    private final ParkingService parkingService;
-    @Autowired
+
     private final ParkingZoneRepo parkingZoneRepo;
-    @Autowired
+
     private final ParkingSpotRepo parkingSpotRepo;
 
-    public ParkingZoneServiceImpl(ParkingService parkingService, ParkingZoneRepo parkingZoneRepo, ParkingSpotRepo parkingSpotRepo) {
-        this.parkingService = parkingService;
+    @Autowired
+    public ParkingZoneServiceImpl(ParkingZoneRepo parkingZoneRepo, ParkingSpotRepo parkingSpotRepo) {
         this.parkingZoneRepo = parkingZoneRepo;
         this.parkingSpotRepo = parkingSpotRepo;
     }
 
     @Override
     public List<ParkingZoneDTO> findParkingZonesByParkingId(int parkingId) {
-        return parkingService.findParkingById(parkingId).getParkingZoneDTOList();
+
+        List<ParkingZone> parkingZones = this.parkingZoneRepo.findByParkingId(parkingId);
+        return parkingZones
+                .stream()
+                .map(parkingZone -> new ParkingZoneDTO(
+                        parkingZone.getId(),
+                        parkingZone.getType()
+                )).collect(Collectors.toList());
     }
 
     @Override

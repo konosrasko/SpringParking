@@ -2,8 +2,6 @@ package com.example.parking.entity;
 
 import jakarta.persistence.*;
 
-import java.util.List;
-
 @Entity
 @Table(name = "parking_zone")
 public class ParkingZone {

@@ -15,13 +15,12 @@ import java.util.stream.Collectors;
 
 @Service
 public class ParkingServiceImpl implements ParkingService {
-    @Autowired
-    private final ParkingRepo parkingRepo;
-    @Autowired
-    private final ParkingZoneService parkingZoneService;
-    @Autowired
-    public List<ParkingDTO> parkingDTOList;
 
+    private final ParkingRepo parkingRepo;
+
+    private final ParkingZoneService parkingZoneService;
+
+    @Autowired
     public ParkingServiceImpl(ParkingRepo parkingRepo, ParkingZoneService parkingZoneService) {
         this.parkingRepo = parkingRepo;
         this.parkingZoneService = parkingZoneService;
