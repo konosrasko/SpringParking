@@ -9,6 +9,15 @@ public class ParkingSpotDTO {
     public ParkingSpotDTO() {
     }
 
+
+    public ParkingSpotDTO(int id, String name, String type, boolean occupied) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.occupied = occupied;
+    }
+
+
     public int getId() {
         return id;
     }

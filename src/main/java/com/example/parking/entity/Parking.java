@@ -1,8 +1,7 @@
 package com.example.parking.entity;
 
 import jakarta.persistence.*;
-
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "parking")
@@ -15,6 +14,9 @@ public class Parking {
 
     @Column(name="name")
     private String name;
+
+    @OneToMany(mappedBy = "parking",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    private List<ParkingZone> parkingZones;
 
     public Parking() {
     }
@@ -38,5 +40,13 @@ public class Parking {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<ParkingZone> getParkingZones() {
+        return parkingZones;
+    }
+
+    public void setParkingZones(List<ParkingZone> parkingZones) {
+        this.parkingZones = parkingZones;
     }
 }

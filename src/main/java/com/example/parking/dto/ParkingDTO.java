@@ -1,5 +1,6 @@
 package com.example.parking.dto;
 
+import com.example.parking.entity.Parking;
 import com.example.parking.entity.ParkingZone;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ public class ParkingDTO {
     private int parkingId;
     private String name;
     private List<ParkingZoneDTO> parkingZoneDTOList;
+    private Parking parking;
 
 
 

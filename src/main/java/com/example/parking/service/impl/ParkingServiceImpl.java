@@ -1,7 +1,9 @@
 package com.example.parking.service.impl;
 
 import com.example.parking.dto.ParkingDTO;
+import com.example.parking.dto.ParkingZoneDTO;
 import com.example.parking.entity.Parking;
+import com.example.parking.entity.ParkingZone;
 import com.example.parking.exception.ParkingException;
 import com.example.parking.repository.ParkingRepo;
 import com.example.parking.service.ParkingService;
@@ -9,6 +11,7 @@ import com.example.parking.service.ParkingZoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -18,13 +21,15 @@ public class ParkingServiceImpl implements ParkingService {
 
     private final ParkingRepo parkingRepo;
 
-    private final ParkingZoneService parkingZoneService;
     private Boolean exist;
 
+
+
+
+
     @Autowired
-    public ParkingServiceImpl(ParkingRepo parkingRepo, ParkingZoneService parkingZoneService) {
+    public ParkingServiceImpl(ParkingRepo parkingRepo) {
         this.parkingRepo = parkingRepo;
-        this.parkingZoneService = parkingZoneService;
     }
 
     @Override
@@ -46,9 +51,14 @@ public class ParkingServiceImpl implements ParkingService {
         ParkingDTO parkingDTO = new ParkingDTO();
         if(result.isPresent()){
             parking = result.get();
+            List<ParkingZone> listOfParkingZones = parking.getParkingZones();
+            List<ParkingZoneDTO> parkingZoneDTOList =listOfParkingZones.stream().map(parkingZone -> new ParkingZoneDTO(
+                    parkingZone.getId(),
+                    parkingZone.getType()
+            )).collect(Collectors.toList());
             parkingDTO.setName(parking.getName());
             parkingDTO.setParkingId(parking.getId());
-            parkingDTO.setParkingZoneDTOList(this.parkingZoneService.findParkingZonesByParkingId(parking.getId()));
+            parkingDTO.setParkingZoneDTOList(parkingZoneDTOList);
         }else{
             throw new ParkingException("There is no parking with id: " + id);
         }

@@ -1,12 +1,16 @@
 package com.example.parking.service.impl;
 
+import com.example.parking.dto.ParkingSpotDTO;
 import com.example.parking.dto.ParkingZoneDTO;
+import com.example.parking.entity.ParkingSpot;
 import com.example.parking.entity.ParkingZone;
 import com.example.parking.exception.ParkingException;
 import com.example.parking.repository.ParkingSpotRepo;
 import com.example.parking.repository.ParkingZoneRepo;
+import com.example.parking.service.ParkingService;
 import com.example.parking.service.ParkingZoneService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +25,10 @@ public class ParkingZoneServiceImpl implements ParkingZoneService {
     private final ParkingSpotRepo parkingSpotRepo;
 
 
+
+
+    @Autowired
+    private ParkingService parkingService;
 
 
     @Autowired
@@ -39,6 +47,31 @@ public class ParkingZoneServiceImpl implements ParkingZoneService {
                         parkingZone.getId(),
                         parkingZone.getType()
                 )).collect(Collectors.toList());
+    }
+
+    @Override
+    public ParkingZoneDTO findParkingZoneById(int zoneId) {
+
+        Optional<ParkingZone> result = parkingZoneRepo.findById(zoneId);
+        ParkingZone parkingZone =null;
+        ParkingZoneDTO parkingZoneDTO = new ParkingZoneDTO();
+        if(result.isPresent()){
+            parkingZone =result.get();
+            List<ParkingSpot> spotList = parkingZone.getParkingSpots();
+            List<ParkingSpotDTO> parkingSpotDTOList = spotList.stream().map(parkingSpot -> new ParkingSpotDTO(
+                    parkingSpot.getId(),
+                    parkingSpot.getName(),
+                    parkingSpot.getType(),
+                    parkingSpot.isOccupied()
+            )).collect(Collectors.toList());
+            parkingZoneDTO.setParkingZoneId(parkingZone.getId());
+            parkingZoneDTO.setType(parkingZone.getType());
+            parkingZoneDTO.setName(parkingZone.getName());
+            parkingZoneDTO.setParkingSpotDTOList(parkingSpotDTOList);
+        }else{
+            throw new ParkingException("There is no zone with id:"+ zoneId);
+        }
+        return parkingZoneDTO;
     }
 
 

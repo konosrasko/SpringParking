@@ -26,12 +26,12 @@ public class ParkingZoneController {
         return null;
     }
 
-    @GetMapping("/parking-zone/{id}")
+    @GetMapping("/parking-zones/{id}")
     public List<ParkingZoneDTO> getParkingZoneById(@PathVariable int id){
         return parkingZoneService.findParkingZonesByParkingId(id);
     }
 
-    @GetMapping("/Parking/Zone")
+    @PostMapping("/Parking/Zone")
     public ParkingZone addNewParkingZone(@RequestBody ParkingZoneDTO parkingZoneDTO){
         if (parkingService.findIfParkingExistById(parkingZoneDTO.getParkingId()).equals(false)){
             throw new ParkingException("The Parking with this id is not valid");
