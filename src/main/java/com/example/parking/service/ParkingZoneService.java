@@ -1,52 +1,16 @@
 package com.example.parking.service;
 
-import com.example.parking.entity.Parking;
+import com.example.parking.dto.ParkingZoneDTO;
 import com.example.parking.entity.ParkingZone;
-import com.example.parking.exception.ParkingException;
-import com.example.parking.repository.ParkingZoneRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
-public class ParkingZoneService {
-    private final ParkingZoneRepo parkingZoneRepo;
+public interface ParkingZoneService {
+    List<ParkingZoneDTO> findParkingZonesByParkingId(int parkingId);
+    ParkingZone saveParkingZone(ParkingZoneDTO parkingZoneDTO);
+    void deleteZone(ParkingZone parkingZone);
 
-    @Autowired
-    public ParkingZoneService(ParkingZoneRepo parkingZoneRepo) {
-        this.parkingZoneRepo = parkingZoneRepo;
-    }
-
-    public List<ParkingZone> findAllParkingZones(){
-        return parkingZoneRepo.findAll();
-    }
-
-    public ParkingZone findParkingZoneById(int id){
-        Optional<ParkingZone> results = parkingZoneRepo.findById(id);
-
-        ParkingZone parkingZone= null;
-
-        if(results.isPresent()){
-            parkingZone = results.get();
-        }else{
-            throw new ParkingException("There are no zones with the id: " + id);
-        }
-
-        return parkingZone;
-    }
-
-    public List<ParkingZone> findAllParkingZonesByParking(int id){
-        Parking parking = new Parking();
-        parking.setId(id);
-
-        List<ParkingZone> result = parkingZoneRepo.findZonesByParking(parking);
-
-        if(result.isEmpty()){
-            throw new ParkingException("There is no parking with id: " + id);
-        }
-        return parkingZoneRepo.findZonesByParking(parking);
-    }
 
 }

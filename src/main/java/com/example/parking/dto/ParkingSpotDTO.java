@@ -1,33 +1,12 @@
-package com.example.parking.entity;
+package com.example.parking.dto;
 
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "parking_spot")
-public class ParkingSpot {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+public class ParkingSpotDTO {
     private int id;
-
-    @Column(name = "name")
     private String name;
-
-    @Column(name = "type")
     private String type;
-
-    @Column(name = "occupied")
     private boolean occupied;
 
-    public ParkingSpot() {
-    }
-
-    public ParkingSpot(int id, String name, String type, boolean occupied) {
-        this.id = id;
-        this.name = name;
-        this.type = type;
-        this.occupied = occupied;
+    public ParkingSpotDTO() {
     }
 
     public int getId() {

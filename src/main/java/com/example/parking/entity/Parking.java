@@ -2,6 +2,8 @@ package com.example.parking.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "parking")
 public class Parking {
@@ -17,7 +19,8 @@ public class Parking {
     public Parking() {
     }
 
-    public Parking(String name) {
+    public Parking(int id, String name) {
+        this.id = id;
         this.name = name;
     }
 

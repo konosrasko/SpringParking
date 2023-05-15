@@ -10,9 +10,8 @@ public class ParkingZone {
     @Column(name = "id")
     private int id;
 
-    @ManyToOne
-    @JoinColumn(name = "park_id")
-    private Parking parking;
+    @Column(name = "park_id")
+    private int parkingId;
 
     @Column(name = "type")
     private String type;
@@ -22,14 +21,6 @@ public class ParkingZone {
 
     public ParkingZone(String type) {
         this.type = type;
-    }
-
-    public Parking getParking() {
-        return parking;
-    }
-
-    public void setParking(Parking parking) {
-        this.parking = parking;
     }
 
     public int getId() {
@@ -46,5 +37,13 @@ public class ParkingZone {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public int getParkingId() {
+        return parkingId;
+    }
+
+    public void setParkingId(int parkingId) {
+        this.parkingId = parkingId;
     }
 }
