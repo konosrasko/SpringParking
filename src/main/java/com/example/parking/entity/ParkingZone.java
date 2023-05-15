@@ -2,8 +2,6 @@ package com.example.parking.entity;
 
 import jakarta.persistence.*;
 
-import java.util.List;
-
 @Entity
 @Table(name = "parking_zone")
 public class ParkingZone {
@@ -39,5 +37,13 @@ public class ParkingZone {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public int getParkingId() {
+        return parkingId;
+    }
+
+    public void setParkingId(int parkingId) {
+        this.parkingId = parkingId;
     }
 }

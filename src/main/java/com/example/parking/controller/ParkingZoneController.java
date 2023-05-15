@@ -2,6 +2,8 @@ package com.example.parking.controller;
 
 import com.example.parking.dto.ParkingZoneDTO;
 import com.example.parking.entity.ParkingZone;
+import com.example.parking.exception.ParkingException;
+import com.example.parking.service.ParkingService;
 import com.example.parking.service.ParkingZoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,7 @@ import java.util.List;
 public class ParkingZoneController {
     @Autowired
     private final ParkingZoneService parkingZoneService;
+    private ParkingService parkingService;
 
     public ParkingZoneController(ParkingZoneService parkingZoneService) {
         this.parkingZoneService = parkingZoneService;
@@ -28,5 +31,12 @@ public class ParkingZoneController {
         return parkingZoneService.findParkingZonesByParkingId(id);
     }
 
+    @GetMapping("/Parking/Zone")
+    public ParkingZone addNewParkingZone(@RequestBody ParkingZoneDTO parkingZoneDTO){
+        if (parkingService.findIfParkingExistById(parkingZoneDTO.getParkingId()).equals(false)){
+            throw new ParkingException("The Parking with this id is not valid");
+        }
+        return parkingZoneService.saveParkingZone(parkingZoneDTO);
+    }
 
 }

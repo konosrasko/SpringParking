@@ -4,28 +4,50 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParkingZoneDTO {
-    private final List<ParkingSpotDTO> parkingSpotDTOList;
-    private int zoneIndex;
+    private List<ParkingSpotDTO> parkingSpotDTOList;
+    private int parkingZoneId;
     private String type;
+    private int parkingId;
 
-    public ParkingZoneDTO() {
-        this.parkingSpotDTOList = new ArrayList<>();
+    public ParkingZoneDTO(int id, String type) {
+        this.parkingZoneId = id;
+        this.type = type;
     }
 
-    public ParkingZoneDTO(List<ParkingSpotDTO> parkingSpotDTOList, int zoneIndex) {
-        this.parkingSpotDTOList = parkingSpotDTOList;
-        this.zoneIndex = zoneIndex;
+    public ParkingZoneDTO(List<ParkingSpotDTO> parkingSpotDTOList) {
+       super();
+       this.parkingSpotDTOList = parkingSpotDTOList;
     }
 
     public List<ParkingSpotDTO> getParkingSpotDTOList() {
         return parkingSpotDTOList;
     }
 
-    public int getZoneIndex() {
-        return zoneIndex;
+    public int getParkingZoneId() {
+        return parkingZoneId;
     }
 
-    public void setZoneIndex(int zoneIndex) {
-        this.zoneIndex = zoneIndex;
+    public void setParkingZoneId(int parkingZoneId) {
+        this.parkingZoneId = parkingZoneId;
+    }
+
+    public int getParkingId() {
+        return parkingId;
+    }
+
+    public void setParkingId(int parkingId) {
+        this.parkingId = parkingId;
+    }
+
+    public void setParkingSpotDTOList(List<ParkingSpotDTO> parkingSpotDTOList) {
+        this.parkingSpotDTOList = parkingSpotDTOList;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

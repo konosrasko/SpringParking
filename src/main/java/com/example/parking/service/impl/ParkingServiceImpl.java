@@ -15,13 +15,13 @@ import java.util.stream.Collectors;
 
 @Service
 public class ParkingServiceImpl implements ParkingService {
-    @Autowired
-    private final ParkingRepo parkingRepo;
-    @Autowired
-    private final ParkingZoneService parkingZoneService;
-    @Autowired
-    public List<ParkingDTO> parkingDTOList;
 
+    private final ParkingRepo parkingRepo;
+
+    private final ParkingZoneService parkingZoneService;
+    private Boolean exist;
+
+    @Autowired
     public ParkingServiceImpl(ParkingRepo parkingRepo, ParkingZoneService parkingZoneService) {
         this.parkingRepo = parkingRepo;
         this.parkingZoneService = parkingZoneService;
@@ -56,6 +56,19 @@ public class ParkingServiceImpl implements ParkingService {
 
         return parkingDTO;
     }
+
+    public Boolean findIfParkingExistById(int parkingId){
+
+        Optional<Parking> result = parkingRepo.findById(parkingId);
+
+        if(result.isPresent()){
+            exist = true;
+        }else{exist = false;}
+
+        return exist;
+    }
+
+
     @Override
     public Parking saveParking(ParkingDTO parkingDTO){
 

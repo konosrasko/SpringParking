@@ -7,7 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 class ParkingApplicationTests {
 
 	@Test
-	void contextLoads() {
+	void ParkingTest() {
+
 	}
 
 }
