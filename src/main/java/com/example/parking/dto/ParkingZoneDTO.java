@@ -13,12 +13,6 @@ public class ParkingZoneDTO {
         this.parkingZoneId = id;
         this.type = type;
     }
-
-    public ParkingZoneDTO(List<ParkingSpotDTO> parkingSpotDTOList) {
-       super();
-       this.parkingSpotDTOList = parkingSpotDTOList;
-    }
-
     public List<ParkingSpotDTO> getParkingSpotDTOList() {
         return parkingSpotDTOList;
     }
