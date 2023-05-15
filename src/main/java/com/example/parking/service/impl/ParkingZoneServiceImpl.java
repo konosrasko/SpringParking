@@ -5,8 +5,10 @@ import com.example.parking.entity.ParkingZone;
 import com.example.parking.exception.ParkingException;
 import com.example.parking.repository.ParkingSpotRepo;
 import com.example.parking.repository.ParkingZoneRepo;
+import com.example.parking.service.ParkingService;
 import com.example.parking.service.ParkingZoneService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,8 +21,8 @@ public class ParkingZoneServiceImpl implements ParkingZoneService {
     private final ParkingZoneRepo parkingZoneRepo;
 
     private final ParkingSpotRepo parkingSpotRepo;
-
-
+    @Autowired
+    private ParkingService parkingService;
 
 
     @Autowired

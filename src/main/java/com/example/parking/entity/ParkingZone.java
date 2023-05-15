@@ -1,6 +1,7 @@
 package com.example.parking.entity;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "parking_zone")
@@ -13,8 +14,15 @@ public class ParkingZone {
     @Column(name = "park_id")
     private int parkingId;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "park_id",referencedColumnName = "id",updatable = false,insertable = false)
+    private Parking parking;
+
     @Column(name = "type")
     private String type;
+
+    @OneToMany(targetEntity = ParkingSpot.class,cascade = CascadeType.ALL)
+    private List<ParkingSpot> parkingSpotList;
 
     public ParkingZone() {
     }
