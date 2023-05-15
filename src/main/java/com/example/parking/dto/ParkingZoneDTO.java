@@ -7,17 +7,22 @@ public class ParkingZoneDTO {
     private List<ParkingSpotDTO> parkingSpotDTOList;
     private int parkingZoneId;
     private String type;
+    private String name;
     private int parkingId;
+
+    public ParkingZoneDTO(){}
+
+    public ParkingZoneDTO(int id, String type,List<ParkingSpotDTO> parkingSpotDTOList) {
+        this.parkingZoneId = id;
+        this.type = type;
+        this.parkingSpotDTOList = parkingSpotDTOList;
+    }
 
     public ParkingZoneDTO(int id, String type) {
         this.parkingZoneId = id;
         this.type = type;
     }
 
-    public ParkingZoneDTO(List<ParkingSpotDTO> parkingSpotDTOList) {
-       super();
-       this.parkingSpotDTOList = parkingSpotDTOList;
-    }
 
     public List<ParkingSpotDTO> getParkingSpotDTOList() {
         return parkingSpotDTOList;
@@ -49,5 +54,13 @@ public class ParkingZoneDTO {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

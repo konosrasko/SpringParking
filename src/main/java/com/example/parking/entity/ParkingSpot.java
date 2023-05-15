@@ -20,6 +20,13 @@ public class ParkingSpot {
     @Column(name = "occupied")
     private boolean occupied;
 
+    @Column(name ="zone_id")
+    private int zone_id;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "zone_id",referencedColumnName = "id",updatable = false,insertable = false)
+    private ParkingSpot spot;
+
     public ParkingSpot() {
     }
 
