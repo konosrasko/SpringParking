@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
-@Entity
+@Entity(name = "Parking")
 @Table(name = "parking")
 public class Parking {
 
@@ -15,6 +15,9 @@ public class Parking {
 
     @Column(name="name")
     private String name;
+
+    @OneToMany(mappedBy = "parking", fetch = FetchType.LAZY)
+    private List<ParkingZone> parkingZones;
 
     public Parking() {
     }

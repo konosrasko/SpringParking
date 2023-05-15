@@ -2,7 +2,9 @@ package com.example.parking.entity;
 
 import jakarta.persistence.*;
 
-@Entity
+import java.util.List;
+
+@Entity(name = "ParkingZone")
 @Table(name = "parking_zone")
 public class ParkingZone {
     @Id
@@ -15,6 +17,9 @@ public class ParkingZone {
 
     @Column(name = "type")
     private String type;
+
+    @OneToMany(mappedBy = "parking_zone",fetch = FetchType.LAZY)
+    private List<ParkingSpot> parkingSpots;
 
     public ParkingZone() {
     }

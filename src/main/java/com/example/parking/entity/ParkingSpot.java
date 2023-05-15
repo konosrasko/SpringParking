@@ -2,7 +2,7 @@ package com.example.parking.entity;
 
 import jakarta.persistence.*;
 
-@Entity
+@Entity(name = "ParkingSpot")
 @Table(name = "parking_spot")
 public class ParkingSpot {
 
