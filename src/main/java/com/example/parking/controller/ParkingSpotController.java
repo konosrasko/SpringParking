@@ -15,16 +15,21 @@ import java.util.List;
 public class ParkingSpotController {
 
     @Autowired
-    ParkingSpotService parkingSpotServiceImpl;
+    private ParkingSpotService parkingSpotService;
 
     @GetMapping("/parking-spots")
     public List<ParkingSpotDTO> getParkingZones(){
-        return parkingSpotServiceImpl.findAllParkingSpots();
+        return parkingSpotService.findAllParkingSpots();
     }
 
     @GetMapping("/parking-spot/{id}")
     public ParkingSpotDTO getParkingSpotsById(@PathVariable int id){
-        return parkingSpotServiceImpl.findParkingSpotById(id);
+        return parkingSpotService.findParkingSpotById(id);
+    }
+
+    @GetMapping("/parking-zone/{zoneId}/parking-spot")
+    public List<ParkingSpotDTO> getAllParkingSpotsByZoneId(@PathVariable int zoneId){
+        return parkingSpotService.findSpotsByZoneId(zoneId);
     }
 
 }
