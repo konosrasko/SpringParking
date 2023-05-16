@@ -2,6 +2,7 @@ package com.example.parking.dto;
 
 public class ParkingSpotDTO {
     private int id;
+    private int zoneId;
     private String name;
     private String type;
     private boolean occupied;
@@ -9,14 +10,13 @@ public class ParkingSpotDTO {
     public ParkingSpotDTO() {
     }
 
-
-    public ParkingSpotDTO(int id, String name, String type, boolean occupied) {
+    public ParkingSpotDTO(int id, int zoneId, String name, String type, boolean occupied) {
         this.id = id;
+        this.zoneId = zoneId;
         this.name = name;
         this.type = type;
         this.occupied = occupied;
     }
-
 
     public int getId() {
         return id;
@@ -24,6 +24,14 @@ public class ParkingSpotDTO {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getZoneId() {
+        return zoneId;
+    }
+
+    public void setZoneId(int zoneId) {
+        this.zoneId = zoneId;
     }
 
     public String getName() {

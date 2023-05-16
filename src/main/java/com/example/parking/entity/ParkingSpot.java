@@ -11,6 +11,9 @@ public class ParkingSpot {
     @Column(name = "id")
     private int id;
 
+    @Column(name = "zone_id")
+    private int zoneId;
+
     @Column(name = "name")
     private String name;
 
@@ -20,9 +23,6 @@ public class ParkingSpot {
     @Column(name = "occupied")
     private boolean occupied;
 
-    @Column(name ="zone_id")
-    private int zone_id;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "zone_id",referencedColumnName = "id",updatable = false,insertable = false)
     private ParkingSpot spot;
@@ -30,15 +30,33 @@ public class ParkingSpot {
     public ParkingSpot() {
     }
 
-    public ParkingSpot(int id, String name, String type, boolean occupied) {
+    public ParkingSpot(int id, int zoneId, String name, String type, boolean occupied, ParkingSpot spot) {
         this.id = id;
+        this.zoneId = zoneId;
         this.name = name;
         this.type = type;
         this.occupied = occupied;
+        this.spot = spot;
     }
 
     public int getId() {
         return id;
+    }
+
+    public int getZoneId() {
+        return zoneId;
+    }
+
+    public void setZoneId(int zoneId) {
+        this.zoneId = zoneId;
+    }
+
+    public ParkingSpot getSpot() {
+        return spot;
+    }
+
+    public void setSpot(ParkingSpot spot) {
+        this.spot = spot;
     }
 
     public void setId(int id) {

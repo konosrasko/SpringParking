@@ -4,13 +4,11 @@ import com.example.parking.dto.ParkingDTO;
 import com.example.parking.entity.Parking;
 import com.example.parking.repository.ParkingRepo;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 
@@ -27,6 +25,10 @@ class ParkingServiceImplTest {
     }
 
 
+
+
+
+
     @Test
     void canFindAllParkings() {
         underTest.findAllParkings();
@@ -37,9 +39,12 @@ class ParkingServiceImplTest {
 
     @Test
     void findIfParkingExistById() {
-        String test1 = "test1";
-        Parking parking = new Parking(1,test1);
-        assertEquals(parking.getName(),test1);
+    ParkingDTO parkingDTO = new ParkingDTO(1,"dsaf");
+    Parking parking = null;
+
+    assertEquals(underTest.saveParking(parkingDTO),parking);
+    assertEquals(underTest.findIfParkingExistById(0),false);
+
     }
 
     @Test

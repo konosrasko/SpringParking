@@ -11,5 +11,6 @@ public interface ParkingSpotService {
 
     public ParkingSpotDTO findParkingSpotById(int id);
 
+    public List<ParkingSpotDTO> findSpotsByZoneId(int zoneId);
 
 }
