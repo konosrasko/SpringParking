@@ -26,9 +26,12 @@ class ParkingSpotServiceImplTest {
 
     @Test
     void canFindAllSpots(){
+        ParkingSpot parkingSpot = new ParkingSpot();
         testingSpotService.findAllParkingSpots();
 
         verify(parkingSpotRepo).findAll();
+
+        assertEquals(parkingSpot.getSpot(),null);
     }
 
 
