@@ -7,11 +7,9 @@ import com.example.parking.entity.ParkingZone;
 import com.example.parking.exception.ParkingException;
 import com.example.parking.repository.ParkingRepo;
 import com.example.parking.service.ParkingService;
-import com.example.parking.service.ParkingZoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -47,7 +45,7 @@ public class ParkingServiceImpl implements ParkingService {
     public ParkingDTO findParkingById(int id){
 
         Optional<Parking> result = parkingRepo.findById(id);
-        Parking parking = null;
+        Parking parking;
         ParkingDTO parkingDTO = new ParkingDTO();
         if(result.isPresent()){
             parking = result.get();
@@ -71,9 +69,7 @@ public class ParkingServiceImpl implements ParkingService {
 
         Optional<Parking> result = parkingRepo.findById(parkingId);
 
-        if(result.isPresent()){
-            exist = true;
-        }else{exist = false;}
+        exist = result.isPresent();
 
         return exist;
     }

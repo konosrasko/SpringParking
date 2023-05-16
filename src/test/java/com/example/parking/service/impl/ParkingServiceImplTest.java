@@ -4,7 +4,6 @@ import com.example.parking.dto.ParkingDTO;
 import com.example.parking.entity.Parking;
 import com.example.parking.repository.ParkingRepo;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
