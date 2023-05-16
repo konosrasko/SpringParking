@@ -25,6 +25,10 @@ class ParkingServiceImplTest {
     }
 
 
+
+
+
+
     @Test
     void canFindAllParkings() {
         underTest.findAllParkings();
@@ -35,9 +39,12 @@ class ParkingServiceImplTest {
 
     @Test
     void findIfParkingExistById() {
-        String test1 = "test1";
-        Parking parking = new Parking(1,test1);
-        assertEquals(parking.getName(),test1);
+    ParkingDTO parkingDTO = new ParkingDTO(1,"dsaf");
+    Parking parking = null;
+
+    assertEquals(underTest.saveParking(parkingDTO),parking);
+    assertEquals(underTest.findIfParkingExistById(0),false);
+
     }
 
     @Test
