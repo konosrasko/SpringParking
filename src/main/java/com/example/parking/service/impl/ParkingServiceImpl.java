@@ -19,11 +19,6 @@ public class ParkingServiceImpl implements ParkingService {
 
     private final ParkingRepo parkingRepo;
 
-    private Boolean exist;
-
-
-
-
 
     @Autowired
     public ParkingServiceImpl(ParkingRepo parkingRepo) {
@@ -32,9 +27,7 @@ public class ParkingServiceImpl implements ParkingService {
 
     @Override
     public List<ParkingDTO> findAllParkings() {
-        //when(this.parkingRepo.findAll()).thenReturn(new ArrayList<>());
-       // when(this.parkingRepo.findAll()).thenReturn(Arrays.asList(new Parking(id,name)));
-        return parkingRepo.findAll()
+                return parkingRepo.findAll()
                 .stream()
                 .map(parking -> new ParkingDTO(
                         parking.getId(),
@@ -69,9 +62,7 @@ public class ParkingServiceImpl implements ParkingService {
 
         Optional<Parking> result = parkingRepo.findById(parkingId);
 
-        exist = result.isPresent();
-
-        return exist;
+        return result.isPresent();
     }
 
 
