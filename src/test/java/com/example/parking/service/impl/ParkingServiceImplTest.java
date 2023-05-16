@@ -36,17 +36,9 @@ class ParkingServiceImplTest {
     }
 
     @Test
-    @Disabled
-    void canFindParkingById() {
-
-    }
-
-    @Test
     void findIfParkingExistById() {
         String test1 = "test1";
         Parking parking = new Parking(1,test1);
-
-
         assertEquals(parking.getName(),test1);
     }
 
