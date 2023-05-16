@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 @DataJpaTest
@@ -19,17 +20,16 @@ class ParkingZoneRepoTest {
     @Test
     void findByParkingId() {
         Parking parking = new Parking(1,"test");
-        ParkingZone parkingZone = new ParkingZone("type");
+        ParkingZone parkingZone = new ParkingZone(1,1,"type","name");
         parking.setParkingZones(new ArrayList<>());
         parking.getParkingZones().add(parkingZone);
-        this.parkingRepo.save(parking);
-        this.parkingZoneRepo.save(parkingZone);
+        parkingRepo.save(parking);
+        parkingZoneRepo.save(parkingZone);
 
         Parking p = parkingRepo.findById(parking.getId()).get();
+        List<ParkingZone> pz = parkingZoneRepo.findByParkingId(p.getId());
 
-        assertEquals(true,
-                p.getParkingZones().contains(parkingZoneRepo.findByParkingId(p.getId()))
-        );
+        assertTrue(pz.equals(p.getParkingZones()));
 
 
 
