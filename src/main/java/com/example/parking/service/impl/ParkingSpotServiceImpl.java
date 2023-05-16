@@ -67,4 +67,20 @@ public class ParkingSpotServiceImpl implements ParkingSpotService {
         return parkingSpotDTO;
     }
 
+    public List<ParkingSpotDTO> findSpotsByZoneId(int zoneId){
+        List<ParkingSpot> results = parkingSpotRepo.findSpotsByZoneId(zoneId);
+        List<ParkingSpotDTO> parkingSpotDTOS = new ArrayList<>();
+
+        if(results.isEmpty()){
+            throw new ParkingException("There are no spots in zone with id " + zoneId);
+        }
+
+        for(ParkingSpot parkingSpot : results){
+            parkingSpotDTOS.add(entityToDTO(parkingSpot));
+        }
+
+        return parkingSpotDTOS;
+    }
+
+
 }

@@ -27,4 +27,9 @@ public class ParkingSpotController {
         return parkingSpotService.findParkingSpotById(id);
     }
 
+    @GetMapping("/parking-zone/{zoneId}/parking-spot")
+    public List<ParkingSpotDTO> getAllParkingSpotsByZoneId(@PathVariable int zoneId){
+        return parkingSpotService.findSpotsByZoneId(zoneId);
+    }
+
 }
