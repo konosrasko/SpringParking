@@ -33,6 +33,12 @@ public class ParkingZone {
     public ParkingZone() {
     }
 
+    public ParkingZone(int id, String type, Parking parking) {
+        this.id = id;
+        this.type = type;
+        this.parking = parking;
+    }
+
     public ParkingZone(String type) {
         this.type = type;
     }
