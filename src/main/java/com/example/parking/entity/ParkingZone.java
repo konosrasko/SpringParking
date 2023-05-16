@@ -24,23 +24,17 @@ public class ParkingZone {
     @JoinColumn(name = "park_id",referencedColumnName = "id",updatable = false,insertable = false)
     private Parking parking;
 
-
-
-
     @OneToMany(targetEntity = ParkingSpot.class,cascade = CascadeType.ALL)
     private List<ParkingSpot> parkingSpots;
 
     public ParkingZone() {
     }
 
-    public ParkingZone(int id, String type, Parking parking) {
+    public ParkingZone(int id, int parkingId, String type, String name) {
         this.id = id;
+        this.parkingId = parkingId;
         this.type = type;
-        this.parking = parking;
-    }
-
-    public ParkingZone(String type) {
-        this.type = type;
+        this.name = name;
     }
 
     public int getId() {
