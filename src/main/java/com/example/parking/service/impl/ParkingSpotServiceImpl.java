@@ -2,6 +2,7 @@ package com.example.parking.service.impl;
 
 import com.example.parking.dto.ParkingSpotDTO;
 import com.example.parking.entity.ParkingSpot;
+import com.example.parking.entity.ParkingZone;
 import com.example.parking.exception.ParkingException;
 import com.example.parking.repository.ParkingSpotRepo;
 import com.example.parking.service.ParkingSpotService;
@@ -16,12 +17,8 @@ import java.util.Optional;
 @Service
 public class ParkingSpotServiceImpl implements ParkingSpotService {
 
-    private final ParkingSpotRepo parkingSpotRepo;
-
     @Autowired
-    public ParkingSpotServiceImpl(ParkingSpotRepo parkingSpotRepo) {
-        this.parkingSpotRepo = parkingSpotRepo;
-    }
+    private ParkingSpotRepo parkingSpotRepo;
 
     public ParkingSpot dtoToEntity(ParkingSpotDTO parkingSpotDTO, ParkingSpot parkingSpot){
 
@@ -33,15 +30,19 @@ public class ParkingSpotServiceImpl implements ParkingSpotService {
         }
 
         BeanUtils.copyProperties(parkingSpotDTO, parkingSpot);
+        parkingSpot.setZoneId(parkingSpotDTO.getZoneId());
+
         return parkingSpot;
     }
 
     public ParkingSpotDTO entityToDTO(ParkingSpot parkingSpot){
         ParkingSpotDTO parkingSpotDTO = new ParkingSpotDTO();
         BeanUtils.copyProperties(parkingSpot, parkingSpotDTO);
+        parkingSpotDTO.setZoneId(parkingSpot.getZone().getId());
         return parkingSpotDTO;
     }
 
+    @Override
     public List<ParkingSpotDTO> findAllParkingSpots(){
         List<ParkingSpot> parkingSpots = parkingSpotRepo.findAll();
         List<ParkingSpotDTO> parkingSpotDTOS = new ArrayList<>();
@@ -53,10 +54,11 @@ public class ParkingSpotServiceImpl implements ParkingSpotService {
         return parkingSpotDTOS;
     }
 
+    @Override
     public ParkingSpotDTO findParkingSpotById(int id){
         Optional<ParkingSpot> results = parkingSpotRepo.findById(id);
 
-        ParkingSpotDTO parkingSpotDTO = null;
+        ParkingSpotDTO parkingSpotDTO;
 
         if(results.isPresent()){
             parkingSpotDTO = entityToDTO(parkingSpotRepo.findById(id).get());
@@ -67,6 +69,7 @@ public class ParkingSpotServiceImpl implements ParkingSpotService {
         return parkingSpotDTO;
     }
 
+    @Override
     public List<ParkingSpotDTO> findSpotsByZoneId(int zoneId){
         List<ParkingSpot> results = parkingSpotRepo.findSpotsByZoneId(zoneId);
         List<ParkingSpotDTO> parkingSpotDTOS = new ArrayList<>();
@@ -83,15 +86,16 @@ public class ParkingSpotServiceImpl implements ParkingSpotService {
     }
 
     @Override
-    public ParkingSpotDTO createNewSpot(ParkingSpotDTO parkingSpotDTO, int zoneId) {
+    public ParkingSpot createNewSpot(ParkingSpotDTO parkingSpotDTO, int zoneId) {
         boolean ifZoneExists = parkingSpotRepo.checkIfZoneIdExists(zoneId);
         ParkingSpot parkingSpot = new ParkingSpot();
         if(ifZoneExists){
+            parkingSpotDTO.setZoneId(zoneId);
             parkingSpotRepo.save(dtoToEntity(parkingSpotDTO, parkingSpot));
         }else{
             throw new ParkingException("The zone with id: " + zoneId + " doesn't exists!");
         }
 
-        return entityToDTO(parkingSpot);
+        return parkingSpot;
     }
 }

@@ -54,15 +54,16 @@ public class PriceListServiceImpl implements PriceListService {
     @Override
     public List<PriceListDTO> findPriceListByZoneId(int zoneId) {
 
-        List<PriceList> priceLists = this.priceListRepo.findByZoneId(zoneId);
-        return priceLists
-                .stream()
-                .map(priceList -> new PriceListDTO(
-                        priceList.getId(),
-                        priceList.getDateStart(),
-                        priceList.getDateEnd(),
-                        priceList.getType()
-                )).collect(Collectors.toList());
+//        List<PriceList> priceLists = this.priceListRepo.findByZoneId(zoneId);
+//        return priceLists
+//                .stream()
+//                .map(priceList -> new PriceListDTO(
+//                        priceList.getId(),
+//                        priceList.getDateStart(),
+//                        priceList.getDateEnd(),
+//                        priceList.getType()
+//                )).collect(Collectors.toList());
+        return null;
     }
 
 

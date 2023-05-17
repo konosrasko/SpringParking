@@ -9,6 +9,7 @@ import java.util.List;
 @Repository
 public interface PriceListRepo extends JpaRepository<PriceList,Integer> {
 
-    @Query("SELECT pl FRPM ParkingZone pz WHERE pz.priceListId = ?1")
-    List<PriceList> findByZoneId(int zoneId);
+    //@Query("SELECT pz FROM ParkingZone pz WHERE pz.priceListId = ?1")
+    //List<PriceList> findByZoneId(int zoneId);
+
 }

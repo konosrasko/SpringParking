@@ -18,11 +18,6 @@ class ParkingSpotServiceImplTest {
     private ParkingSpotRepo parkingSpotRepo;
     private ParkingSpotServiceImpl testingSpotService;
 
-    @BeforeEach
-    void setUp() {
-        testingSpotService = new ParkingSpotServiceImpl(parkingSpotRepo);
-    }
-
     @Test
     void canFindAllSpots(){
         ParkingSpot parkingSpot = new ParkingSpot();

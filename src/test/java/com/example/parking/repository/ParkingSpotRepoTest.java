@@ -19,14 +19,9 @@ class ParkingSpotRepoTest {
     private ParkingSpotRepo testSpotRepo;
     private ParkingSpotServiceImpl testSpotService;
 
-    @BeforeEach
-    void setUpTest(){
-        testSpotService = new ParkingSpotServiceImpl(testSpotRepo);
-    }
-
     @Test
     void shouldSaveNewSpot() {
-        ParkingSpot parkingSpot1 = new ParkingSpot(1, 1, "spot_one", "normal", false);
+        ParkingSpot parkingSpot1 = new ParkingSpot(1,1, "spot_one", "normal", false);
 
         testSpotRepo.save(parkingSpot1);
 
