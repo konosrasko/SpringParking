@@ -26,7 +26,7 @@ class ParkingSpotRepoTest {
 
     @Test
     void shouldSaveNewSpot() {
-        ParkingSpot parkingSpot1 = new ParkingSpot(1, 1, "spot_one", "normal", false);
+        ParkingSpot parkingSpot1 = new ParkingSpot(1,1, "spot_one", "normal", false);
 
         testSpotRepo.save(parkingSpot1);
 

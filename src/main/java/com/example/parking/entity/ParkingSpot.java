@@ -23,7 +23,7 @@ public class ParkingSpot {
     @Column(name = "occupied")
     private boolean occupied;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "zone_id", referencedColumnName = "id", updatable = false, insertable = false)
     private ParkingZone zone;
 
@@ -44,6 +44,10 @@ public class ParkingSpot {
 
     public int getZoneId() {
         return zoneId;
+    }
+
+    public void setZoneId(int zoneId) {
+        this.zoneId = zoneId;
     }
 
     public ParkingZone getZone() {

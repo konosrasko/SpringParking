@@ -30,8 +30,10 @@ public class ParkingSpotController {
     }
 
     @PostMapping("parking-zone/{zoneId}/parking-spot")
-    public ParkingSpotDTO addNewSpot(@RequestBody ParkingSpotDTO parkingSpotDTO, @PathVariable int zoneId){
-        return null;
+    public String addNewSpot(@RequestBody ParkingSpotDTO newSpotDTO, @PathVariable int zoneId){
+        newSpotDTO.setId(0);
+        parkingSpotService.createNewSpot(newSpotDTO, zoneId);
+        return ("New Spot has been added");
     }
 
 }
