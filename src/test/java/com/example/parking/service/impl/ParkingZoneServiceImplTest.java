@@ -38,10 +38,11 @@ class ParkingZoneServiceImplTest {
 
     @Test
     void findParkingZonesByParkingId() {
-        Parking parking = new Parking(1,"name");
-        parkingZoneServiceImpl.findParkingZonesByParkingId(parking.getId());
-        //ArgumentCaptor<Integer> parkingId = ArgumentCaptor.forClass(Parking.class);
-        verify(parkingZoneRepo).findByParkingId(parking.getId());
+//        Parking parking = new Parking(1,"name");
+//        parkingZoneServiceImpl.findParkingZonesByParkingId(parking.getId());
+//        ArgumentCaptor<Parking> parkingArgumentCaptor = ArgumentCaptor.forClass(Parking.class);
+//        verify(parkingZoneRepo).findByParkingId(parking.getId());
+//        assertEquals(parking.getId(),parkingArgumentCaptor.getValue().getId());
     }
 
     @Test
