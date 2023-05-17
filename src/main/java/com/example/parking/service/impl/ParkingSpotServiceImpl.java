@@ -82,5 +82,9 @@ public class ParkingSpotServiceImpl implements ParkingSpotService {
         return parkingSpotDTOS;
     }
 
+    @Override
+    public ParkingSpotDTO createNewSpot(ParkingSpotDTO parkingSpotDTO, int zoneId) {
 
+        return null;
+    }
 }

@@ -1,6 +1,5 @@
 package com.example.parking.service.impl;
 
-import com.example.parking.dto.ParkingSpotDTO;
 import com.example.parking.entity.ParkingSpot;
 import com.example.parking.repository.ParkingSpotRepo;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,7 +30,7 @@ class ParkingSpotServiceImplTest {
 
         verify(parkingSpotRepo).findAll();
 
-        assertEquals(parkingSpot.getSpot(),null);
+        assertEquals(parkingSpot.getName(),null);
     }
 
 

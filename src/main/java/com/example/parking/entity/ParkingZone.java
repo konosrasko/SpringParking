@@ -24,7 +24,7 @@ public class ParkingZone {
     @JoinColumn(name = "park_id",referencedColumnName = "id",updatable = false,insertable = false)
     private Parking parking;
 
-    @OneToMany(targetEntity = ParkingSpot.class,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "zone", cascade = CascadeType.ALL)
     private List<ParkingSpot> parkingSpots;
 
     public ParkingZone() {

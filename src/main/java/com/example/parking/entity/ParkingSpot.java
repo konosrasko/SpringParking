@@ -23,20 +23,19 @@ public class ParkingSpot {
     @Column(name = "occupied")
     private boolean occupied;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "zone_id",referencedColumnName = "id",updatable = false,insertable = false)
-    private ParkingSpot spot;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "zone_id", referencedColumnName = "id", updatable = false, insertable = false)
+    private ParkingZone zone;
 
     public ParkingSpot() {
     }
 
-    public ParkingSpot(int id, int zoneId, String name, String type, boolean occupied, ParkingSpot spot) {
+    public ParkingSpot(int id, int zoneId, String name, String type, boolean occupied) {
         this.id = id;
         this.zoneId = zoneId;
         this.name = name;
         this.type = type;
         this.occupied = occupied;
-        this.spot = spot;
     }
 
     public int getId() {
@@ -47,16 +46,12 @@ public class ParkingSpot {
         return zoneId;
     }
 
-    public void setZoneId(int zoneId) {
-        this.zoneId = zoneId;
+    public ParkingZone getZone() {
+        return zone;
     }
 
-    public ParkingSpot getSpot() {
-        return spot;
-    }
-
-    public void setSpot(ParkingSpot spot) {
-        this.spot = spot;
+    public void setZone(ParkingZone zone) {
+        this.zone = zone;
     }
 
     public void setId(int id) {
