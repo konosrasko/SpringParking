@@ -84,7 +84,14 @@ public class ParkingSpotServiceImpl implements ParkingSpotService {
 
     @Override
     public ParkingSpotDTO createNewSpot(ParkingSpotDTO parkingSpotDTO, int zoneId) {
+        boolean ifZoneExists = parkingSpotRepo.checkIfZoneIdExists(zoneId);
+        ParkingSpot parkingSpot = new ParkingSpot();
+        if(ifZoneExists){
+            parkingSpotRepo.save(dtoToEntity(parkingSpotDTO, parkingSpot));
+        }else{
+            throw new ParkingException("The zone with id: " + zoneId + " doesn't exists!");
+        }
 
-        return null;
+        return entityToDTO(parkingSpot);
     }
 }
