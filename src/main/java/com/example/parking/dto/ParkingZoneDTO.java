@@ -1,5 +1,7 @@
 package com.example.parking.dto;
 
+import com.example.parking.entity.ParkingZone;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +23,15 @@ public class ParkingZoneDTO {
     public ParkingZoneDTO(int id, String type) {
         this.parkingZoneId = id;
         this.type = type;
+    }
+
+    public ParkingZoneDTO(ParkingZone parkingZone){
+        this.parkingZoneId = parkingZone.getId();
+        this.type = parkingZone.getType();
+        this.parkingSpotDTOList = parkingZone.getParkingSpots()
+                .stream()
+                .map(ParkingSpotDTO::new)
+                .toList();
     }
 
 

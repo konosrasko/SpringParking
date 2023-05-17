@@ -1,5 +1,7 @@
 package com.example.parking.dto;
 
+import com.example.parking.entity.ParkingSpot;
+
 public class ParkingSpotDTO {
     private int id;
     private int zoneId;
@@ -18,6 +20,10 @@ public class ParkingSpotDTO {
         this.occupied = occupied;
     }
 
+    public ParkingSpotDTO(ParkingSpot parkingSpot){
+        this.id = parkingSpot.getId();
+        this.occupied = parkingSpot.isOccupied();
+    }
     public int getId() {
         return id;
     }

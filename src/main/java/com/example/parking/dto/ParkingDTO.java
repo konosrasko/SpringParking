@@ -24,6 +24,14 @@ public class ParkingDTO {
         this.parkingZoneDTOList = new ArrayList<>();
     }
 
+    public ParkingDTO(Parking parking){
+        this.parkingId = parking.getId();
+        this.name = parking.getName();
+        this.parkingZoneDTOList = parking.getParkingZones()
+                .stream()
+                .map(ParkingZoneDTO::new)
+                .toList();
+    }
     public int getParkingId() {
         return parkingId;
     }
