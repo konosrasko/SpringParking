@@ -76,6 +76,8 @@ public class ParkingServiceImpl implements ParkingService {
         }
         Parking parking = new Parking();
         parking.setName(parkingDTO.getName());
+        parking.setId(parkingDTO.getParkingId());
+        parking.setParkingZones(parking.getParkingZones());
         return parkingRepo.save(parking);
     }
 }
