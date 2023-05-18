@@ -11,25 +11,25 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class ParkingController {
+    @Autowired
     private final ParkingServiceImpl parkingServiceImpl;
 
-    @Autowired
     public ParkingController(ParkingServiceImpl parkingServiceImpl) {
         this.parkingServiceImpl = parkingServiceImpl;
     }
 
     @GetMapping("/parking")
-    public List<ParkingDTO> getAllParkings(){
+    public List<ParkingDTO> getAllParking() {
         return parkingServiceImpl.findAllParkings();
     }
 
     @GetMapping("/parking/{id}")
-    public ParkingDTO getParkingById(@PathVariable int id){
+    public ParkingDTO getParkingById(@PathVariable int id) {
         return parkingServiceImpl.findParkingById(id);
     }
 
     @PostMapping("/parking")
-    public Parking addNewParking(@RequestBody ParkingDTO parkingDTO){
+    public Parking addNewParking(@RequestBody ParkingDTO parkingDTO) {
         return parkingServiceImpl.saveParking(parkingDTO);
     }
 }

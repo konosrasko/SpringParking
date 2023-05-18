@@ -10,7 +10,7 @@ public class ParkingZoneDTO {
     private int parkingZoneId;
     private String type;
     private String name;
-    private int parkingId;
+    //private int parkingId;
 
     public ParkingZoneDTO(){}
 
@@ -28,6 +28,7 @@ public class ParkingZoneDTO {
     public ParkingZoneDTO(ParkingZone parkingZone){
         this.parkingZoneId = parkingZone.getId();
         this.type = parkingZone.getType();
+        this.name = parkingZone.getName();
         this.parkingSpotDTOList = parkingZone.getParkingSpots()
                 .stream()
                 .map(ParkingSpotDTO::new)
@@ -47,13 +48,13 @@ public class ParkingZoneDTO {
         this.parkingZoneId = parkingZoneId;
     }
 
-    public int getParkingId() {
-        return parkingId;
-    }
+//    public int getParkingId() {
+//        return parkingId;
+//    }
 
-    public void setParkingId(int parkingId) {
-        this.parkingId = parkingId;
-    }
+//    public void setParkingId(int parkingId) {
+//        this.parkingId = parkingId;
+//    }
 
     public void setParkingSpotDTOList(List<ParkingSpotDTO> parkingSpotDTOList) {
         this.parkingSpotDTOList = parkingSpotDTOList;

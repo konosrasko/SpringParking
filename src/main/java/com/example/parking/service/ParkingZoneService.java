@@ -8,8 +8,8 @@ import java.util.List;
 
 @Service
 public interface ParkingZoneService {
-    List<ParkingZoneDTO> findParkingZonesByParkingId(int parkingId);
-    ParkingZoneDTO findParkingZoneById(int zoneId);
+    //List<ParkingZoneDTO> findParkingZonesByParkingId(int parkingId);
+    //ParkingZoneDTO findParkingZoneById(int zoneId);
     ParkingZone saveParkingZone(ParkingZoneDTO parkingZoneDTO);
     void deleteZone(ParkingZone parkingZone);
 

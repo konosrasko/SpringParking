@@ -4,7 +4,7 @@ import com.example.parking.entity.ParkingSpot;
 
 public class ParkingSpotDTO {
     private int id;
-    private int zoneId;
+    //private int zoneId;
     private String name;
     private String type;
     private boolean occupied;
@@ -18,7 +18,7 @@ public class ParkingSpotDTO {
 
     public ParkingSpotDTO(int id, int zoneId, String name, String type, boolean occupied) {
         this.id = id;
-        this.zoneId = zoneId;
+        //this.zoneId = zoneId;
         this.name = name;
         this.type = type;
         this.occupied = occupied;
@@ -26,6 +26,8 @@ public class ParkingSpotDTO {
 
     public ParkingSpotDTO(ParkingSpot parkingSpot){
         this.id = parkingSpot.getId();
+        this.name = parkingSpot.getName();
+        this.type = parkingSpot.getType();
         this.occupied = parkingSpot.isOccupied();
     }
     public int getId() {
@@ -36,13 +38,13 @@ public class ParkingSpotDTO {
         this.id = id;
     }
 
-    public int getZoneId() {
-        return zoneId;
-    }
-
-    public void setZoneId(int zoneId) {
-        this.zoneId = zoneId;
-    }
+//    public int getZoneId() {
+//        return zoneId;
+//    }
+//
+//    public void setZoneId(int zoneId) {
+//        this.zoneId = zoneId;
+//    }
 
     public String getName() {
         return name;

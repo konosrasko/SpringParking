@@ -6,6 +6,7 @@ import com.example.parking.entity.Parking;
 import com.example.parking.entity.ParkingZone;
 import com.example.parking.exception.ParkingException;
 import com.example.parking.repository.ParkingRepo;
+import com.example.parking.repository.ParkingZoneRepo;
 import com.example.parking.service.ParkingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,55 +17,36 @@ import java.util.stream.Collectors;
 
 @Service
 public class ParkingServiceImpl implements ParkingService {
-
-    private final ParkingRepo parkingRepo;
-
-
     @Autowired
-    public ParkingServiceImpl(ParkingRepo parkingRepo) {
+    private final ParkingRepo parkingRepo;
+    @Autowired
+    private final ParkingZoneRepo parkingZoneRepo;
+
+    public ParkingServiceImpl(ParkingRepo parkingRepo, ParkingZoneRepo parkingZoneRepo) {
         this.parkingRepo = parkingRepo;
+        this.parkingZoneRepo = parkingZoneRepo;
     }
 
     @Override
     public List<ParkingDTO> findAllParkings() {
-                return parkingRepo.findAll()
+        return parkingRepo.findAll()
                 .stream()
-                .map(parking -> new ParkingDTO(
-                        parking.getId(),
-                        parking.getName()
-                )).collect(Collectors.toList());
-}
+                .map(ParkingDTO::new)
+                .collect(Collectors.toList());
+    }
     @Override
     public ParkingDTO findParkingById(int id){
-
         Optional<Parking> result = parkingRepo.findById(id);
-        Parking parking;
-        ParkingDTO parkingDTO = new ParkingDTO();
         if(result.isPresent()){
-            parking = result.get();
-            List<ParkingZone> listOfParkingZones = parking.getParkingZones();
-            List<ParkingZoneDTO> parkingZoneDTOList =listOfParkingZones.stream().map(parkingZone -> new ParkingZoneDTO(
-                    parkingZone.getId(),
-                    parkingZone.getType()
-            )).collect(Collectors.toList());
-            parkingDTO.setName(parking.getName());
-            parkingDTO.setParkingId(parking.getId());
-            parkingDTO.setParkingZoneDTOList(parkingZoneDTOList);
+            return new ParkingDTO(result.get());
         }else{
             throw new ParkingException("There is no parking with id: " + id);
         }
-
-
-        return parkingDTO;
     }
 
     public Boolean findIfParkingExistById(int parkingId){
-
-        Optional<Parking> result = parkingRepo.findById(parkingId);
-
-        return result.isPresent();
+        return parkingRepo.existsById(parkingId);
     }
-
 
     @Override
     public Parking saveParking(ParkingDTO parkingDTO){
@@ -73,11 +55,26 @@ public class ParkingServiceImpl implements ParkingService {
 
         if(parkingByName.isPresent()){
             throw new ParkingException("Parking with name " + parkingDTO.getName() + " already exists!");
+        } else {
+            Parking parking = new Parking();
+            parking.setName(parkingDTO.getName());
+            parking.setId(parkingDTO.getParkingId());
+            parking.setParkingZones(parking.getParkingZones());
+            return parkingRepo.save(parking);
         }
-        Parking parking = new Parking();
-        parking.setName(parkingDTO.getName());
-        parking.setId(parkingDTO.getParkingId());
-        parking.setParkingZones(parking.getParkingZones());
-        return parkingRepo.save(parking);
+    }
+
+    @Override
+    public ParkingZone addZone(int parkingId, ParkingZoneDTO parkingZoneDTO){
+        if(parkingRepo.existsById(parkingId)){
+            ParkingZone parkingZone = new ParkingZone(
+                    parkingZoneDTO.getParkingZoneId(),
+                    parkingZoneDTO.getName(),
+                    parkingZoneDTO.getType()
+            );
+            return parkingZoneRepo.save(parkingZone);
+        } else {
+            throw new ParkingException("Parking with id : "+ parkingId +" does not exist");
+        }
     }
 }

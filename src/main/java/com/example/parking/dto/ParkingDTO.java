@@ -10,7 +10,7 @@ public class ParkingDTO {
     private int parkingId;
     private String name;
     private List<ParkingZoneDTO> parkingZoneDTOList;
-    private Parking parking;
+    //private Parking parking;
 
 
 
@@ -64,11 +64,11 @@ public class ParkingDTO {
         this.parkingZoneDTOList = parkingZoneDTOList;
     }
 
-    public Parking getParking() {
-        return parking;
-    }
-
-    public void setParking(Parking parking) {
-        this.parking = parking;
-    }
+//    public Parking getParking() {
+//        return parking;
+//    }
+//
+//    public void setParking(Parking parking) {
+//        this.parking = parking;
+//    }
 }
