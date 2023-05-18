@@ -20,9 +20,9 @@ public class ParkingSpot {
     @Column(name = "occupied")
     private boolean occupied;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "zone_id", referencedColumnName = "id")
-//    private ParkingZone zone;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "zone_id", referencedColumnName = "id")
+    private ParkingZone zone;
 
     public ParkingSpot() {
     }

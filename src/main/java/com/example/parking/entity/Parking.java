@@ -15,7 +15,7 @@ public class Parking {
     @Column(name="name")
     private String name;
 
-    @OneToMany(targetEntity = ParkingZone.class, mappedBy = "id",fetch = FetchType.LAZY, cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(targetEntity = ParkingZone.class, mappedBy = "parking",fetch = FetchType.LAZY, cascade = CascadeType.ALL,orphanRemoval = true)
     private List<ParkingZone> parkingZones;
 
     public Parking() {

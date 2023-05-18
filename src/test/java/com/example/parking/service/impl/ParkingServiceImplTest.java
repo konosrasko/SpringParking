@@ -3,6 +3,7 @@ package com.example.parking.service.impl;
 import com.example.parking.dto.ParkingDTO;
 import com.example.parking.entity.Parking;
 import com.example.parking.repository.ParkingRepo;
+import com.example.parking.repository.ParkingZoneRepo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,10 +19,11 @@ class ParkingServiceImplTest {
     @Mock
     private ParkingRepo parkingRepo;
     private ParkingServiceImpl underTest;
+    private ParkingZoneRepo parkingZoneRepo;
 
     @BeforeEach
     void setUp() {
-        underTest = new ParkingServiceImpl(parkingRepo);
+        underTest = new ParkingServiceImpl();
     }
 
 

@@ -18,11 +18,11 @@ public class ParkingZone {
     @Column(name ="name")
     private String name;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "park_id",referencedColumnName = "id")
-//    private Parking parking;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "park_id",referencedColumnName = "id")
+    private Parking parking;
 
-    @OneToMany(targetEntity = ParkingSpot.class,mappedBy = "id",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(targetEntity = ParkingSpot.class,mappedBy = "zone",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<ParkingSpot> parkingSpots;
 
     public ParkingZone() {

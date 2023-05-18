@@ -75,9 +75,7 @@ public class ParkingZoneServiceImpl implements ParkingZoneService {
 //        }
 //        return parkingZoneDTO;
 //    }
-
-
-    @Override
+    /*@Override
     public ParkingZone saveParkingZone(ParkingZoneDTO parkingZoneDTO) {
 
         Optional<ParkingZone> parkingZoneType = parkingZoneRepo.findById(parkingZoneDTO.getParkingZoneId());
@@ -91,10 +89,10 @@ public class ParkingZoneServiceImpl implements ParkingZoneService {
         //parkingZone.setParkingId(parkingZoneDTO.getParkingId());
         return parkingZoneRepo.save(parkingZone);
 
-    }
+    }*/
 
-    @Override
+    /*@Override
     public void deleteZone(ParkingZone parkingZone) {
 
-    }
+    }*/
 }
