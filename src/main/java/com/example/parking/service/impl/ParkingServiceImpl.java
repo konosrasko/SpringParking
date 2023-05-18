@@ -18,14 +18,9 @@ import java.util.stream.Collectors;
 @Service
 public class ParkingServiceImpl implements ParkingService {
     @Autowired
-    private final ParkingRepo parkingRepo;
+    private ParkingRepo parkingRepo;
     @Autowired
-    private final ParkingZoneRepo parkingZoneRepo;
-
-    public ParkingServiceImpl(ParkingRepo parkingRepo, ParkingZoneRepo parkingZoneRepo) {
-        this.parkingRepo = parkingRepo;
-        this.parkingZoneRepo = parkingZoneRepo;
-    }
+    private ParkingZoneRepo parkingZoneRepo;
 
     @Override
     public List<ParkingDTO> findAllParkings() {
@@ -73,6 +68,28 @@ public class ParkingServiceImpl implements ParkingService {
                     parkingZoneDTO.getType()
             );
             return parkingZoneRepo.save(parkingZone);
+        } else {
+            throw new ParkingException("Parking with id : "+ parkingId +" does not exist");
+        }
+    }
+    @Override
+    public  List<ParkingZoneDTO> getParkingZones(int parkingId){
+        Optional<Parking> parking = parkingRepo.findById(parkingId);
+        if (parking.isPresent()) {
+            return parking.get().getParkingZones().stream().map(ParkingZoneDTO::new).toList();
+        } else {
+            throw new ParkingException("Parking with id : "+ parkingId +" does not exist");
+        }
+    }
+    @Override
+    public ParkingZoneDTO getParkingZoneById(int parkingId, int zoneId){
+        Optional<Parking> parking = parkingRepo.findById(parkingId);
+        if (parking.isPresent()) {
+            return parking.get().getParkingZones().stream()
+                    .filter(parkingZone -> parkingZone.getId() == zoneId)
+                    .findFirst()
+                    .map(ParkingZoneDTO::new)
+                    .orElseThrow(()->new ParkingException("Zone with id : "+ zoneId +" does not exist"));
         } else {
             throw new ParkingException("Parking with id : "+ parkingId +" does not exist");
         }
