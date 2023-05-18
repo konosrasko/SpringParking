@@ -18,11 +18,11 @@ public class ParkingZone {
     @Column(name ="name")
     private String name;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "park_id",referencedColumnName = "id",updatable = false,insertable = false)
-    private Parking parking;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "park_id",referencedColumnName = "id")
+//    private Parking parking;
 
-    @OneToMany(mappedBy = "zone", cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = ParkingSpot.class,mappedBy = "id",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<ParkingSpot> parkingSpots;
 
     public ParkingZone() {
@@ -32,6 +32,13 @@ public class ParkingZone {
         this.id = id;
         this.type = type;
         this.name = name;
+    }
+
+    public ParkingZone(int id, String type, String name, List<ParkingSpot> parkingSpots) {
+        this.id = id;
+        this.type = type;
+        this.name = name;
+        this.parkingSpots = parkingSpots;
     }
 
     public int getId() {

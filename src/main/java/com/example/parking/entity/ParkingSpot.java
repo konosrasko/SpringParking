@@ -20,9 +20,9 @@ public class ParkingSpot {
     @Column(name = "occupied")
     private boolean occupied;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "zone_id", referencedColumnName = "id", updatable = false, insertable = false)
-    private ParkingZone zone;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "zone_id", referencedColumnName = "id")
+//    private ParkingZone zone;
 
     public ParkingSpot() {
     }
@@ -39,13 +39,13 @@ public class ParkingSpot {
     }
 
 
-    public ParkingZone getZone() {
-        return zone;
-    }
-
-    public void setZone(ParkingZone zone) {
-        this.zone = zone;
-    }
+//    public ParkingZone getZone() {
+//        return zone;
+//    }
+//
+//    public void setZone(ParkingZone zone) {
+//        this.zone = zone;
+//    }
 
     public void setId(int id) {
         this.id = id;

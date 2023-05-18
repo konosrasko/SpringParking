@@ -15,7 +15,7 @@ public class Parking {
     @Column(name="name")
     private String name;
 
-    @OneToMany(mappedBy = "parking",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = ParkingZone.class, mappedBy = "id",fetch = FetchType.LAZY, cascade = CascadeType.ALL,orphanRemoval = true)
     private List<ParkingZone> parkingZones;
 
     public Parking() {
@@ -24,6 +24,12 @@ public class Parking {
     public Parking(int id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public Parking(int id, String name, List<ParkingZone> parkingZones) {
+        this.id = id;
+        this.name = name;
+        this.parkingZones = parkingZones;
     }
 
     public int getId() {

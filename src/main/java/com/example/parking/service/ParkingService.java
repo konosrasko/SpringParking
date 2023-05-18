@@ -21,4 +21,7 @@ public interface ParkingService {
     List<ParkingZoneDTO> getParkingZones(int id);
 
     ParkingZoneDTO getParkingZoneById(int parkingId, int zoneId);
+
+//    void deleteParkingById(int id);
+//    void deleteParkingZoneById(int id);
 }

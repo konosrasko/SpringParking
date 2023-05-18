@@ -3,6 +3,7 @@ package com.example.parking.service.impl;
 import com.example.parking.dto.ParkingDTO;
 import com.example.parking.dto.ParkingZoneDTO;
 import com.example.parking.entity.Parking;
+import com.example.parking.entity.ParkingSpot;
 import com.example.parking.entity.ParkingZone;
 import com.example.parking.exception.ParkingException;
 import com.example.parking.repository.ParkingRepo;
@@ -51,10 +52,32 @@ public class ParkingServiceImpl implements ParkingService {
         if(parkingByName.isPresent()){
             throw new ParkingException("Parking with name " + parkingDTO.getName() + " already exists!");
         } else {
-            Parking parking = new Parking();
-            parking.setName(parkingDTO.getName());
-            parking.setId(parkingDTO.getParkingId());
-            parking.setParkingZones(parking.getParkingZones());
+            Parking parking = new Parking(
+                    parkingDTO.getParkingId(),
+                    parkingDTO.getName(),
+                    parkingDTO.getParkingZoneDTOList()
+                            .stream()
+                            .map(parkingZoneDTO ->
+                                 new ParkingZone(
+                                        parkingZoneDTO.getParkingZoneId(),
+                                        parkingZoneDTO.getName(),
+                                        parkingZoneDTO.getType(),
+                                        parkingZoneDTO.getParkingSpotDTOList()
+                                                .stream()
+                                                .map(parkingSpotDTO ->
+                                                        new ParkingSpot(
+                                                                parkingSpotDTO.getId(),
+                                                                parkingSpotDTO.getName(),
+                                                                parkingSpotDTO.getType(),
+                                                                parkingSpotDTO.isOccupied()
+                                                        )
+                                                ).toList()
+                                )
+                            ).toList()
+            );
+//            parking.setName(parkingDTO.getName());
+//            parking.setId(parkingDTO.getParkingId());
+//            parking.setParkingZones(parking.getParkingZones());
             return parkingRepo.save(parking);
         }
     }
