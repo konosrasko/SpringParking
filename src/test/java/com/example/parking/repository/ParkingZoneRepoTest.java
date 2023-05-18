@@ -20,7 +20,7 @@ class ParkingZoneRepoTest {
     @Test
     void findByParkingId() {
         Parking parking = new Parking(1,"test");
-        ParkingZone parkingZone = new ParkingZone(1,1,"type","name");
+        ParkingZone parkingZone = new ParkingZone(1,"type","name");
         parking.setParkingZones(new ArrayList<>());
         parking.getParkingZones().add(parkingZone);
         parkingRepo.save(parking);

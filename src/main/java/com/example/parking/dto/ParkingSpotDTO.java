@@ -9,6 +9,10 @@ public class ParkingSpotDTO {
     private String type;
     private boolean occupied;
 
+    public ParkingSpotDTO(){
+
+    }
+
     public ParkingSpotDTO(int id, String name, String type, boolean occupied) {
     }
 
