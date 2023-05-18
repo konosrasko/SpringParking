@@ -5,14 +5,11 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "parking_spot")
 public class ParkingSpot {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
-    @Column(name = "zone_id")
-    private int zoneId;
 
     @Column(name = "name")
     private String name;
@@ -30,9 +27,8 @@ public class ParkingSpot {
     public ParkingSpot() {
     }
 
-    public ParkingSpot(int id, int zoneId, String name, String type, boolean occupied) {
+    public ParkingSpot(int id, String name, String type, boolean occupied) {
         this.id = id;
-        this.zoneId = zoneId;
         this.name = name;
         this.type = type;
         this.occupied = occupied;
@@ -42,13 +38,6 @@ public class ParkingSpot {
         return id;
     }
 
-    public int getZoneId() {
-        return zoneId;
-    }
-
-    public void setZoneId(int zoneId) {
-        this.zoneId = zoneId;
-    }
 
     public ParkingZone getZone() {
         return zone;

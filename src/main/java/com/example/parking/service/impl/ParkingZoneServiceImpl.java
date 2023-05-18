@@ -60,7 +60,6 @@ public class ParkingZoneServiceImpl implements ParkingZoneService {
             List<ParkingSpot> spotList = parkingZone.getParkingSpots();
             List<ParkingSpotDTO> parkingSpotDTOList = spotList.stream().map(parkingSpot -> new ParkingSpotDTO(
                     parkingSpot.getId(),
-                    parkingSpot.getZoneId(),
                     parkingSpot.getName(),
                     parkingSpot.getType(),
                     parkingSpot.isOccupied()
@@ -87,7 +86,6 @@ public class ParkingZoneServiceImpl implements ParkingZoneService {
         }
         ParkingZone parkingZone = new ParkingZone();
         parkingZone.setType(parkingZoneDTO.getType());
-        parkingZone.setParkingId(parkingZoneDTO.getParkingId());
         return parkingZoneRepo.save(parkingZone);
 
     }

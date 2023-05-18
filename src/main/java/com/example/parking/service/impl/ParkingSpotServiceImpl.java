@@ -2,7 +2,6 @@ package com.example.parking.service.impl;
 
 import com.example.parking.dto.ParkingSpotDTO;
 import com.example.parking.entity.ParkingSpot;
-import com.example.parking.entity.ParkingZone;
 import com.example.parking.exception.ParkingException;
 import com.example.parking.repository.ParkingSpotRepo;
 import com.example.parking.service.ParkingSpotService;
@@ -30,13 +29,12 @@ public class ParkingSpotServiceImpl implements ParkingSpotService {
         }
 
         BeanUtils.copyProperties(parkingSpotDTO, parkingSpot);
-        parkingSpot.setZoneId(parkingSpotDTO.getZoneId());
 
         return parkingSpot;
     }
 
     public ParkingSpotDTO entityToDTO(ParkingSpot parkingSpot){
-        ParkingSpotDTO parkingSpotDTO = new ParkingSpotDTO();
+        ParkingSpotDTO parkingSpotDTO = new ParkingSpotDTO(parkingSpot.getId(), parkingSpot.getName(), parkingSpot.getType(), parkingSpot.isOccupied());
         BeanUtils.copyProperties(parkingSpot, parkingSpotDTO);
         parkingSpotDTO.setZoneId(parkingSpot.getZone().getId());
         return parkingSpotDTO;

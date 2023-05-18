@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface ParkingZoneRepo extends JpaRepository<ParkingZone, Integer> {
 
-    @Query("SELECT pz FROM ParkingZone pz WHERE pz.parkingId = ?1")
+    @Query("SELECT pz FROM ParkingZone pz WHERE parking.id = ?1")
     List<ParkingZone> findByParkingId(int parkingId);
 }
