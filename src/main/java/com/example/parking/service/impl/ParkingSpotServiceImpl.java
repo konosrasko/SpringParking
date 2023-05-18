@@ -22,23 +22,19 @@ public class ParkingSpotServiceImpl implements ParkingSpotService {
 
     public ParkingSpot dtoToEntity(ParkingSpotDTO parkingSpotDTO, ParkingSpot parkingSpot){
 
-        if(parkingSpotDTO == null){
-            return null;
-        }
-        if(parkingSpot == null){
-            parkingSpot = new ParkingSpot();
-        }
-
+        if(parkingSpotDTO == null){return null;}
+        if(parkingSpot == null){parkingSpot = new ParkingSpot();}
         BeanUtils.copyProperties(parkingSpotDTO, parkingSpot);
-        parkingSpot.setZoneId(parkingSpotDTO.getZoneId());
 
         return parkingSpot;
     }
 
     public ParkingSpotDTO entityToDTO(ParkingSpot parkingSpot){
+
         ParkingSpotDTO parkingSpotDTO = new ParkingSpotDTO();
         BeanUtils.copyProperties(parkingSpot, parkingSpotDTO);
         parkingSpotDTO.setZoneId(parkingSpot.getZone().getId());
+
         return parkingSpotDTO;
     }
 
@@ -97,5 +93,19 @@ public class ParkingSpotServiceImpl implements ParkingSpotService {
         }
 
         return parkingSpot;
+    }
+
+    @Override
+    public void deleteSpot(int zoneId, int spotId) {
+        boolean ifZoneExist = parkingSpotRepo.checkIfZoneIdExists(zoneId);
+
+        if(ifZoneExist){
+            Optional<ParkingSpot> detectSpot = parkingSpotRepo.findById(spotId);
+            if(detectSpot.isPresent()){
+                parkingSpotRepo.deleteById(spotId);
+            }else
+                throw new ParkingException("There is no spot with id " + spotId);
+        }else
+            throw new ParkingException("There is no zone with id " + zoneId);
     }
 }

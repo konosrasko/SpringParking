@@ -15,4 +15,6 @@ public interface ParkingSpotService {
 
     public ParkingSpot createNewSpot(ParkingSpotDTO parkingSpotDTO, int zoneId);
 
+    public void deleteSpot(int zoneId, int spotId);
+
 }
