@@ -21,10 +21,18 @@ public class ParkingDTO {
     public ParkingDTO(int parkingId, String name ) {
         this.parkingId = parkingId;
         this.name = name;
-        this.parkingZoneDTOList = new ArrayList<>();
     }
 
     public ParkingDTO(Parking parking){
+        this.parkingId = parking.getId();
+        this.name = parking.getName();
+        this.parkingZoneDTOList = parking.getParkingZones()
+                .stream()
+                .map(ParkingZoneDTO::new)
+                .toList();
+    }
+
+    public ParkingDTO(Parking parking,List<ParkingZone> parkingZones){
         this.parkingId = parking.getId();
         this.name = parking.getName();
         this.parkingZoneDTOList = parking.getParkingZones()

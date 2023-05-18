@@ -11,8 +11,6 @@ public class ParkingZone {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "park_id")
-    private int parkingId;
 
     @Column(name = "type")
     private String type;
@@ -30,9 +28,8 @@ public class ParkingZone {
     public ParkingZone() {
     }
 
-    public ParkingZone(int id, int parkingId, String type, String name) {
+    public ParkingZone(int id, String type, String name) {
         this.id = id;
-        this.parkingId = parkingId;
         this.type = type;
         this.name = name;
     }
@@ -53,13 +50,6 @@ public class ParkingZone {
         this.type = type;
     }
 
-    public int getParkingId() {
-        return parkingId;
-    }
-
-    public void setParkingId(int parkingId) {
-        this.parkingId = parkingId;
-    }
 
     public List<ParkingSpot> getParkingSpots(){
         return parkingSpots;

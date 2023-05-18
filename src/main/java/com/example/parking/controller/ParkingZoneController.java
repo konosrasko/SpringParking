@@ -3,6 +3,7 @@ package com.example.parking.controller;
 import com.example.parking.dto.ParkingZoneDTO;
 import com.example.parking.entity.ParkingZone;
 import com.example.parking.exception.ParkingException;
+import com.example.parking.repository.ParkingZoneRepo;
 import com.example.parking.service.ParkingService;
 import com.example.parking.service.ParkingZoneService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ public class ParkingZoneController {
     private final ParkingZoneService parkingZoneService;
     private ParkingService parkingService;
 
+
     public ParkingZoneController(ParkingZoneService parkingZoneService) {
         this.parkingZoneService = parkingZoneService;
     }
@@ -27,9 +29,11 @@ public class ParkingZoneController {
     }
 
     @GetMapping("/parking-zones/{id}")
-    public List<ParkingZoneDTO> getParkingZoneById(@PathVariable int id){
-        return parkingZoneService.findParkingZonesByParkingId(id);
+    public ParkingZoneDTO getParkingZoneById(@PathVariable int id){
+        return parkingZoneService.findParkingZoneById(id);
     }
+
+
 
     @PostMapping("/Parking/Zone")
     public ParkingZone addNewParkingZone(@RequestBody ParkingZoneDTO parkingZoneDTO){
