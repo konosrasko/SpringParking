@@ -9,23 +9,23 @@ import java.util.List;
 @Entity
 @Table(name = "parking_zone")
 public class ParkingZone {
-    @Column(name = "park_id")
-    private int parkingId;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
-    @Column(name = "type")
-    private String type;
+    @Column(name = "park_id")
+    private int parkingId;
 
     @Column(name ="name")
     private String name;
 
-
+    @Column(name = "type")
+    private String type;
 
     @OneToMany(mappedBy = "zone",cascade = CascadeType.ALL)
     private List<ParkingSpot> parkingSpots;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "park_id",referencedColumnName = "id",updatable = false,insertable = false)
     private Parking parking;
@@ -33,24 +33,24 @@ public class ParkingZone {
     public ParkingZone() {
     }
 
-    public ParkingZone(int id, String type, String name) {
+    public ParkingZone(int id, String name, String type) {
         this.id = id;
-        this.type = type;
         this.name = name;
+        this.type = type;
     }
 
-    public ParkingZone(int id, int park_id, String type, String name) {
+    public ParkingZone(int id, int park_id, String name, String type) {
         this.id = id;
         this.parkingId = park_id;
-        this.type = type;
         this.name = name;
+        this.type = type;
     }
 
-    public ParkingZone(int id, int parkId, String type, String name, List<ParkingSpot> parkingSpots) {
+    public ParkingZone(int id, int parkId, String name, String type, List<ParkingSpot> parkingSpots) {
         this.id = id;
         parkingId = parkId;
-        this.type = type;
         this.name = name;
+        this.type = type;
         this.parkingSpots = parkingSpots;
     }
 
@@ -81,13 +81,13 @@ public class ParkingZone {
         this.type = type;
     }
 
-
     public List<ParkingSpot> getParkingSpots(){
         if(parkingSpots == null ){
             return new ArrayList<>();
         }
         return parkingSpots;
     }
+
     public void setParkingZoneSpots(List<ParkingSpot> parkingSpots){
         this.parkingSpots = parkingSpots;
     }

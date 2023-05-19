@@ -19,8 +19,8 @@ public class ParkingZoneController {
     }
 
     @GetMapping("parking/{id}/parking-zones/{zoneId}")
-    public ParkingZoneDTO getParkingZoneById(@PathVariable int parkingId, @PathVariable int zoneId){
-        return parkingService.getParkingZoneById(parkingId,zoneId);
+    public ParkingZoneDTO getParkingZoneById(@PathVariable int id, @PathVariable int zoneId){
+        return parkingService.getParkingZoneById(id,zoneId);
     }
 
     @PostMapping("/parking/{id}/parking-zones")

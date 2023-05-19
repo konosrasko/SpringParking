@@ -31,12 +31,6 @@ public class ParkingSpotController {
         return ("New Spot has been added in zone with id " + zoneId);
     }
 
-//    @PutMapping("parking-zones/{zoneId}/parking-spots")
-//    public String updateSpot(@RequestBody ParkingSpotDTO updatedSpotDTO, @PathVariable int zoneId){
-//        parkingSpotService.createNewSpot(updatedSpotDTO, zoneId);
-//        return ("Spot with id " + updatedSpotDTO.getId() + " has been updated!");
-//    }
-
     @DeleteMapping("parking-zones/{zoneId}/parking-spots/{spotId}")
     public String deleteSpot(@PathVariable int zoneId, @PathVariable int spotId){
         parkingZoneService.deleteSpot(zoneId, spotId);

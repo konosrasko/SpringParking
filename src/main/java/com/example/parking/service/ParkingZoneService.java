@@ -15,7 +15,7 @@ public interface ParkingZoneService {
 
     List<ParkingSpotDTO> findSpotsByZoneId(int zoneId);
 
-    ParkingSpot createNewSpot(ParkingSpotDTO parkingSpotDTO, int zoneId, int parkingId);
+    void createNewSpot(ParkingSpotDTO parkingSpotDTO, int zoneId, int parkingId);
 
     void deleteSpot(int zoneId, int spotId);
 
