@@ -66,10 +66,4 @@ public class PriceListServiceImpl implements PriceListService {
         return null;
     }
 
-
-
-
-
-
-
 }

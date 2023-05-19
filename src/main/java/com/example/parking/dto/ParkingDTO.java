@@ -3,6 +3,7 @@ package com.example.parking.dto;
 import com.example.parking.entity.Parking;
 import com.example.parking.entity.ParkingZone;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ParkingDTO {
@@ -24,14 +25,8 @@ public class ParkingDTO {
                 .toList();
     }
 
-    public ParkingDTO(Parking parking, List<ParkingZone> parkingZones) {
-        this.parkingId = parking.getId();
-        this.name = parking.getName();
-        this.parkingZoneDTOList = parking.getParkingZones()
-                .stream()
-                .map(ParkingZoneDTO::new)
-                .toList();
-    }
+
+
 
     public int getParkingId() {
         return parkingId;
@@ -50,6 +45,9 @@ public class ParkingDTO {
     }
 
     public List<ParkingZoneDTO> getParkingZoneDTOList() {
+        if(parkingZoneDTOList == null){
+            return new ArrayList<>();
+        }
         return parkingZoneDTOList;
     }
 

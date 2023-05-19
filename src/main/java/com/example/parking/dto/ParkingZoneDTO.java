@@ -25,6 +25,9 @@ public class ParkingZoneDTO {
 
 
     public List<ParkingSpotDTO> getParkingSpotDTOList() {
+        if (parkingSpotDTOList == null){
+            return new ArrayList<>();
+        }
         return parkingSpotDTOList;
     }
 
