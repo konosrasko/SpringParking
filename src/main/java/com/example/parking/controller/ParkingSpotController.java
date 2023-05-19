@@ -29,18 +29,18 @@ public class ParkingSpotController {
         return parkingSpotService.findSpotsByZoneId(zoneId);
     }
 
-    @PostMapping("parking-zones/{zoneId}/parking-spots")
-    public String addNewSpot(@RequestBody ParkingSpotDTO newSpotDTO, @PathVariable int zoneId){
+    @PostMapping("/parking/{parkingId}/parking-zones/{zoneId}/parking-spots")
+    public String addNewSpot(@RequestBody ParkingSpotDTO newSpotDTO, @PathVariable int parkingId, @PathVariable int zoneId){
         newSpotDTO.setId(0);
-        parkingSpotService.createNewSpot(newSpotDTO, zoneId);
+        parkingSpotService.createNewSpot(newSpotDTO, zoneId, parkingId);
         return ("New Spot has been added in zone with id " + zoneId);
     }
 
-    @PutMapping("parking-zones/{zoneId}/parking-spots")
-    public String updateSpot(@RequestBody ParkingSpotDTO updatedSpotDTO, @PathVariable int zoneId){
-        parkingSpotService.createNewSpot(updatedSpotDTO, zoneId);
-        return ("Spot with id " + updatedSpotDTO.getId() + " has been updated!");
-    }
+//    @PutMapping("parking-zones/{zoneId}/parking-spots")
+//    public String updateSpot(@RequestBody ParkingSpotDTO updatedSpotDTO, @PathVariable int zoneId){
+//        parkingSpotService.createNewSpot(updatedSpotDTO, zoneId);
+//        return ("Spot with id " + updatedSpotDTO.getId() + " has been updated!");
+//    }
 
     @DeleteMapping("parking-zones/{zoneId}/parking-spots/{spotId}")
     public String deleteSpot(@PathVariable int zoneId, @PathVariable int spotId){

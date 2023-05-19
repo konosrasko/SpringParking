@@ -36,8 +36,6 @@ public class ParkingSpotServiceImpl implements ParkingSpotService {
     public ParkingSpotDTO entityToDTO(ParkingSpot parkingSpot){
         ParkingSpotDTO parkingSpotDTO = new ParkingSpotDTO();
         BeanUtils.copyProperties(parkingSpot, parkingSpotDTO);
-        //parkingSpotDTO.setZoneId(parkingSpot.getZone().getId());
-        //parkingSpotDTO.setZoneId(parkingSpot.getZone().getId());
 
         return parkingSpotDTO;
     }
@@ -95,14 +93,15 @@ public class ParkingSpotServiceImpl implements ParkingSpotService {
     }
 
     @Override
-    public ParkingSpot createNewSpot(ParkingSpotDTO parkingSpotDTO, int zoneId) {
-        //boolean ifZoneExists = parkingSpotRepo.checkIfZoneIdExists(zoneId);
+    public ParkingSpot createNewSpot(ParkingSpotDTO parkingSpotDTO, int zoneId, int parkingId) {
         ParkingSpot parkingSpot = new ParkingSpot();
         if (parkingZoneRepo.existsById(zoneId)) {
             if (parkingSpotRepo.existsById(parkingSpotDTO.getId())) {
                 throw new ParkingException("The zone with id: " + zoneId + " doesn't exists!");
             } else {
-                return parkingSpotRepo.save(dtoToEntity(parkingSpotDTO, parkingSpot));
+                return parkingSpotRepo.save(
+                        new ParkingSpot(parkingId,zoneId,parkingSpotDTO)
+                );
             }
         } else {
             throw new ParkingException("The zone with id: " + zoneId + " doesn't exists!");
@@ -111,8 +110,6 @@ public class ParkingSpotServiceImpl implements ParkingSpotService {
 
     @Override
     public void deleteSpot(int zoneId, int spotId) {
-        //boolean ifZoneExist = parkingSpotRepo.checkIfZoneIdExists(zoneId);
-
         if(parkingZoneRepo.existsById(zoneId)) {
             Optional<ParkingSpot> detectSpot = parkingSpotRepo.findById(spotId);
             if (detectSpot.isPresent()) {

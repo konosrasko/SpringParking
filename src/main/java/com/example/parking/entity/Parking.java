@@ -58,6 +58,9 @@ public class Parking {
     }
 
     public List<ParkingZone> getParkingZones() {
+        if(parkingZones == null){
+            return new ArrayList<>();
+        }
         return parkingZones;
     }
 

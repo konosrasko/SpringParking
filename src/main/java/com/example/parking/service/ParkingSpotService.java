@@ -13,7 +13,7 @@ public interface ParkingSpotService {
 
     public List<ParkingSpotDTO> findSpotsByZoneId(int zoneId);
 
-    public ParkingSpot createNewSpot(ParkingSpotDTO parkingSpotDTO, int zoneId);
+    public ParkingSpot createNewSpot(ParkingSpotDTO parkingSpotDTO, int zoneId, int parkingId);
 
     public void deleteSpot(int zoneId, int spotId);
 

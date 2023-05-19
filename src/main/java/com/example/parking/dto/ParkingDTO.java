@@ -3,27 +3,19 @@ package com.example.parking.dto;
 import com.example.parking.entity.Parking;
 import com.example.parking.entity.ParkingZone;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ParkingDTO {
     private int parkingId;
     private String name;
     private List<ParkingZoneDTO> parkingZoneDTOList;
-    //private Parking parking;
 
-
-
-    public ParkingDTO(){
-        this.parkingZoneDTOList = new ArrayList<>();
-    }
-
-    public ParkingDTO(int parkingId, String name ) {
+    public ParkingDTO(int parkingId, String name) {
         this.parkingId = parkingId;
         this.name = name;
     }
 
-    public ParkingDTO(Parking parking){
+    public ParkingDTO(Parking parking) {
         this.parkingId = parking.getId();
         this.name = parking.getName();
         this.parkingZoneDTOList = parking.getParkingZones()
@@ -32,7 +24,7 @@ public class ParkingDTO {
                 .toList();
     }
 
-    public ParkingDTO(Parking parking,List<ParkingZone> parkingZones){
+    public ParkingDTO(Parking parking, List<ParkingZone> parkingZones) {
         this.parkingId = parking.getId();
         this.name = parking.getName();
         this.parkingZoneDTOList = parking.getParkingZones()
@@ -40,6 +32,7 @@ public class ParkingDTO {
                 .map(ParkingZoneDTO::new)
                 .toList();
     }
+
     public int getParkingId() {
         return parkingId;
     }
@@ -63,12 +56,4 @@ public class ParkingDTO {
     public void setParkingZoneDTOList(List<ParkingZoneDTO> parkingZoneDTOList) {
         this.parkingZoneDTOList = parkingZoneDTOList;
     }
-
-//    public Parking getParking() {
-//        return parking;
-//    }
-//
-//    public void setParking(Parking parking) {
-//        this.parking = parking;
-//    }
 }

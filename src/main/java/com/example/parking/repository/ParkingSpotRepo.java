@@ -11,10 +11,4 @@ import java.util.List;
 @Repository
 public interface ParkingSpotRepo extends JpaRepository<ParkingSpot, Integer> {
 
-//    @Query("SELECT ps FROM ParkingSpot ps WHERE zone.id = ?1")
-//    List<ParkingSpot> findSpotsByZoneId(int zoneId);
-//
-//    @Query("SELECT CASE WHEN COUNT(sp) > 0 THEN TRUE ELSE FALSE END FROM ParkingSpot sp WHERE zone.id = ?1")
-//    boolean checkIfZoneIdExists(int zoneId);
-
 }

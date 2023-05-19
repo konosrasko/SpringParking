@@ -7,8 +7,8 @@ import jakarta.persistence.*;
 @Table(name = "parking_spot")
 public class ParkingSpot {
 
-//    @Column(name = "park_id")
-//    private int parkingId;
+    @Column(name = "park_id")
+    private int parkingId;
 
     @Column(name = "zone_id")
     private int zoneId;
@@ -34,8 +34,8 @@ public class ParkingSpot {
     }
 
     public ParkingSpot(int parkingId, int zoneId, ParkingSpotDTO parkingSpotDTO) {
-//        this.parkingId = parkingId;
-//        this.zoneId = zoneId;
+        this.parkingId = parkingId;
+        this.zoneId = zoneId;
         this.id = parkingSpotDTO.getId();
         this.name = parkingSpotDTO.getName();
         this.type = parkingSpotDTO.getType();
