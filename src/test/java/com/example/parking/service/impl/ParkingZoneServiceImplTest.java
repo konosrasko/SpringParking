@@ -27,11 +27,11 @@ class ParkingZoneServiceImplTest {
     private ParkingRepo parkingRepo;
     private ParkingZoneServiceImpl parkingZoneServiceImpl;
     private AutoCloseable autoCloseable;
-    @BeforeEach
-    void setUp() {
-        parkingZoneServiceImpl = new ParkingZoneServiceImpl(parkingZoneRepo,parkingSpotRepo,parkingRepo);
-        autoCloseable = MockitoAnnotations.openMocks(this);
-    }
+//    @BeforeEach
+//    void setUp() {
+//        parkingZoneServiceImpl = new ParkingZoneServiceImpl(parkingZoneRepo,parkingSpotRepo,parkingRepo);
+//        autoCloseable = MockitoAnnotations.openMocks(this);
+//    }
 
     @AfterEach
     void tearDown() throws Exception{
