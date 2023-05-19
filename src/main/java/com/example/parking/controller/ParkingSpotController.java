@@ -14,10 +14,6 @@ public class ParkingSpotController {
     @Autowired
     private ParkingSpotService parkingSpotService;
 
-    @GetMapping("/parking-spots")
-    public List<ParkingSpotDTO> getParkingZones(){
-        return parkingSpotService.findAllParkingSpots();
-    }
 
     @GetMapping("/parking-spots/{id}")
     public ParkingSpotDTO getParkingSpotsById(@PathVariable int id){
