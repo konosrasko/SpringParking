@@ -20,10 +20,6 @@ import java.util.stream.Collectors;
 @Service
 public class ParkingZoneServiceImpl implements ParkingZoneService {
 
-    private final ParkingZoneRepo parkingZoneRepo;
-
-    private final ParkingSpotRepo parkingSpotRepo;
-
     @Autowired
     private final ParkingRepo parkingRepo;
 
@@ -34,8 +30,6 @@ public class ParkingZoneServiceImpl implements ParkingZoneService {
 
     @Autowired
     public ParkingZoneServiceImpl(ParkingZoneRepo parkingZoneRepo, ParkingSpotRepo parkingSpotRepo, ParkingRepo parkingRepo) {
-        this.parkingZoneRepo = parkingZoneRepo;
-        this.parkingSpotRepo = parkingSpotRepo;
         this.parkingRepo = parkingRepo;
     }
 /*

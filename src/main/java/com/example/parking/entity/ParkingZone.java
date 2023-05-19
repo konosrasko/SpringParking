@@ -22,9 +22,7 @@ public class ParkingZone {
     @Column(name ="name")
     private String name;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "park_id",referencedColumnName = "id")
-//    private Parking parking;
+
 
     @OneToMany(mappedBy = "zone",cascade = CascadeType.ALL)
     private List<ParkingSpot> parkingSpots;

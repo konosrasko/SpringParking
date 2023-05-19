@@ -78,18 +78,6 @@ public class ParkingSpotServiceImpl implements ParkingSpotService {
         } else {
             throw new ParkingException("There are no spots in zone with id " + zoneId);
         }
-        //List<ParkingSpotDTO> parkingSpotDTOS = new ArrayList<>();
-
-//        if(results.isEmpty()){
-//            throw new ParkingException("There are no spots in zone with id " + zoneId);
-//        }
-//
-//        for(ParkingSpot parkingSpot : results){
-//            parkingSpotDTOS.add(entityToDTO(parkingSpot));
-//        }
-
-        //return parkingSpotDTOS;
-        //return  new ArrayList<>();
     }
 
     @Override
