@@ -19,30 +19,30 @@ public class ParkingSpotController {
         return parkingSpotService.findAllParkingSpots();
     }
 
-    @GetMapping("/parking-spot/{id}")
+    @GetMapping("/parking-spots/{id}")
     public ParkingSpotDTO getParkingSpotsById(@PathVariable int id){
         return parkingSpotService.findParkingSpotById(id);
     }
 
-    @GetMapping("/parking-zone/{zoneId}/parking-spot")
+    @GetMapping("/parking-zones/{zoneId}/parking-spots")
     public List<ParkingSpotDTO> getAllParkingSpotsByZoneId(@PathVariable int zoneId){
         return parkingSpotService.findSpotsByZoneId(zoneId);
     }
 
-    @PostMapping("parking-zone/{zoneId}/parking-spot")
+    @PostMapping("parking-zones/{zoneId}/parking-spots")
     public String addNewSpot(@RequestBody ParkingSpotDTO newSpotDTO, @PathVariable int zoneId){
         newSpotDTO.setId(0);
         parkingSpotService.createNewSpot(newSpotDTO, zoneId);
         return ("New Spot has been added in zone with id " + zoneId);
     }
 
-    @PutMapping("parking-zone/{zoneId}/parking-spot")
+    @PutMapping("parking-zones/{zoneId}/parking-spots")
     public String updateSpot(@RequestBody ParkingSpotDTO updatedSpotDTO, @PathVariable int zoneId){
         parkingSpotService.createNewSpot(updatedSpotDTO, zoneId);
         return ("Spot with id " + updatedSpotDTO.getId() + " has been updated!");
     }
 
-    @DeleteMapping("parking-zone/{zoneId}/parking-spot/{spotId}")
+    @DeleteMapping("parking-zones/{zoneId}/parking-spots/{spotId}")
     public String deleteSpot(@PathVariable int zoneId, @PathVariable int spotId){
         parkingSpotService.deleteSpot(zoneId, spotId);
         return ("Spot with id " + spotId + " has been deleted!");

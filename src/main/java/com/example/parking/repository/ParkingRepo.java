@@ -10,8 +10,8 @@ import java.util.Optional;
 @Repository
 public interface ParkingRepo  extends JpaRepository<Parking, Integer> {
 
-    @Query("SELECT p FROM Parking p WHERE p.name = ?1")
-    Optional<Parking> findParkingByName(String name);
+//    @Query("SELECT p FROM Parking p WHERE p.name = ?1")
+//    Optional<Parking> findParkingByName(String name);
 
 
 

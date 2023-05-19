@@ -1,10 +1,12 @@
 package com.example.parking.service.impl;
 
 import com.example.parking.dto.ParkingSpotDTO;
+import com.example.parking.dto.ParkingZoneDTO;
 import com.example.parking.entity.ParkingSpot;
 import com.example.parking.entity.ParkingZone;
 import com.example.parking.exception.ParkingException;
 import com.example.parking.repository.ParkingSpotRepo;
+import com.example.parking.repository.ParkingZoneRepo;
 import com.example.parking.service.ParkingSpotService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ public class ParkingSpotServiceImpl implements ParkingSpotService {
 
     @Autowired
     private ParkingSpotRepo parkingSpotRepo;
+    @Autowired
+    private ParkingZoneRepo parkingZoneRepo;
 
     public ParkingSpot dtoToEntity(ParkingSpotDTO parkingSpotDTO, ParkingSpot parkingSpot){
 
@@ -67,45 +71,57 @@ public class ParkingSpotServiceImpl implements ParkingSpotService {
 
     @Override
     public List<ParkingSpotDTO> findSpotsByZoneId(int zoneId){
-        List<ParkingSpot> results = parkingSpotRepo.findSpotsByZoneId(zoneId);
-        List<ParkingSpotDTO> parkingSpotDTOS = new ArrayList<>();
-
-        if(results.isEmpty()){
+        //List<ParkingSpot> results = parkingSpotRepo.findSpotsByZoneId(zoneId);
+        Optional<ParkingZone> parkingZone = parkingZoneRepo.findById(zoneId);
+        if(parkingZone.isPresent()){
+            return parkingZone.get().getParkingSpots().stream()
+                    .map(ParkingSpotDTO::new)
+                    .toList();
+        } else {
             throw new ParkingException("There are no spots in zone with id " + zoneId);
         }
+        //List<ParkingSpotDTO> parkingSpotDTOS = new ArrayList<>();
 
-        for(ParkingSpot parkingSpot : results){
-            parkingSpotDTOS.add(entityToDTO(parkingSpot));
-        }
+//        if(results.isEmpty()){
+//            throw new ParkingException("There are no spots in zone with id " + zoneId);
+//        }
+//
+//        for(ParkingSpot parkingSpot : results){
+//            parkingSpotDTOS.add(entityToDTO(parkingSpot));
+//        }
 
-        return parkingSpotDTOS;
+        //return parkingSpotDTOS;
+        //return  new ArrayList<>();
     }
 
     @Override
     public ParkingSpot createNewSpot(ParkingSpotDTO parkingSpotDTO, int zoneId) {
-        boolean ifZoneExists = parkingSpotRepo.checkIfZoneIdExists(zoneId);
+        //boolean ifZoneExists = parkingSpotRepo.checkIfZoneIdExists(zoneId);
         ParkingSpot parkingSpot = new ParkingSpot();
-        if(ifZoneExists){
-            //parkingSpotDTO.setZoneId(zoneId);
-            parkingSpotRepo.save(dtoToEntity(parkingSpotDTO, parkingSpot));
-        }else{
+        if (parkingZoneRepo.existsById(zoneId)) {
+            if (parkingSpotRepo.existsById(parkingSpotDTO.getId())) {
+                throw new ParkingException("The zone with id: " + zoneId + " doesn't exists!");
+            } else {
+                return parkingSpotRepo.save(dtoToEntity(parkingSpotDTO, parkingSpot));
+            }
+        } else {
             throw new ParkingException("The zone with id: " + zoneId + " doesn't exists!");
         }
-
-        return parkingSpot;
     }
 
     @Override
     public void deleteSpot(int zoneId, int spotId) {
-        boolean ifZoneExist = parkingSpotRepo.checkIfZoneIdExists(zoneId);
+        //boolean ifZoneExist = parkingSpotRepo.checkIfZoneIdExists(zoneId);
 
-        if(ifZoneExist){
+        if(parkingZoneRepo.existsById(zoneId)) {
             Optional<ParkingSpot> detectSpot = parkingSpotRepo.findById(spotId);
-            if(detectSpot.isPresent()){
+            if (detectSpot.isPresent()) {
                 parkingSpotRepo.deleteById(spotId);
-            }else
+            } else {
                 throw new ParkingException("There is no spot with id " + spotId);
-        }else
+            }
+        } else {
             throw new ParkingException("There is no zone with id " + zoneId);
+        }
     }
 }

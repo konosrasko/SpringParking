@@ -1,5 +1,6 @@
 package com.example.parking.entity;
 
+import com.example.parking.dto.ParkingDTO;
 import jakarta.persistence.*;
 import java.util.*;
 
@@ -15,7 +16,7 @@ public class Parking {
     @Column(name="name")
     private String name;
 
-    @OneToMany(targetEntity = ParkingZone.class, mappedBy = "parking",fetch = FetchType.LAZY, cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "parking", fetch = FetchType.LAZY, cascade = CascadeType.ALL,orphanRemoval = true)
     private List<ParkingZone> parkingZones;
 
     public Parking() {
@@ -32,6 +33,14 @@ public class Parking {
         this.parkingZones = parkingZones;
     }
 
+    public Parking(ParkingDTO parkingDTO) {
+        this.id = parkingDTO.getParkingId();
+        this.name = parkingDTO.getName();
+        this.parkingZones = parkingDTO.getParkingZoneDTOList()
+                .stream()
+                .map(parkingZoneDTO -> new ParkingZone(id,parkingZoneDTO))
+                .toList();
+    }
     public int getId() {
         return id;
     }

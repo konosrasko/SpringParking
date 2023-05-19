@@ -46,53 +46,24 @@ public class ParkingServiceImpl implements ParkingService {
 
     @Override
     public Parking saveParking(ParkingDTO parkingDTO){
-
-        Optional<Parking> parkingByName = parkingRepo.findParkingByName(parkingDTO.getName());
-
+        Optional<Parking> parkingByName = parkingRepo.findById(parkingDTO.getParkingId());
         if(parkingByName.isPresent()){
             throw new ParkingException("Parking with name " + parkingDTO.getName() + " already exists!");
         } else {
-            Parking parking = new Parking(
-                    parkingDTO.getParkingId(),
-                    parkingDTO.getName(),
-                    parkingDTO.getParkingZoneDTOList()
-                            .stream()
-                            .map(parkingZoneDTO ->
-                                 new ParkingZone(
-                                        parkingZoneDTO.getParkingZoneId(),
-                                        parkingZoneDTO.getName(),
-                                        parkingZoneDTO.getType(),
-                                        parkingZoneDTO.getParkingSpotDTOList()
-                                                .stream()
-                                                .map(parkingSpotDTO ->
-                                                        new ParkingSpot(
-                                                                parkingSpotDTO.getId(),
-                                                                parkingSpotDTO.getName(),
-                                                                parkingSpotDTO.getType(),
-                                                                parkingSpotDTO.isOccupied()
-                                                        )
-                                                ).toList()
-                                )
-                            ).toList()
-            );
-//            parking.setName(parkingDTO.getName());
-//            parking.setId(parkingDTO.getParkingId());
-//            parking.setParkingZones(parking.getParkingZones());
-            return parkingRepo.save(parking);
+            return parkingRepo.save(new Parking(parkingDTO));
         }
     }
 
     @Override
-    public ParkingZone addZone(int parkingId, ParkingZoneDTO parkingZoneDTO){
-        if(parkingRepo.existsById(parkingId)){
+    public ParkingZone addZone(int parkingId, ParkingZoneDTO parkingZoneDTO) {
+        if (parkingRepo.existsById(parkingId)) {
             ParkingZone parkingZone = new ParkingZone(
-                    parkingZoneDTO.getParkingZoneId(),
+                    parkingZoneDTO.getParkingZoneId(), parkingId,
                     parkingZoneDTO.getName(),
-                    parkingZoneDTO.getType()
-            );
+                    parkingZoneDTO.getType());
             return parkingZoneRepo.save(parkingZone);
         } else {
-            throw new ParkingException("Parking with id : "+ parkingId +" does not exist");
+            throw new ParkingException("Parking with id : " + parkingId + " does not exist");
         }
     }
     @Override
