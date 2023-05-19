@@ -6,16 +6,16 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "parking_spot")
 public class ParkingSpot {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
 
     @Column(name = "park_id")
     private int parkingId;
 
     @Column(name = "zone_id")
     private int zoneId;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
 
     @Column(name = "name")
     private String name;
@@ -55,6 +55,22 @@ public class ParkingSpot {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getParkingId() {
+        return parkingId;
+    }
+
+    public void setParkingId(int parkingId) {
+        this.parkingId = parkingId;
+    }
+
+    public int getZoneId() {
+        return zoneId;
+    }
+
+    public void setZoneId(int zoneId) {
+        this.zoneId = zoneId;
     }
 
     public String getName() {

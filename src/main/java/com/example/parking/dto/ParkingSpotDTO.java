@@ -9,7 +9,6 @@ public class ParkingSpotDTO {
     private boolean occupied;
 
     public ParkingSpotDTO(){
-
     }
 
     public ParkingSpotDTO(ParkingSpot parkingSpot){
@@ -18,6 +17,7 @@ public class ParkingSpotDTO {
         this.type = parkingSpot.getType();
         this.occupied = parkingSpot.isOccupied();
     }
+
     public int getId() {
         return id;
     }

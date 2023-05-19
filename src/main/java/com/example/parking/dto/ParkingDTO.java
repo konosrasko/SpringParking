@@ -25,9 +25,6 @@ public class ParkingDTO {
                 .toList();
     }
 
-
-
-
     public int getParkingId() {
         return parkingId;
     }
