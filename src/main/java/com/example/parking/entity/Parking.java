@@ -24,16 +24,10 @@ public class Parking {
         this.parkingZones = new ArrayList<>();
     }
 
-    public Parking(String name) {
+    public Parking(String name, List<ParkingZone> parkingZones) {
         this.name = name;
         this.parkingZones = new ArrayList<>();
     }
-
-//    public Parking(int id, String name, List<ParkingZone> parkingZones) {
-//        this.id = id;
-//        this.name = name;
-//        this.parkingZones = parkingZones;
-//    }
 
     public Parking(ParkingDTO parkingDTO) {
         //this.id = parkingDTO.getParkingId();

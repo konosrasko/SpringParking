@@ -9,7 +9,10 @@ import java.util.List;
 public class ParkingDTO {
     private int parkingId;
     private String name;
-    private final List<ParkingZoneDTO> parkingZoneDTOList;
+    private List<ParkingZoneDTO> parkingZoneDTOList;
+
+    public ParkingDTO() {
+    }
 
     public ParkingDTO(int parkingId, String name) {
         this.parkingId = parkingId;
@@ -29,6 +32,10 @@ public class ParkingDTO {
                 .stream()
                 .map(ParkingZoneDTO::new)
                 .toList();
+    }
+
+    public void setParkingZoneDTOList(List<ParkingZoneDTO> parkingZoneDTOList) {
+        this.parkingZoneDTOList = parkingZoneDTOList;
     }
 
     public int getParkingId() {

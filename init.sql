@@ -24,16 +24,13 @@ CREATE TABLE `parking_zone` (
 
 CREATE TABLE `parking_spot` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `park_id` int NOT NULL,
   `zone_id` int NOT NULL,
   `name` varchar(255) default null,
   `type` varchar(255) DEFAULT NULL,
   `occupied` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`id`,`park_id`,`zone_id`),
-  KEY `parking_spot_ibfk_1` (`park_id`),
-  KEY `parking_spot_ibfk_2` (`zone_id`),
-  CONSTRAINT `parking_spot_ibfk_1` FOREIGN KEY (`park_id`) REFERENCES `parking` (`id`),
-  CONSTRAINT `parking_spot_ibfk_2` FOREIGN KEY (`zone_id`) REFERENCES `parking_zone` (`id`)
+  PRIMARY KEY (`id`,`zone_id`),
+  KEY `parking_spot_ibfk_1` (`zone_id`),
+  CONSTRAINT `parking_spot_ibfk_1` FOREIGN KEY (`zone_id`) REFERENCES `parking_zone` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `parking_history` (

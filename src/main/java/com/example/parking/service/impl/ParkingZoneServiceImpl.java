@@ -71,7 +71,7 @@ public class ParkingZoneServiceImpl implements ParkingZoneService {
             if (parkingSpotRepo.existsById(parkingSpotDTO.getId())) {
                 throw new ParkingException("The zone with id: " + zoneId + " doesn't exists!");
             } else {
-                parkingSpotRepo.save(new ParkingSpot(parkingId,zoneId,parkingSpotDTO));
+                parkingSpotRepo.save(new ParkingSpot(parkingSpotDTO));
             }
         } else {
             throw new ParkingException("The zone with id: " + zoneId + " doesn't exists!");
