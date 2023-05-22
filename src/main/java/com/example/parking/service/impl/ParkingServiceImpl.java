@@ -1,11 +1,14 @@
 package com.example.parking.service.impl;
 
 import com.example.parking.dto.ParkingDTO;
+import com.example.parking.dto.ParkingSpotDTO;
 import com.example.parking.dto.ParkingZoneDTO;
 import com.example.parking.entity.Parking;
+import com.example.parking.entity.ParkingSpot;
 import com.example.parking.entity.ParkingZone;
 import com.example.parking.exception.ParkingException;
 import com.example.parking.repository.ParkingRepo;
+import com.example.parking.repository.ParkingSpotRepo;
 import com.example.parking.repository.ParkingZoneRepo;
 import com.example.parking.service.ParkingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +24,8 @@ public class ParkingServiceImpl implements ParkingService {
     private ParkingRepo parkingRepo;
     @Autowired
     private ParkingZoneRepo parkingZoneRepo;
+    @Autowired
+    private ParkingSpotRepo parkingSpotRepo;
 
     @Override
     public List<ParkingDTO> findAllParkings() {
@@ -46,12 +51,47 @@ public class ParkingServiceImpl implements ParkingService {
 
     @Override
     public Parking saveParking(ParkingDTO parkingDTO) {
-        Optional<Parking> parkingByName = parkingRepo.findById(parkingDTO.getParkingId());
-        if (parkingByName.isPresent()) {
-            throw new ParkingException("Parking with name " + parkingDTO.getName() + " already exists!");
-        } else {
-            return parkingRepo.save(new Parking(parkingDTO));
+        Parking parking = new Parking();
+        parking.setId(parkingDTO.getParkingId());
+        parking.setName(parkingDTO.getName());
+
+        Parking savedParking = parkingRepo.save(parking);
+
+        List<ParkingZoneDTO> foundZones = parkingDTO.getParkingZoneDTOList();
+        ParkingZone zone = new ParkingZone();
+
+        for(ParkingZoneDTO zoneDTO : foundZones){
+            zone.setId(0);
+            zone.setName(zoneDTO.getName());
+            zone.setType(zoneDTO.getType());
+            zone.setParking(savedParking);
+
+            ParkingZone savedZone = parkingZoneRepo.save(zone);
+
+            List<ParkingSpotDTO> foundSpots = zoneDTO.getParkingSpotDTOList();
+            ParkingSpot spot = new ParkingSpot();
+
+            for(ParkingSpotDTO spotDTO : foundSpots){
+                spot.setId(0);
+                spot.setName(spotDTO.getName());
+                spot.setType(spotDTO.getType());
+                spot.setOccupied(spot.isOccupied());
+                spot.setZone(savedZone);
+
+                parkingSpotRepo.save(spot);
+
+            }
+
         }
+
+//        Optional<Parking> parkingByName = parkingRepo.findById(parkingDTO.getParkingId());
+//        if (parkingByName.isPresent()) {
+//            throw new ParkingException("Parking with name " + parkingDTO.getName() + " already exists!");
+//        } else {
+//            return parkingRepo.save(new Parking(parkingDTO));
+//        }
+
+        return savedParking;
     }
 
     @Override

@@ -13,12 +13,6 @@ public class ParkingSpot {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "park_id")
-    private int parkingId;
-
-    @Column(name = "zone_id")
-    private int zoneId;
-
     @Column(name = "name")
     private String name;
 
@@ -29,15 +23,13 @@ public class ParkingSpot {
     private boolean occupied;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "zone_id", referencedColumnName = "id", updatable = false, insertable = false)
+    @JoinColumn(name = "zone_id", referencedColumnName = "id")
     private ParkingZone zone;
 
     public ParkingSpot() {
     }
 
-    public ParkingSpot(int parkingId, int zoneId, ParkingSpotDTO parkingSpotDTO) {
-        this.parkingId = parkingId;
-        this.zoneId = zoneId;
+    public ParkingSpot(ParkingSpotDTO parkingSpotDTO) {
         this.id = parkingSpotDTO.getId();
         this.name = parkingSpotDTO.getName();
         this.type = parkingSpotDTO.getType();
@@ -57,22 +49,6 @@ public class ParkingSpot {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getParkingId() {
-        return parkingId;
-    }
-
-    public void setParkingId(int parkingId) {
-        this.parkingId = parkingId;
-    }
-
-    public int getZoneId() {
-        return zoneId;
-    }
-
-    public void setZoneId(int zoneId) {
-        this.zoneId = zoneId;
     }
 
     public String getName() {
@@ -99,23 +75,29 @@ public class ParkingSpot {
         this.occupied = occupied;
     }
 
+    public ParkingZone getZone() {
+        return zone;
+    }
+
+    public void setZone(ParkingZone zone) {
+        this.zone = zone;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof ParkingSpot that)) return false;
-        return parkingId == that.parkingId && zoneId == that.zoneId && getId() == that.getId() && isOccupied() == that.isOccupied() && Objects.equals(getName(), that.getName()) && Objects.equals(getType(), that.getType()) && Objects.equals(zone, that.zone);
+        return getId() == that.getId() && isOccupied() == that.isOccupied() && Objects.equals(getName(), that.getName()) && Objects.equals(getType(), that.getType()) && Objects.equals(zone, that.zone);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(parkingId, zoneId, getId(), getName(), getType(), isOccupied(), zone);
+        return Objects.hash(getId(), getName(), getType(), isOccupied(), zone);
     }
 
     @Override
     public String toString() {
         return "ParkingSpot{" +
-                "parkingId=" + parkingId +
-                ", zoneId=" + zoneId +
                 ", id=" + id +
                 ", name='" + name + '\'' +
                 ", type='" + type + '\'' +

@@ -6,10 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParkingZoneDTO {
-    private final List<ParkingSpotDTO> parkingSpotDTOList;
     private int parkingZoneId;
     private String type;
     private String name;
+    private List<ParkingSpotDTO> parkingSpotDTOList;
+
+    public ParkingZoneDTO() {
+    }
 
     public ParkingZoneDTO(String type, String name) {
         this.type = type;
@@ -34,9 +37,12 @@ public class ParkingZoneDTO {
                 .toList();
     }
 
-
     public List<ParkingSpotDTO> getParkingSpotDTOList() {
         return parkingSpotDTOList;
+    }
+
+    public void setParkingSpotDTOList(List<ParkingSpotDTO> parkingSpotDTOList) {
+        this.parkingSpotDTOList = parkingSpotDTOList;
     }
 
     public int getParkingZoneId() {
