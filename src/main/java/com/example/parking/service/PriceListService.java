@@ -9,6 +9,7 @@ import java.util.List;
 public interface PriceListService {
 
     PriceList savePriceList(PriceListDTO priceListDTO);
+
     List<PriceListDTO> findAllPriceLists();
 
     List<PriceListDTO> findPriceListByZoneId(int zoneId);
