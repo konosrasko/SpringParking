@@ -3,6 +3,8 @@ package com.example.parking.entity;
 import com.example.parking.dto.ParkingSpotDTO;
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "parking_spot")
 public class ParkingSpot {
@@ -42,8 +44,8 @@ public class ParkingSpot {
         this.occupied = parkingSpotDTO.isOccupied();
     }
 
-    public ParkingSpot(int id, String name, String type, boolean occupied) {
-        this.id = id;
+    public ParkingSpot(String name, String type, boolean occupied) {
+        //this.id = id;
         this.name = name;
         this.type = type;
         this.occupied = occupied;
@@ -95,5 +97,29 @@ public class ParkingSpot {
 
     public void setOccupied(boolean occupied) {
         this.occupied = occupied;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ParkingSpot that)) return false;
+        return parkingId == that.parkingId && zoneId == that.zoneId && getId() == that.getId() && isOccupied() == that.isOccupied() && Objects.equals(getName(), that.getName()) && Objects.equals(getType(), that.getType()) && Objects.equals(zone, that.zone);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(parkingId, zoneId, getId(), getName(), getType(), isOccupied(), zone);
+    }
+
+    @Override
+    public String toString() {
+        return "ParkingSpot{" +
+                "parkingId=" + parkingId +
+                ", zoneId=" + zoneId +
+                ", id=" + id +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", occupied=" + occupied +
+                '}';
     }
 }

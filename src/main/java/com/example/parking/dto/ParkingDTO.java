@@ -9,11 +9,17 @@ import java.util.List;
 public class ParkingDTO {
     private int parkingId;
     private String name;
-    private List<ParkingZoneDTO> parkingZoneDTOList;
+    private final List<ParkingZoneDTO> parkingZoneDTOList;
 
     public ParkingDTO(int parkingId, String name) {
         this.parkingId = parkingId;
         this.name = name;
+        this.parkingZoneDTOList = new ArrayList<>();
+    }
+
+    public ParkingDTO(String name){
+        this.name = name;
+        this.parkingZoneDTOList = new ArrayList<>();
     }
 
     public ParkingDTO(Parking parking) {
@@ -46,9 +52,5 @@ public class ParkingDTO {
             return new ArrayList<>();
         }
         return parkingZoneDTOList;
-    }
-
-    public void setParkingZoneDTOList(List<ParkingZoneDTO> parkingZoneDTOList) {
-        this.parkingZoneDTOList = parkingZoneDTOList;
     }
 }
