@@ -52,16 +52,15 @@ public class ParkingServiceImpl implements ParkingService {
     @Override
     public Parking saveParking(ParkingDTO parkingDTO) {
         Parking parking = new Parking();
-        parking.setId(parkingDTO.getParkingId());
         parking.setName(parkingDTO.getName());
 
         Parking savedParking = parkingRepo.save(parking);
 
         List<ParkingZoneDTO> foundZones = parkingDTO.getParkingZoneDTOList();
-        ParkingZone zone = new ParkingZone();
+
 
         for(ParkingZoneDTO zoneDTO : foundZones){
-            zone.setId(0);
+            ParkingZone zone = new ParkingZone();
             zone.setName(zoneDTO.getName());
             zone.setType(zoneDTO.getType());
             zone.setParking(savedParking);
@@ -69,10 +68,10 @@ public class ParkingServiceImpl implements ParkingService {
             ParkingZone savedZone = parkingZoneRepo.save(zone);
 
             List<ParkingSpotDTO> foundSpots = zoneDTO.getParkingSpotDTOList();
-            ParkingSpot spot = new ParkingSpot();
+
 
             for(ParkingSpotDTO spotDTO : foundSpots){
-                spot.setId(0);
+                ParkingSpot spot = new ParkingSpot();
                 spot.setName(spotDTO.getName());
                 spot.setType(spotDTO.getType());
                 spot.setOccupied(spot.isOccupied());
@@ -91,7 +90,7 @@ public class ParkingServiceImpl implements ParkingService {
 //            return parkingRepo.save(new Parking(parkingDTO));
 //        }
 
-        return savedParking;
+        return new Parking(parkingDTO);
     }
 
     @Override
