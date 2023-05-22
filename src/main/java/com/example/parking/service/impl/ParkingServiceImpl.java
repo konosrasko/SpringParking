@@ -58,7 +58,7 @@ public class ParkingServiceImpl implements ParkingService {
     public ParkingZone addZone(int parkingId, ParkingZoneDTO parkingZoneDTO) {
         if (parkingRepo.existsById(parkingId)) {
             ParkingZone parkingZone = new ParkingZone(
-                    parkingZoneDTO.getParkingZoneId(), parkingId,
+                    parkingZoneDTO.getParkingZoneId(),
                     parkingZoneDTO.getName(),
                     parkingZoneDTO.getType());
             return parkingZoneRepo.save(parkingZone);

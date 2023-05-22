@@ -10,8 +10,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "parking_zone")
 public class ParkingZone {
-    @Column(name = "park_id")
-    private int parkingId;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -23,9 +22,6 @@ public class ParkingZone {
     @Column(name = "name")
     private String name;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "park_id",referencedColumnName = "id")
-//    private Parking parking;
 
     @OneToMany(mappedBy = "zone", cascade = CascadeType.ALL)
     private List<ParkingSpot> parkingSpots;
@@ -50,17 +46,8 @@ public class ParkingZone {
         this.parkingSpots = new ArrayList<>();
     }
 
-    public ParkingZone(int id, int park_id, String type, String name) {
-        //this.id = id;
-        this.parkingId = park_id;
-        this.type = type;
-        this.name = name;
-        this.parkingSpots = new ArrayList<>();
-    }
 
-    public ParkingZone(int id, int parkId, String type, String name, List<ParkingSpot> parkingSpots) {
-        //this.id = id;
-        parkingId = parkId;
+    public ParkingZone( String type, String name, List<ParkingSpot> parkingSpots) {
         this.type = type;
         this.name = name;
         this.parkingSpots = parkingSpots;
@@ -95,9 +82,7 @@ public class ParkingZone {
 
 
     public List<ParkingSpot> getParkingSpots() {
-//        if(parkingSpots == null ){
-//            setParkingZoneSpots(new ArrayList<>());
-//        }
+
         return parkingSpots;
     }
 
@@ -113,30 +98,12 @@ public class ParkingZone {
         this.name = name;
     }
 
-    public int getParkingId() {
-        return parkingId;
-    }
 
-    public void setParkingId(int parkingId) {
-        this.parkingId = parkingId;
-    }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ParkingZone that)) return false;
-        return getParkingId() == that.getParkingId() && getId() == that.getId() && Objects.equals(getType(), that.getType()) && Objects.equals(getName(), that.getName()) && Objects.equals(getParkingSpots(), that.getParkingSpots()) && Objects.equals(parking, that.parking);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getParkingId(), getId(), getType(), getName(), getParkingSpots(), parking);
-    }
 
     @Override
     public String toString() {
         return "ParkingZone{" +
-                "parkingId=" + parkingId +
                 ", id=" + id +
                 ", type='" + type + '\'' +
                 ", name='" + name + '\'' +
