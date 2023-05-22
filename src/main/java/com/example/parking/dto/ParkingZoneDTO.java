@@ -6,12 +6,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParkingZoneDTO {
-    private List<ParkingSpotDTO> parkingSpotDTOList;
+    private final List<ParkingSpotDTO> parkingSpotDTOList;
     private int parkingZoneId;
     private String type;
     private String name;
 
-    public ParkingZoneDTO(){}
+    public ParkingZoneDTO(String type, String name) {
+        this.type = type;
+        this.name = name;
+        this.parkingSpotDTOList = new ArrayList<>();
+    }
+
+    public ParkingZoneDTO(int parkingZoneId, String type, String name) {
+        this.parkingZoneId = parkingZoneId;
+        this.type = type;
+        this.name = name;
+        this.parkingSpotDTOList = new ArrayList<>();
+    }
 
     public ParkingZoneDTO(ParkingZone parkingZone){
         this.parkingZoneId = parkingZone.getId();
@@ -34,10 +45,6 @@ public class ParkingZoneDTO {
 
     public void setParkingZoneId(int parkingZoneId) {
         this.parkingZoneId = parkingZoneId;
-    }
-
-    public void setParkingSpotDTOList(List<ParkingSpotDTO> parkingSpotDTOList) {
-        this.parkingSpotDTOList = parkingSpotDTOList;
     }
 
     public String getType() {

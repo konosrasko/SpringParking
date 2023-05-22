@@ -2,6 +2,7 @@ package com.example.parking.entity;
 
 import com.example.parking.dto.ParkingDTO;
 import jakarta.persistence.*;
+
 import java.util.*;
 
 @Entity
@@ -10,37 +11,39 @@ public class Parking {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = "id")
     private int id;
 
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "parking", fetch = FetchType.LAZY, cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "parking", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ParkingZone> parkingZones;
 
     public Parking() {
+        this.parkingZones = new ArrayList<>();
     }
 
-    public Parking(int id, String name) {
-        this.id = id;
+    public Parking(String name) {
         this.name = name;
+        this.parkingZones = new ArrayList<>();
     }
 
-    public Parking(int id, String name, List<ParkingZone> parkingZones) {
-        this.id = id;
-        this.name = name;
-        this.parkingZones = parkingZones;
-    }
+//    public Parking(int id, String name, List<ParkingZone> parkingZones) {
+//        this.id = id;
+//        this.name = name;
+//        this.parkingZones = parkingZones;
+//    }
 
     public Parking(ParkingDTO parkingDTO) {
-        this.id = parkingDTO.getParkingId();
+        //this.id = parkingDTO.getParkingId();
         this.name = parkingDTO.getName();
         this.parkingZones = parkingDTO.getParkingZoneDTOList()
                 .stream()
-                .map(parkingZoneDTO -> new ParkingZone(id,parkingZoneDTO))
+                .map(parkingZoneDTO -> new ParkingZone(id, parkingZoneDTO))
                 .toList();
     }
+
     public int getId() {
         return id;
     }
@@ -58,13 +61,34 @@ public class Parking {
     }
 
     public List<ParkingZone> getParkingZones() {
-        if(parkingZones == null){
-            return new ArrayList<>();
-        }
+//        if(parkingZones == null){
+//            setParkingZones(new ArrayList<>());
+//        }
         return parkingZones;
     }
 
     public void setParkingZones(List<ParkingZone> parkingZones) {
         this.parkingZones = parkingZones;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Parking parking)) return false;
+        return getId() == parking.getId() && Objects.equals(getName(), parking.getName()) && Objects.equals(getParkingZones(), parking.getParkingZones());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getParkingZones());
+    }
+
+    @Override
+    public String toString() {
+        return "Parking{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", parkingZones=" + parkingZones +
+                '}';
     }
 }

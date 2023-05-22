@@ -12,6 +12,19 @@ public class ParkingSpotDTO {
 
     }
 
+    public ParkingSpotDTO(String name, String type, boolean occupied) {
+        this.name = name;
+        this.type = type;
+        this.occupied = occupied;
+    }
+
+    public ParkingSpotDTO(int id, String name, String type, boolean occupied) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.occupied = occupied;
+    }
+
     public ParkingSpotDTO(ParkingSpot parkingSpot){
         this.id = parkingSpot.getId();
         this.name = parkingSpot.getName();
