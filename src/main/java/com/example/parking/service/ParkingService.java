@@ -1,6 +1,7 @@
 package com.example.parking.service;
 
 import com.example.parking.dto.ParkingDTO;
+import com.example.parking.dto.ParkingSpotDTO;
 import com.example.parking.dto.ParkingZoneDTO;
 import com.example.parking.entity.Parking;
 import com.example.parking.entity.ParkingZone;
@@ -21,5 +22,13 @@ public interface ParkingService {
     List<ParkingZoneDTO> getParkingZones(int id);
 
     ParkingZoneDTO getParkingZoneById(int parkingId, int zoneId);
+
+    ParkingSpotDTO findParkingSpotById(int id);
+
+    List<ParkingSpotDTO> findSpotsByZoneId(int zoneId);
+
+    void createNewSpot(ParkingSpotDTO parkingSpotDTO, int zoneId, int parkingId);
+
+    void deleteSpot(int zoneId, int spotId);
 
 }
