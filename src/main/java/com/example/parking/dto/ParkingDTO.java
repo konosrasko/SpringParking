@@ -62,6 +62,12 @@ public class ParkingDTO {
         return parkingZoneDTOList;
     }
 
+
+    public ParkingDTO(String name, List<ParkingZoneDTO> parkingZoneDTOList) {
+        this.name = name;
+        this.parkingZoneDTOList = parkingZoneDTOList;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -21,8 +21,7 @@ class ParkingSpotRepoTest {
 
     @Autowired
     private ParkingSpotRepo parkingSpotRepo;
-    @Autowired
-    private ParkingService parkingService;
+
     @Test
     void shouldSaveNewSpotAndReturnIt() {
 

@@ -22,13 +22,8 @@ import java.util.stream.Collectors;
 @Service
 public class ParkingServiceImpl implements ParkingService {
 
-    private ParkingRepo parkingRepo;
-    @Override
     @Autowired
-    public void setParkingRepo(ParkingRepo parkingRepo) {
-        this.parkingRepo = parkingRepo;
-    }
-
+    private ParkingRepo parkingRepo;
     @Autowired
     private ParkingZoneRepo parkingZoneRepo;
     @Autowired

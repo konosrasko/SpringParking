@@ -12,8 +12,6 @@ import java.util.List;
 
 public interface ParkingService {
 
-    void setParkingRepo(ParkingRepo parkingRepo);
-
     List<ParkingDTO> findAllParkings();
 
     ParkingDTO findParkingById(int id);
