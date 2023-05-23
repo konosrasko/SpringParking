@@ -60,7 +60,7 @@ public class ParkingZone {
         this.parkingSpots = parkingSpots;
     }
 
-    public ParkingZone(int parkingId, ParkingZoneDTO parkingZoneDTO) {
+    public ParkingZone(ParkingZoneDTO parkingZoneDTO) {
         this.id = parkingZoneDTO.getParkingZoneId();
         this.name = parkingZoneDTO.getName();
         this.type = parkingZoneDTO.getType();

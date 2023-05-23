@@ -83,13 +83,6 @@ public class ParkingServiceImpl implements ParkingService {
             }
 
         }
-//        Optional<Parking> parkingByName = parkingRepo.findById(parkingDTO.getParkingId());
-//        if (parkingByName.isPresent()) {
-//            throw new ParkingException("Parking with name " + parkingDTO.getName() + " already exists!");
-//        } else {
-//            return parkingRepo.save(new Parking(parkingDTO));
-//        }
-
         return new Parking(parkingDTO);
     }
 
@@ -154,7 +147,6 @@ public class ParkingServiceImpl implements ParkingService {
 
     @Override
     public List<ParkingSpotDTO> findSpotsByZoneId(int zoneId){
-        //List<ParkingSpot> results = parkingSpotRepo.findSpotsByZoneId(zoneId);
         Optional<ParkingZone> parkingZone = parkingZoneRepo.findById(zoneId);
         if(parkingZone.isPresent()){
             return parkingZone.get().getParkingSpots().stream()
@@ -168,7 +160,6 @@ public class ParkingServiceImpl implements ParkingService {
 
     @Override
     public void createNewSpot(ParkingSpotDTO parkingSpotDTO, int zoneId, int parkingId) {
-        ParkingSpot parkingSpot = new ParkingSpot();
         if (parkingZoneRepo.existsById(zoneId)) {
             if (parkingSpotRepo.existsById(parkingSpotDTO.getId())) {
                 throw new ParkingException("The zone with id: " + zoneId + " doesn't exists!");

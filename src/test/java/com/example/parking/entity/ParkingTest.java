@@ -35,9 +35,9 @@ class ParkingTest {
         parkingDTO.getParkingZoneDTOList().add(parkingZoneDTO);
 
 
-        Parking parking = new Parking("name");
-        ParkingZone parkingZone = new ParkingZone("type","name");
-        ParkingSpot parkingSpot = new ParkingSpot("name","type",false);
+        Parking parking = new Parking();
+        ParkingZone parkingZone = new ParkingZone(parkingZoneDTO);
+        ParkingSpot parkingSpot = new ParkingSpot(parkingSpotDTO);
         parkingZone.getParkingSpots().add(parkingSpot);
         parking.getParkingZones().add(parkingZone);
         System.out.println(parking.toString());
