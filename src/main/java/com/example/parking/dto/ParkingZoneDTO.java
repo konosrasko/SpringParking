@@ -71,6 +71,16 @@ public class ParkingZoneDTO {
     }
 
     @Override
+    public String toString() {
+        return "ParkingZoneDTO{" +
+                "parkingZoneId=" + parkingZoneId +
+                ", type='" + type + '\'' +
+                ", name='" + name + '\'' +
+                ", parkingSpotDTOList=" + parkingSpotDTOList +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof ParkingZoneDTO that)) return false;
@@ -80,15 +90,5 @@ public class ParkingZoneDTO {
     @Override
     public int hashCode() {
         return Objects.hash(getParkingZoneId(), getType(), getName(), getParkingSpotDTOList());
-    }
-
-    @Override
-    public String toString() {
-        return "ParkingZoneDTO{" +
-                "parkingZoneId=" + parkingZoneId +
-                ", type='" + type + '\'' +
-                ", name='" + name + '\'' +
-                ", parkingSpotDTOList=" + parkingSpotDTOList +
-                '}';
     }
 }

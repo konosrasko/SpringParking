@@ -103,12 +103,6 @@ public class ParkingZone {
         this.parking = parking;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ParkingZone that)) return false;
-        return getId() == that.getId() && Objects.equals(getType(), that.getType()) && Objects.equals(getName(), that.getName()) && Objects.equals(getParkingSpots(), that.getParkingSpots()) && Objects.equals(parking, that.parking);
-    }
 
     @Override
     public int hashCode() {
@@ -124,4 +118,12 @@ public class ParkingZone {
                 ", parkingSpots=" + parkingSpots +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ParkingZone that)) return false;
+        return getId() == that.getId() && Objects.equals(getType(), that.getType()) && Objects.equals(getName(), that.getName()) && Objects.equals(getParkingSpots(), that.getParkingSpots()) && Objects.equals(getParking(), that.getParking());
+    }
+
 }
