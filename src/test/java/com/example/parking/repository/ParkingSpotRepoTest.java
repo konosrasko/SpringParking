@@ -1,38 +1,93 @@
-/*
 package com.example.parking.repository;
 
 import com.example.parking.entity.ParkingSpot;
-import com.example.parking.service.impl.ParkingSpotServiceImpl;
-import org.junit.jupiter.api.BeforeEach;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.Mockito.verify;
+import java.util.List;
+import java.util.Optional;
 
-@ExtendWith(MockitoExtension.class)
+@DataJpaTest
+@AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 class ParkingSpotRepoTest {
 
-    @Mock
-    private ParkingSpotRepo testSpotRepo;
-    private ParkingSpotServiceImpl testSpotService;
+    @Autowired
+    private ParkingSpotRepo parkingSpotRepo;
 
     @Test
-    void shouldSaveNewSpot() {
-        ParkingSpot parkingSpot1 = new ParkingSpot("spot_one", "normal", false);
+    void shouldSaveNewSpotAndReturnIt() {
 
-        testSpotRepo.save(parkingSpot1);
+        //Arrange
+        ParkingSpot parkingSpot = new ParkingSpot("SpotTest", "NormalTest", false);
 
-        ArgumentCaptor<ParkingSpot> parkingSpotArgumentCaptor = ArgumentCaptor.forClass(ParkingSpot.class);
-        verify(testSpotRepo).save(parkingSpotArgumentCaptor.capture());
+        //Act
+        ParkingSpot savedSpot = parkingSpotRepo.save(parkingSpot);
 
-        ParkingSpot captureSpot = parkingSpotArgumentCaptor.getValue();
+        //Assert
+        Assertions.assertThat(savedSpot).isNotNull();
+        Assertions.assertThat(savedSpot.getId()).isGreaterThan(0);
+        System.out.println(savedSpot.toString());
+    }
 
-        assertThat(captureSpot).isEqualTo(parkingSpot1);
+    @Test
+    void shouldReturnAllSpots(){
+
+        ParkingSpot parkingSpot1 = new ParkingSpot("spot_1", "type_one", false);
+        ParkingSpot parkingSpot2 = new ParkingSpot("spot_1", "type_one", false);
+
+        parkingSpotRepo.save(parkingSpot1);
+        parkingSpotRepo.save(parkingSpot2);
+
+        List<ParkingSpot> savedSpotList = parkingSpotRepo.findAll();
+
+        Assertions.assertThat(savedSpotList).isNotNull();
+        Assertions.assertThat(savedSpotList.size()).isEqualTo(2);
 
     }
 
-}*/
+    @Test
+    void shouldReturnTheSelectedSpot(){
+        ParkingSpot parkingSpot1 = new ParkingSpot("spot_1", "type_one", false);
+
+        parkingSpotRepo.save(parkingSpot1);
+
+        ParkingSpot selectedSpot = parkingSpotRepo.findById(parkingSpot1.getId()).get();
+
+        Assertions.assertThat(selectedSpot).isNotNull();
+    }
+
+    @Test
+    void shouldUpdateSpot(){
+        ParkingSpot parkingSpot1 = new ParkingSpot("spot_1", "type_one", false);
+        parkingSpotRepo.save(parkingSpot1);
+
+        ParkingSpot savedSpot = parkingSpotRepo.findById(parkingSpot1.getId()).get();
+        savedSpot.setName("spot_changed");
+        savedSpot.setType("type_changed");
+        savedSpot.setOccupied(true);
+
+        ParkingSpot updatedSpot = parkingSpotRepo.save(savedSpot);
+
+        Assertions.assertThat(updatedSpot.getName()).isNotNull();
+        Assertions.assertThat(updatedSpot.getType()).isNotNull();
+        Assertions.assertThat(updatedSpot.isOccupied()).isTrue();
+
+    }
+
+    @Test
+    void shouldDeleteSpot(){
+        ParkingSpot parkingSpot1 = new ParkingSpot("spot_1", "type_one", false);
+        parkingSpotRepo.save(parkingSpot1);
+
+        parkingSpotRepo.deleteById(parkingSpot1.getId());
+
+        Optional<ParkingSpot> foundSpot = parkingSpotRepo.findById(parkingSpot1.getId());
+
+        Assertions.assertThat(foundSpot).isEmpty();
+    }
+
+}
