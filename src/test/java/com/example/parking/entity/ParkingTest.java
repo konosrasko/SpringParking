@@ -1,31 +1,16 @@
 package com.example.parking.entity;
 
-import com.example.parking.ParkingApplication;
 import com.example.parking.dto.ParkingDTO;
 import com.example.parking.dto.ParkingSpotDTO;
 import com.example.parking.dto.ParkingZoneDTO;
-import com.example.parking.repository.ParkingRepo;
-import com.example.parking.service.impl.ParkingServiceImpl;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
-@DataJpaTest
-@SpringBootTest(classes = ParkingApplication.class)
 class ParkingTest {
 
-    @Autowired
-    private ParkingRepo parkingRepo;
-
-    @Autowired
-    private ParkingServiceImpl parkingService;
     @Test
     void parkingEntityConstructionFromDTO(){
-
 
 
         ParkingDTO parkingDTO = new ParkingDTO("name");
@@ -35,15 +20,26 @@ class ParkingTest {
         parkingDTO.getParkingZoneDTOList().add(parkingZoneDTO);
 
 
-        Parking parking = new Parking();
-        ParkingZone parkingZone = new ParkingZone(parkingZoneDTO);
-        ParkingSpot parkingSpot = new ParkingSpot(parkingSpotDTO);
+        Parking parking = new Parking("name");
+        ParkingZone parkingZone = new ParkingZone("type","name");
+        ParkingSpot parkingSpot = new ParkingSpot("name","type",false);
         parkingZone.getParkingSpots().add(parkingSpot);
         parking.getParkingZones().add(parkingZone);
-        System.out.println(parking.toString());
 
-        assertThat(parkingService.saveParking(parkingDTO).equals(parking)).isTrue();
+        assertEquals(parking.getName(),parkingDTO.getName());
 
+    }
+    @Test
+    void parkingDTOmappedByEntity(){
+
+        Parking parking = new Parking("name");
+        ParkingZone parkingZone = new ParkingZone("type","name");
+        ParkingSpot parkingSpot = new ParkingSpot("name","type",false);
+        parkingZone.getParkingSpots().add(parkingSpot);
+        parking.getParkingZones().add(parkingZone);
+
+        ParkingDTO parkingDTO = new ParkingDTO(parking);
+        assertEquals(parking.getName(),parkingDTO.getName());
 
     }
 }

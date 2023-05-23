@@ -45,14 +45,6 @@ public class ParkingZone {
         this.parkingSpots = new ArrayList<>();
     }
 
-//    public ParkingZone(int id, int park_id, String type, String name) {
-//        //this.id = id;
-//        this.parkingId = park_id;
-//        this.type = type;
-//        this.name = name;
-//        this.parkingSpots = new ArrayList<>();
-//    }
-
     public ParkingZone(int id, String type, String name, List<ParkingSpot> parkingSpots) {
         this.id = id;
         this.type = type;
@@ -95,9 +87,7 @@ public class ParkingZone {
     }
 
     public List<ParkingSpot> getParkingSpots() {
-//        if(parkingSpots == null ){
-//            setParkingZoneSpots(new ArrayList<>());
-//        }
+
         return parkingSpots;
     }
 

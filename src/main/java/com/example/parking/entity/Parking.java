@@ -24,13 +24,14 @@ public class Parking {
         this.parkingZones = new ArrayList<>();
     }
 
-    public Parking(String name, List<ParkingZone> parkingZones) {
+
+
+    public Parking(String name) {
         this.name = name;
         this.parkingZones = new ArrayList<>();
     }
 
     public Parking(ParkingDTO parkingDTO) {
-        //this.id = parkingDTO.getParkingId();
         this.name = parkingDTO.getName();
         this.parkingZones = parkingDTO.getParkingZoneDTOList()
                 .stream()
@@ -55,9 +56,6 @@ public class Parking {
     }
 
     public List<ParkingZone> getParkingZones() {
-//        if(parkingZones == null){
-//            setParkingZones(new ArrayList<>());
-//        }
         return parkingZones;
     }
 
