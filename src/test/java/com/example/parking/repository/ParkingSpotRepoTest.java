@@ -1,6 +1,10 @@
 package com.example.parking.repository;
 
+import com.example.parking.dto.ParkingDTO;
+import com.example.parking.entity.Parking;
 import com.example.parking.entity.ParkingSpot;
+import com.example.parking.service.ParkingService;
+import com.example.parking.service.impl.ParkingServiceImpl;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +21,8 @@ class ParkingSpotRepoTest {
 
     @Autowired
     private ParkingSpotRepo parkingSpotRepo;
-
+    @Autowired
+    private ParkingService parkingService;
     @Test
     void shouldSaveNewSpotAndReturnIt() {
 
@@ -30,7 +35,7 @@ class ParkingSpotRepoTest {
         //Assert
         Assertions.assertThat(savedSpot).isNotNull();
         Assertions.assertThat(savedSpot.getId()).isGreaterThan(0);
-        System.out.println(savedSpot.toString());
+        System.out.println(parkingSpotRepo.findAll());
     }
 
     @Test
@@ -89,5 +94,6 @@ class ParkingSpotRepoTest {
 
         Assertions.assertThat(foundSpot).isEmpty();
     }
+
 
 }

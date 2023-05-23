@@ -5,10 +5,15 @@ import com.example.parking.dto.ParkingSpotDTO;
 import com.example.parking.dto.ParkingZoneDTO;
 import com.example.parking.entity.Parking;
 import com.example.parking.entity.ParkingZone;
+import com.example.parking.repository.ParkingRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 public interface ParkingService {
+
+    void setParkingRepo(ParkingRepo parkingRepo);
+
     List<ParkingDTO> findAllParkings();
 
     ParkingDTO findParkingById(int id);
