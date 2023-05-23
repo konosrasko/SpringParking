@@ -52,24 +52,28 @@ public class ParkingServiceImpl implements ParkingService {
         parking.setName(parkingDTO.getName());
 
         Parking savedParking = parkingRepo.save(parking);
-        List<ParkingZoneDTO> foundZones = parkingDTO.getParkingZoneDTOList();
+        List<ParkingZoneDTO> givenZonesDTO = parkingDTO.getParkingZoneDTOList();
 
-        for(ParkingZoneDTO zoneDTO : foundZones){
-            ParkingZone zone = new ParkingZone();
-            zone.setName(zoneDTO.getName());
-            zone.setType(zoneDTO.getType());
-            zone.setParking(savedParking);
+        if(!givenZonesDTO.isEmpty()){
+            for(ParkingZoneDTO zoneDTO : givenZonesDTO){
+                ParkingZone zone = new ParkingZone();
+                zone.setName(zoneDTO.getName());
+                zone.setType(zoneDTO.getType());
+                zone.setParking(savedParking);
 
-            ParkingZone savedZone = parkingZoneRepo.save(zone);
-            List<ParkingSpotDTO> foundSpots = zoneDTO.getParkingSpotDTOList();
+                ParkingZone savedZone = parkingZoneRepo.save(zone);
+                List<ParkingSpotDTO> givenSpotDTO = zoneDTO.getParkingSpotDTOList();
 
-            for(ParkingSpotDTO spotDTO : foundSpots){
-                ParkingSpot spot = new ParkingSpot();
-                spot.setName(spotDTO.getName());
-                spot.setType(spotDTO.getType());
-                spot.setOccupied(spot.isOccupied());
-                spot.setZone(savedZone);
-                parkingSpotRepo.save(spot);
+                if(!givenZonesDTO.isEmpty()){
+                    for(ParkingSpotDTO spotDTO : givenSpotDTO){
+                        ParkingSpot spot = new ParkingSpot();
+                        spot.setName(spotDTO.getName());
+                        spot.setType(spotDTO.getType());
+                        spot.setOccupied(spot.isOccupied());
+                        spot.setZone(savedZone);
+                        parkingSpotRepo.save(spot);
+                    }
+                }
             }
         }
         return new Parking(parkingDTO);
@@ -86,10 +90,12 @@ public class ParkingServiceImpl implements ParkingService {
             ParkingZone savedZone = parkingZoneRepo.save(zone);
 
             List<ParkingSpotDTO> spotsDTOList = parkingZoneDTO.getParkingSpotDTOList();
-            for(ParkingSpotDTO spotDTO : spotsDTOList){
-                ParkingSpot spot = new ParkingSpot(spotDTO);
-                spot.setZone(savedZone);
-                parkingSpotRepo.save(spot);
+            if(!spotsDTOList.isEmpty()){
+                for(ParkingSpotDTO spotDTO : spotsDTOList){
+                    ParkingSpot spot = new ParkingSpot(spotDTO);
+                    spot.setZone(savedZone);
+                    parkingSpotRepo.save(spot);
+                }
             }
         } else {
             throw new ParkingException("Parking with id : " + parkingId + " does not exist");
