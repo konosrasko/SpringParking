@@ -87,9 +87,7 @@ public class ParkingZone {
     }
 
     public List<ParkingSpot> getParkingSpots() {
-//        if(parkingSpots == null ){
-//            setParkingZoneSpots(new ArrayList<>());
-//        }
+
         return parkingSpots;
     }
 

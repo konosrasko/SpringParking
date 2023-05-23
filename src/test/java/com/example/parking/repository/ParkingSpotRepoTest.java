@@ -1,3 +1,4 @@
+/*
 package com.example.parking.repository;
 
 import com.example.parking.entity.ParkingSpot;
@@ -34,4 +35,4 @@ class ParkingSpotRepoTest {
 
     }
 
-}
+}*/

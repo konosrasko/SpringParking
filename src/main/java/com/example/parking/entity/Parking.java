@@ -17,12 +17,14 @@ public class Parking {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "parking", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "parking", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ParkingZone> parkingZones;
 
     public Parking() {
         this.parkingZones = new ArrayList<>();
     }
+
+
 
     public Parking(String name) {
         this.name = name;
@@ -30,7 +32,6 @@ public class Parking {
     }
 
     public Parking(ParkingDTO parkingDTO) {
-        this.id = parkingDTO.getParkingId();
         this.name = parkingDTO.getName();
         this.parkingZones = parkingDTO.getParkingZoneDTOList()
                 .stream()

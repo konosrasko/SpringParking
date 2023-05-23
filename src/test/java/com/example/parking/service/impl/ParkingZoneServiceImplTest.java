@@ -25,7 +25,6 @@ class ParkingZoneServiceImplTest {
     private ParkingSpotRepo parkingSpotRepo;
     @Mock
     private ParkingRepo parkingRepo;
-    private ParkingZoneServiceImpl parkingZoneServiceImpl;
     private AutoCloseable autoCloseable;
 //    @BeforeEach
 //    void setUp() {
