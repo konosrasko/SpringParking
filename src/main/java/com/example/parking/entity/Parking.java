@@ -17,24 +17,24 @@ public class Parking {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "parking", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "parking", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ParkingZone> parkingZones;
 
     public Parking() {
         this.parkingZones = new ArrayList<>();
     }
 
-    public Parking(String name, List<ParkingZone> parkingZones) {
+    public Parking(String name) {
         this.name = name;
         this.parkingZones = new ArrayList<>();
     }
 
     public Parking(ParkingDTO parkingDTO) {
-        //this.id = parkingDTO.getParkingId();
+        this.id = parkingDTO.getParkingId();
         this.name = parkingDTO.getName();
         this.parkingZones = parkingDTO.getParkingZoneDTOList()
                 .stream()
-                .map(parkingZoneDTO -> new ParkingZone(id, parkingZoneDTO))
+                .map(ParkingZone::new)
                 .toList();
     }
 
@@ -55,9 +55,6 @@ public class Parking {
     }
 
     public List<ParkingZone> getParkingZones() {
-//        if(parkingZones == null){
-//            setParkingZones(new ArrayList<>());
-//        }
         return parkingZones;
     }
 

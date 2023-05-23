@@ -45,14 +45,6 @@ public class ParkingZone {
         this.parkingSpots = new ArrayList<>();
     }
 
-//    public ParkingZone(int id, int park_id, String type, String name) {
-//        //this.id = id;
-//        this.parkingId = park_id;
-//        this.type = type;
-//        this.name = name;
-//        this.parkingSpots = new ArrayList<>();
-//    }
-
     public ParkingZone(int id, String type, String name, List<ParkingSpot> parkingSpots) {
         this.id = id;
         this.type = type;
@@ -60,7 +52,7 @@ public class ParkingZone {
         this.parkingSpots = parkingSpots;
     }
 
-    public ParkingZone(int parkingId, ParkingZoneDTO parkingZoneDTO) {
+    public ParkingZone(ParkingZoneDTO parkingZoneDTO) {
         this.id = parkingZoneDTO.getParkingZoneId();
         this.name = parkingZoneDTO.getName();
         this.type = parkingZoneDTO.getType();
