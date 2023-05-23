@@ -5,6 +5,7 @@ import com.example.parking.entity.ParkingZone;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ParkingDTO {
     private int parkingId;
@@ -59,5 +60,26 @@ public class ParkingDTO {
             return new ArrayList<>();
         }
         return parkingZoneDTOList;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ParkingDTO that)) return false;
+        return getParkingId() == that.getParkingId() && Objects.equals(getName(), that.getName()) && Objects.equals(getParkingZoneDTOList(), that.getParkingZoneDTOList());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getParkingId(), getName(), getParkingZoneDTOList());
+    }
+
+    @Override
+    public String toString() {
+        return "ParkingDTO{" +
+                "parkingId=" + parkingId +
+                ", name='" + name + '\'' +
+                ", parkingZoneDTOList=" + parkingZoneDTOList +
+                '}';
     }
 }
