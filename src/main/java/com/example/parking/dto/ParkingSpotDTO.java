@@ -2,6 +2,8 @@ package com.example.parking.dto;
 
 import com.example.parking.entity.ParkingSpot;
 
+import java.util.Objects;
+
 public class ParkingSpotDTO {
     private int id;
     private String name;
@@ -61,5 +63,27 @@ public class ParkingSpotDTO {
 
     public void setOccupied(boolean occupied) {
         this.occupied = occupied;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ParkingSpotDTO that)) return false;
+        return getId() == that.getId() && isOccupied() == that.isOccupied() && Objects.equals(getName(), that.getName()) && Objects.equals(getType(), that.getType());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getType(), isOccupied());
+    }
+
+    @Override
+    public String toString() {
+        return "ParkingSpotDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", occupied=" + occupied +
+                '}';
     }
 }

@@ -44,7 +44,7 @@ class ParkingServiceImplTest {
     ParkingDTO parkingDTO = new ParkingDTO(1,"dsaf");
     Parking parking = null;
 
-    assertEquals(underTest.saveParking(parkingDTO),parking);
+    assertEquals(underTest.addParking(parkingDTO),parking);
     assertEquals(underTest.findIfParkingExistById(0),false);
 
     }
@@ -54,7 +54,7 @@ class ParkingServiceImplTest {
         String test1 = "test1";
         ParkingDTO parkingDTO = new ParkingDTO(1, test1);
 
-        underTest.saveParking(parkingDTO);
+        underTest.addParking(parkingDTO);
 
         ArgumentCaptor<Parking> parkingArgumentCaptor = ArgumentCaptor
                 .forClass(Parking.class);

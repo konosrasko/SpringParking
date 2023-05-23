@@ -32,6 +32,7 @@ public class Parking {
     }
 
     public Parking(ParkingDTO parkingDTO) {
+        this.id = parkingDTO.getParkingId();
         this.name = parkingDTO.getName();
         this.parkingZones = parkingDTO.getParkingZoneDTOList()
                 .stream()

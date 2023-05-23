@@ -13,7 +13,7 @@ public interface ParkingService {
 
     ParkingDTO findParkingById(int id);
 
-    Parking saveParking(ParkingDTO parkingDTO);
+    Parking addParking(ParkingDTO parkingDTO);
 
     Boolean findIfParkingExistById(int parkingId);
 
@@ -27,7 +27,7 @@ public interface ParkingService {
 
     List<ParkingSpotDTO> findSpotsByZoneId(int zoneId);
 
-    void createNewSpot(ParkingSpotDTO parkingSpotDTO, int zoneId, int parkingId);
+    void addSpot(ParkingSpotDTO parkingSpotDTO, int zoneId, int parkingId);
 
     void deleteSpot(int zoneId, int spotId);
 

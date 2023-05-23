@@ -63,24 +63,23 @@ public class ParkingDTO {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ParkingDTO that)) return false;
+        return getParkingId() == that.getParkingId() && Objects.equals(getName(), that.getName()) && Objects.equals(getParkingZoneDTOList(), that.getParkingZoneDTOList());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getParkingId(), getName(), getParkingZoneDTOList());
+    }
+
+    @Override
     public String toString() {
         return "ParkingDTO{" +
                 "parkingId=" + parkingId +
                 ", name='" + name + '\'' +
                 ", parkingZoneDTOList=" + parkingZoneDTOList +
                 '}';
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ParkingDTO that = (ParkingDTO) o;
-        return parkingId == that.parkingId && Objects.equals(name, that.name) && Objects.equals(parkingZoneDTOList, that.parkingZoneDTOList);
     }
 }
