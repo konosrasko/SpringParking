@@ -22,7 +22,7 @@ public class ParkingSpot {
     @Column(name = "occupied")
     private boolean occupied;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "zone_id", referencedColumnName = "id")
     private ParkingZone zone;
 

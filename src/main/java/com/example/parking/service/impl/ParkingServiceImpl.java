@@ -48,7 +48,7 @@ public class ParkingServiceImpl implements ParkingService {
     }
 
     @Override
-    public Parking addParking(ParkingDTO parkingDTO) {
+    public ParkingDTO addParking(ParkingDTO parkingDTO) {
         Parking parking = new Parking();
         parking.setName(parkingDTO.getName());
 
@@ -77,18 +77,19 @@ public class ParkingServiceImpl implements ParkingService {
                 }
             }
         }
-        return new Parking(parkingDTO);
+        return new ParkingDTO(savedParking);
     }
 
     @Override
-    public ParkingZone addZone(int parkingId, ParkingZoneDTO parkingZoneDTO) {
+    public ParkingZoneDTO addZone(int parkingId, ParkingZoneDTO parkingZoneDTO) {
         Optional<Parking> foundParking= parkingRepo.findById(parkingId);
+        ParkingZone savedZone = new ParkingZone();
         if(foundParking.isPresent()){
             ParkingZone zone = new ParkingZone();
             zone.setName(parkingZoneDTO.getName());
             zone.setType(parkingZoneDTO.getType());
             zone.setParking(foundParking.get());
-            ParkingZone savedZone = parkingZoneRepo.save(zone);
+            savedZone = parkingZoneRepo.save(zone);
 
             List<ParkingSpotDTO> spotsDTOList = parkingZoneDTO.getParkingSpotDTOList();
             if(!spotsDTOList.isEmpty()){
@@ -101,24 +102,24 @@ public class ParkingServiceImpl implements ParkingService {
         } else {
             throw new ParkingException("Parking with id : " + parkingId + " does not exist");
         }
-        return new ParkingZone(parkingZoneDTO);
+        return new ParkingZoneDTO(savedZone);
     }
 
     @Override
-    public void addSpot(ParkingSpotDTO parkingSpotDTO, int zoneId, int parkingId) {
-        if (parkingRepo.existsById(parkingId)) {
+    public ParkingSpotDTO addSpot(ParkingSpotDTO parkingSpotDTO, int zoneId) {
+        ParkingSpot savedSpot = new ParkingSpot();
+
             Optional<ParkingZone> foundZone = parkingZoneRepo.findById(zoneId);
             if(foundZone.isPresent()){
                 ParkingSpot spot = new ParkingSpot(parkingSpotDTO);
                 ParkingZone zone = foundZone.get();
                 spot.setZone(zone);
-                parkingSpotRepo.save(spot);
+                savedSpot = parkingSpotRepo.save(spot);
             }else {
                 throw new ParkingException("The zone with id: " + zoneId + " doesn't exists! ");
             }
-        } else {
-            throw new ParkingException("The parking with id: " + parkingId + " doesn't exists!");
-        }
+
+        return new ParkingSpotDTO(savedSpot);
     }
 
     @Override

@@ -27,7 +27,7 @@ public class ParkingController {
     }
 
     @PostMapping("/parking")
-    public Parking addNewParking(@RequestBody ParkingDTO parkingDTO) {
+    public ParkingDTO addNewParking(@RequestBody ParkingDTO parkingDTO) {
         return parkingService.addParking(parkingDTO);
     }
 
@@ -43,7 +43,7 @@ public class ParkingController {
 
     @PostMapping("/parking/{id}/parking-zones")
     public ParkingZoneDTO addNewParkingZone(@PathVariable int id, @RequestBody ParkingZoneDTO parkingZoneDTO){
-        return new ParkingZoneDTO(parkingService.addZone(id,parkingZoneDTO));
+        return (parkingService.addZone(id,parkingZoneDTO));
     }
 
     @GetMapping("/parking-spots/{id}")
@@ -59,7 +59,7 @@ public class ParkingController {
     @PostMapping("/parking/{parkingId}/parking-zones/{zoneId}/parking-spots")
     public String addNewSpot(@RequestBody ParkingSpotDTO newSpotDTO, @PathVariable int parkingId, @PathVariable int zoneId){
         newSpotDTO.setId(0);
-        parkingService.addSpot(newSpotDTO, zoneId, parkingId);
+        parkingService.addSpot(newSpotDTO, zoneId);
         return ("New Spot has been added in zone with id " + zoneId);
     }
 
