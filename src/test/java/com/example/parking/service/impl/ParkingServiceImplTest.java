@@ -85,7 +85,7 @@ public class ParkingServiceImplTest {
 
     }
     @Test
-    void getParkingZones(){
+    void getParkingZonesById(){
         ParkingDTO parkingDTO = new ParkingDTO("ParkingName");
         Parking parking = new Parking(parkingDTO);
         ParkingDTO savedParking =parkingService.addParking(parkingDTO);
@@ -102,48 +102,71 @@ public class ParkingServiceImplTest {
         assertEquals(parkingService.findSpotsByZoneId(savedZone.getParkingZoneId()),parkingZoneDTO.getParkingSpotDTOList());
 
     }
+    @Test
+    void getParkingZones(){
+        ParkingDTO parkingDTO = new ParkingDTO("ParkingName");
+        Parking parking = new Parking(parkingDTO);
+        ParkingDTO savedParking =parkingService.addParking(parkingDTO);
+
+
+        ParkingZoneDTO parkingZoneDTO = new ParkingZoneDTO("ZoneName","ZoneName");
+        parkingDTO.getParkingZoneDTOList().add(parkingZoneDTO);
+        ParkingZoneDTO savedZone = parkingService.addZone(savedParking.getParkingId(), parkingZoneDTO);
+
+
+        assertEquals(parkingService.getParkingZones(savedParking.getParkingId()),savedParking.getParkingZoneDTOList());
+    }
+    @Test
+    void addSpot(){
+        ParkingDTO parkingDTO = new ParkingDTO("ParkingName");
+        Parking parking = new Parking(parkingDTO);
+        ParkingDTO savedParking =parkingService.addParking(parkingDTO);
+
+
+        ParkingZoneDTO parkingZoneDTO = new ParkingZoneDTO("ZoneName","ZoneName");
+        parkingDTO.getParkingZoneDTOList().add(parkingZoneDTO);
+        ParkingZoneDTO savedZone = parkingService.addZone(savedParking.getParkingId(), parkingZoneDTO);
+
+        ParkingSpotDTO parkingSpotDTO = new ParkingSpotDTO("test","test",false);
+        ParkingSpotDTO savedSpot = parkingService.addSpot(parkingSpotDTO, savedZone.getParkingZoneId());
+
+        assertNotNull(savedSpot);
+    }
+
+    @Test
+    void findParkingSpotById(){
+        ParkingDTO parkingDTO = new ParkingDTO("ParkingName");
+        Parking parking = new Parking(parkingDTO);
+        ParkingDTO savedParking =parkingService.addParking(parkingDTO);
+
+
+        ParkingZoneDTO parkingZoneDTO = new ParkingZoneDTO("ZoneName","ZoneName");
+        parkingDTO.getParkingZoneDTOList().add(parkingZoneDTO);
+        ParkingZoneDTO savedZone = parkingService.addZone(savedParking.getParkingId(), parkingZoneDTO);
+
+        ParkingSpotDTO parkingSpotDTO = new ParkingSpotDTO("test","test",false);
+        ParkingSpotDTO savedSpot = parkingService.addSpot(parkingSpotDTO, savedZone.getParkingZoneId());
+
+        assertNotNull(parkingService.findParkingSpotById(savedSpot.getId()));
+
+    }
+    @Test
+    void findSpotsByZoneId(){
+        ParkingDTO parkingDTO = new ParkingDTO("ParkingName");
+        Parking parking = new Parking(parkingDTO);
+        ParkingDTO savedParking =parkingService.addParking(parkingDTO);
+
+
+        ParkingZoneDTO parkingZoneDTO = new ParkingZoneDTO("ZoneName","ZoneName");
+        parkingDTO.getParkingZoneDTOList().add(parkingZoneDTO);
+        ParkingZoneDTO savedZone = parkingService.addZone(savedParking.getParkingId(), parkingZoneDTO);
+
+        ParkingSpotDTO parkingSpotDTO = new ParkingSpotDTO("test","test",false);
+        ParkingSpotDTO savedSpot = parkingService.addSpot(parkingSpotDTO, savedZone.getParkingZoneId());
+
+        assertNotNull(parkingService.findSpotsByZoneId(savedZone.getParkingZoneId()));
+    }
 
 
 
 }
-
-
-//    @Test
-//    void canFindAllParkings() {
-//        parkingService.findAllParkings();
-//
-//        verify(parkingRepo).findAll();
-//
-//    }
-//
-//    @Test
-//    void findIfParkingExistById() {
-//    ParkingDTO parkingDTO = new ParkingDTO(1,"dsaf");
-//    Parking parking = null;
-//
-//    assertEquals(parkingService.addParking(parkingDTO),parking);
-//    assertEquals(parkingService.findIfParkingExistById(0),false);
-//
-//    }
-//
-//    @Test
-//    void canSaveParking() {
-//        String test1 = "test1";
-//        ParkingDTO parkingDTO = new ParkingDTO(1, test1);
-//
-//        parkingService.addParking(parkingDTO);
-//
-//        ArgumentCaptor<Parking> parkingArgumentCaptor = ArgumentCaptor
-//                .forClass(Parking.class);
-//
-//        verify(parkingRepo)
-//                .save(parkingArgumentCaptor.capture());
-//        Parking capturedParking = parkingArgumentCaptor.getValue();
-//
-//        assertEquals(capturedParking.getName(),test1);
-//
-//
-//    }
-//
-//
-//}
