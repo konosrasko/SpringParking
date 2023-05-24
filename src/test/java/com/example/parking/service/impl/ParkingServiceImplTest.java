@@ -3,9 +3,6 @@ package com.example.parking.service.impl;
 import com.example.parking.dto.ParkingDTO;
 import com.example.parking.dto.ParkingSpotDTO;
 import com.example.parking.dto.ParkingZoneDTO;
-import com.example.parking.entity.Parking;
-import com.example.parking.entity.ParkingSpot;
-import com.example.parking.entity.ParkingZone;
 import com.example.parking.service.ParkingService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,7 +81,7 @@ public class ParkingServiceImplTest {
 
     }
     @Test
-    void getParkingZonesById(){
+    void getParkingZoneById(){
         ParkingDTO parkingDTO = new ParkingDTO("ParkingName");
         ParkingDTO savedParking =parkingService.addParking(parkingDTO);
 
@@ -92,6 +89,7 @@ public class ParkingServiceImplTest {
         ParkingZoneDTO parkingZoneDTO = new ParkingZoneDTO("ZoneName","ZoneName");
         parkingDTO.getParkingZoneDTOList().add(parkingZoneDTO);
         ParkingZoneDTO savedZone = parkingService.addZone(savedParking.getParkingId(), parkingZoneDTO);
+        parkingService.getParkingZoneById(savedParking.getParkingId(),savedZone.getParkingZoneId());
 
 
         assertEquals(parkingService.findSpotsByZoneId(savedZone.getParkingZoneId()),parkingZoneDTO.getParkingSpotDTOList());

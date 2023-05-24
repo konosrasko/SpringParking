@@ -2,10 +2,12 @@ package com.example.parking.entity;
 
 import com.example.parking.dto.ParkingZoneDTO;
 import jakarta.persistence.*;
+import lombok.Builder;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
 
 @Entity
 @Table(name = "parking_zone")

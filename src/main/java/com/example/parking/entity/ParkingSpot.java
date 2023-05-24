@@ -2,6 +2,7 @@ package com.example.parking.entity;
 
 import com.example.parking.dto.ParkingSpotDTO;
 import jakarta.persistence.*;
+import lombok.Builder;
 
 import java.util.Objects;
 
