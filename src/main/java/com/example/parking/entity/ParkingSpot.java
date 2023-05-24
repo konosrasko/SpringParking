@@ -2,12 +2,15 @@ package com.example.parking.entity;
 
 import com.example.parking.dto.ParkingSpotDTO;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 
 import java.util.Objects;
 
+@Builder
 @Entity
 @Table(name = "parking_spot")
+@AllArgsConstructor
 public class ParkingSpot {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

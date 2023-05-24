@@ -6,6 +6,7 @@ import com.example.parking.dto.ParkingZoneDTO;
 import com.example.parking.entity.Parking;
 import com.example.parking.entity.ParkingSpot;
 import com.example.parking.entity.ParkingZone;
+import com.example.parking.repository.ParkingSpotRepo;
 import com.example.parking.service.ParkingService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
@@ -28,10 +29,14 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.nio.file.Paths.get;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.notNull;
+import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -51,6 +56,7 @@ class ParkingControllerTest {
     private ParkingDTO parkingDTO;
     private ParkingZoneDTO parkingZoneDTO;
     private ParkingSpotDTO parkingSpotDTO;
+    private ParkingSpot parkingSpot;
 
     private List<ParkingSpotDTO> parkingSpotDTOList;
 
@@ -72,9 +78,11 @@ class ParkingControllerTest {
         parkingSpotDTO.setType("TypeSpot");
         parkingSpotDTO.setOccupied(false);
 
-//        parking = Parking.builder().name("nameParking").build();
-//        parkingZone = ParkingZone.builder().type("ZoneType").name("nameZone").parkingSpots(parkingSpots).build();
-//        parkingSpot = ParkingSpot.builder().build();
+        List<ParkingSpot> parkingSpots = new ArrayList<>();
+        parkingSpots.add(parkingSpot);
+        Parking parking = Parking.builder().name("nameParking").build();
+        ParkingZone parkingZone = ParkingZone.builder().type("ZoneType").name("nameZone").parkingSpots(parkingSpots).build();
+        parkingSpot = ParkingSpot.builder().build();
     }
 
     @Test
@@ -110,15 +118,16 @@ class ParkingControllerTest {
 
         response.andExpect(MockMvcResultMatchers.status().isOk());
     }
-//    @Test
-//    public void parkingController_getParkings_ReturnResponseDTO() throws Exception{
-//
-//        when(parkingService.findParkingById(parkingDTO.getParkingId())).thenReturn(parkingDTO);
-//
-//        ResultActions response = mockMvc.perform((RequestBuilder) get("/api/parking/1"));
-//
-//        response.andExpect(MockMvcResultMatchers.status().isOk());
-//    }
+    @Test
+    public void parkingController_getParkings_ReturnResponseDTO() throws Exception{
+
+
+        when(parkingService.findParkingById(parkingDTO.getParkingId())).thenReturn(parkingDTO);
+
+        ResultActions response = mockMvc.perform((RequestBuilder) get("/api/parking/1"));
+
+        response.andExpect(MockMvcResultMatchers.status().isOk());
+    }
 
 
 }

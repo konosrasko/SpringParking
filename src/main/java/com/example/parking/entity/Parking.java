@@ -2,12 +2,15 @@ package com.example.parking.entity;
 
 import com.example.parking.dto.ParkingDTO;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 
 import java.util.*;
 
+@Builder
 @Entity
 @Table(name = "parking")
+@AllArgsConstructor
 public class Parking {
 
     @Id
