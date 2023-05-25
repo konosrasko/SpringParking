@@ -30,6 +30,9 @@ public class ParkingSpot {
     @JoinColumn(name = "zone_id", referencedColumnName = "id")
     private ParkingZone zone;
 
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "parkingSpot")
+    private ParkingOccupation parkingOccupation;
+
     public ParkingSpot() {
     }
 
@@ -85,6 +88,14 @@ public class ParkingSpot {
 
     public void setZone(ParkingZone zone) {
         this.zone = zone;
+    }
+
+    public ParkingOccupation getParkingOccupation() {
+        return parkingOccupation;
+    }
+
+    public void setParkingOccupation(ParkingOccupation parkingOccupation) {
+        this.parkingOccupation = parkingOccupation;
     }
 
     @Override
