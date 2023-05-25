@@ -1,8 +1,10 @@
 package com.example.parking.service.impl;
 
 import com.example.parking.dto.ParkingOccupationDTO;
+import com.example.parking.entity.Parking;
 import com.example.parking.entity.ParkingOccupation;
 import com.example.parking.entity.ParkingSpot;
+import com.example.parking.entity.ParkingZone;
 import com.example.parking.exception.ParkingException;
 import com.example.parking.repository.ParkingOccupationRepo;
 import com.example.parking.repository.ParkingRepo;
@@ -27,8 +29,22 @@ public class ParkingOccupationImpl implements ParkingOccupationService {
     @Autowired
     private ParkingOccupationRepo parkingOccupationRepo;
     @Override
-    public List<ParkingOccupation> getParkingHistoryByParkingId(int parkingId) {
-        return new ArrayList<>();
+    public List<ParkingOccupationDTO> getParkingHistoryByParkingId(int parkingId) {
+        Optional<Parking> parking = parkingRepo.findById(parkingId);
+        if(parking.isEmpty()) {
+            throw new ParkingException("Parking does not exist");
+        } else {
+            return parking.get().getParkingZones()
+                    .stream()
+                    .flatMap(parkingZone ->  parkingZone.getParkingSpots()
+                            .stream()
+                            .flatMap(parkingSpot -> parkingOccupationRepo.findAll()
+                                    .stream()
+                                    .filter(parkingOccupation -> parkingOccupation.getParkingSpot().getId() == parkingSpot.getId())
+                                    .map(ParkingOccupationDTO::new)
+                            )
+                    ).toList();
+        }
     }
 
     @Override

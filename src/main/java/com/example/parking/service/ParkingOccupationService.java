@@ -6,7 +6,7 @@ import com.example.parking.entity.ParkingOccupation;
 import java.util.List;
 
 public interface ParkingOccupationService {
-    List<ParkingOccupation> getParkingHistoryByParkingId(int parkingId);
-    ParkingOccupationDTO saveParkingOccupation(int spotId, ParkingOccupationDTO parkingOccupationDTO);
+    List<ParkingOccupationDTO> getParkingHistoryByParkingId(int parkingId);
+    void saveParkingOccupation(int spotId, ParkingOccupationDTO parkingOccupationDTO);
     ParkingOccupationDTO updateParkingOccupation(ParkingOccupation parkingOccupation);
 }
