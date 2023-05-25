@@ -49,6 +49,7 @@ public class ParkingOccupationImpl implements ParkingOccupationService {
 
     @Override
     public ParkingOccupationDTO saveParkingOccupation(int spotId, ParkingOccupationDTO parkingOccupationDTO) {
+        ParkingOccupation savedOccupation = new ParkingOccupation();
         Optional<ParkingSpot> parkingSpot = parkingSpotRepo.findById(spotId);
         if(parkingSpot.isEmpty()){
             throw new ParkingException("Parking spot does not exist"); //response error 404
@@ -59,11 +60,11 @@ public class ParkingOccupationImpl implements ParkingOccupationService {
                 ParkingOccupation parkingOccupation = new ParkingOccupation(parkingOccupationDTO);
                 parkingSpot.get().setOccupied(true);
                 parkingOccupation.setParkingSpot(parkingSpotRepo.save(parkingSpot.get()));
-                parkingOccupationRepo.save(parkingOccupation);
+                savedOccupation= parkingOccupationRepo.save(parkingOccupation);
                 parkingOccupationDTO.setSpotId(spotId);
             }
         }
-        return parkingOccupationDTO;
+        return new ParkingOccupationDTO(savedOccupation);
     }
 
     @Override
