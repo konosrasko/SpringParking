@@ -96,6 +96,26 @@ class ParkingOccupationImplTest {
         //assertTrue(parkingOccupationService.getParkingHistoryByParkingId(1).equals(savedParkingOccupation));
 
     }
+    @Test
+    void putParkingOccupation(){
+        ParkingDTO parkingDTO = new ParkingDTO("ParkingName");
+        ParkingDTO savedParking = parkingService.addParking(parkingDTO);
+
+
+        ParkingZoneDTO parkingZoneDTO = new ParkingZoneDTO("ZoneName", "ZoneName");
+        parkingDTO.getParkingZoneDTOList().add(parkingZoneDTO);
+        ParkingZoneDTO savedZone = parkingService.addZone(savedParking.getParkingId(), parkingZoneDTO);
+
+        ParkingSpotDTO parkingSpotDTO = new ParkingSpotDTO("test", "test", false);
+        ParkingSpotDTO savedSpot = parkingService.addSpot(parkingSpotDTO, savedZone.getParkingZoneId());
+
+        ParkingOccupationDTO parkingOccupationDTO = new ParkingOccupationDTO();
+        ParkingOccupationDTO savedParkingOccupation = parkingOccupationService.saveParkingOccupation(savedSpot.getId(), parkingOccupationDTO);
+
+        System.out.println(savedParkingOccupation.getVacancyDate());
+
+        assertNotNull(parkingOccupationService.updateParkingHistoryOccupation(1).getVacancyDate());
+    }
 
 
 }
