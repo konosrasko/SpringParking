@@ -9,7 +9,6 @@ import com.example.parking.repository.ParkingRepo;
 import com.example.parking.repository.ParkingSpotRepo;
 import com.example.parking.repository.ParkingZoneRepo;
 import com.example.parking.service.ParkingOccupationService;
-import com.example.parking.service.ParkingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +32,7 @@ public class ParkingOccupationImpl implements ParkingOccupationService {
     }
 
     @Override
-    public void saveParkingOccupation(int spotId, ParkingOccupationDTO parkingOccupationDTO) {
+    public ParkingOccupationDTO saveParkingOccupation(int spotId, ParkingOccupationDTO parkingOccupationDTO) {
         Optional<ParkingSpot> parkingSpot = parkingSpotRepo.findById(spotId);
         if(parkingSpot.isEmpty()){
             throw new ParkingException("Parking spot does not exist"); //response error 404
@@ -45,8 +44,10 @@ public class ParkingOccupationImpl implements ParkingOccupationService {
                 parkingSpot.get().setOccupied(true);
                 parkingOccupation.setParkingSpot(parkingSpotRepo.save(parkingSpot.get()));
                 parkingOccupationRepo.save(parkingOccupation);
+                parkingOccupationDTO.setSpotId(spotId);
             }
         }
+        return parkingOccupationDTO;
     }
 
     @Override

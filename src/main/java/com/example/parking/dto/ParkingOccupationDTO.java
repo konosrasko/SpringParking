@@ -28,4 +28,44 @@ public class ParkingOccupationDTO {
         this.cost = parkingOccupation.getCost();
         this.plate = parkingOccupation.getPlate();
     }
+
+    public int getSpotId() {
+        return spotId;
+    }
+
+    public void setSpotId(int spotId) {
+        this.spotId = spotId;
+    }
+
+    public OffsetDateTime getOccupationDate() {
+        return occupationDate;
+    }
+
+    public void setOccupationDate(OffsetDateTime occupationDate) {
+        this.occupationDate = occupationDate;
+    }
+
+    public OffsetDateTime getVacancyDate() {
+        return vacancyDate;
+    }
+
+    public void setVacancyDate(OffsetDateTime vacancyDate) {
+        this.vacancyDate = vacancyDate;
+    }
+
+    public float getCost() {
+        return cost;
+    }
+
+    public void setCost(float cost) {
+        this.cost = cost;
+    }
+
+    public String getPlate() {
+        return plate;
+    }
+
+    public void setPlate(String plate) {
+        this.plate = plate;
+    }
 }

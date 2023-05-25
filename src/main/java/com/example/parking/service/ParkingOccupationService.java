@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface ParkingOccupationService {
     List<ParkingOccupation> getParkingHistoryByParkingId(int parkingId);
-    void saveParkingOccupation(int spotId, ParkingOccupationDTO parkingOccupationDTO);
+    ParkingOccupationDTO saveParkingOccupation(int spotId, ParkingOccupationDTO parkingOccupationDTO);
     ParkingOccupationDTO updateParkingOccupation(ParkingOccupation parkingOccupation);
 }

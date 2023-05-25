@@ -32,6 +32,8 @@ public class ParkingOccupation {
     @Column(name = "vehicle_plate")
     private String plate;
 
+
+
     public ParkingOccupation(ParkingOccupationDTO parkingOccupationDTO){
         this.occupationDate = parkingOccupationDTO.getOccupationDate();
         this.vacancyDate = parkingOccupationDTO.getVacancyDate();
