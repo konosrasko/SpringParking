@@ -24,4 +24,9 @@ public class ParkingOccupationController {
     public List<ParkingOccupationDTO> getParkingHistory(@PathVariable int parkingId){
         return parkingOccupation.getParkingHistoryByParkingId(parkingId);
     }
+
+    @PutMapping("/parking-spots/{spotId}")
+    public ParkingOccupationDTO updateParkingHistory(@PathVariable int spotId){
+        return parkingOccupation.updateParkingHistoryOccupation(spotId);
+    }
 }

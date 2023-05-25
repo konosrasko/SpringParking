@@ -4,7 +4,6 @@ import com.example.parking.dto.ParkingOccupationDTO;
 import com.example.parking.entity.Parking;
 import com.example.parking.entity.ParkingOccupation;
 import com.example.parking.entity.ParkingSpot;
-import com.example.parking.entity.ParkingZone;
 import com.example.parking.exception.ParkingException;
 import com.example.parking.repository.ParkingOccupationRepo;
 import com.example.parking.repository.ParkingRepo;
@@ -14,7 +13,8 @@ import com.example.parking.service.ParkingOccupationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.time.OffsetDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -67,7 +67,28 @@ public class ParkingOccupationImpl implements ParkingOccupationService {
     }
 
     @Override
-    public ParkingOccupationDTO updateParkingOccupation(ParkingOccupation parkingOccupation) {
-        return new ParkingOccupationDTO(parkingOccupation);
+    public ParkingOccupationDTO updateParkingHistoryOccupation(int spotId) {
+        Optional<ParkingSpot> parkingSpot = parkingSpotRepo.findById(spotId);
+        if(parkingSpot.isEmpty()){
+            throw new ParkingException("Parking spot does not exist"); //response error 404
+        } else {
+            if (!parkingSpot.get().isOccupied()) {
+                throw new RuntimeException("Parking spot is occupied"); //response error 400
+            } else {
+                Optional<ParkingOccupation> optionalParkingOccupation = parkingOccupationRepo.findAll()
+                        .stream()
+                        .filter(parkingOccupation -> parkingOccupation.getParkingSpot().getId() == parkingSpot.get().getId())
+                        .max(Comparator.comparing(ParkingOccupation::getOccupationDate));
+                if(optionalParkingOccupation.isEmpty()){
+                    throw new RuntimeException("No occupation for spot with id : "+spotId);
+                } else {
+                    parkingSpot.get().setOccupied(false);
+                    parkingSpotRepo.save(parkingSpot.get());
+                    optionalParkingOccupation.get().setVacancyDate(OffsetDateTime.now());
+                    optionalParkingOccupation.get().setCost(0); // cost implementation method
+                    return new ParkingOccupationDTO(parkingOccupationRepo.save(optionalParkingOccupation.get()));
+                }
+            }
+        }
     }
 }
