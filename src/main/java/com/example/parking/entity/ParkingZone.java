@@ -1,5 +1,6 @@
 package com.example.parking.entity;
 
+import com.example.parking.dto.ParkingSpotDTO;
 import com.example.parking.dto.ParkingZoneDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -57,13 +58,14 @@ public class ParkingZone {
         this.parkingSpots = parkingSpots;
     }
 
-    public ParkingZone(ParkingZoneDTO parkingZoneDTO) {
+    public ParkingZone(Parking parking, ParkingZoneDTO parkingZoneDTO) {
         this.id = parkingZoneDTO.getParkingZoneId();
         this.name = parkingZoneDTO.getName();
         this.type = parkingZoneDTO.getType();
+        this.parking = parking;
         this.parkingSpots = parkingZoneDTO.getParkingSpotDTOList()
                 .stream()
-                .map(ParkingSpot::new)
+                .map(parkingSpotDTO -> new ParkingSpot(this,parkingSpotDTO))
                 .toList();
     }
 
@@ -128,7 +130,7 @@ public class ParkingZone {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof ParkingZone that)) return false;
-        return getId() == that.getId() && Objects.equals(getType(), that.getType()) && Objects.equals(getName(), that.getName()) && Objects.equals(getParkingSpots(), that.getParkingSpots()) && Objects.equals(getParking(), that.getParking());
+        return getId() == that.getId() && Objects.equals(getType(), that.getType()) && Objects.equals(getName(), that.getName()) && Objects.equals(getParkingSpots(), that.getParkingSpots());
     }
 
 }

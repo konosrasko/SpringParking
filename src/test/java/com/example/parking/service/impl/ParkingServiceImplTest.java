@@ -85,25 +85,23 @@ public class ParkingServiceImplTest {
         ParkingDTO parkingDTO = new ParkingDTO("ParkingName");
         ParkingDTO savedParking =parkingService.addParking(parkingDTO);
 
-
         ParkingZoneDTO parkingZoneDTO = new ParkingZoneDTO("ZoneName","ZoneName");
         parkingDTO.getParkingZoneDTOList().add(parkingZoneDTO);
         ParkingZoneDTO savedZone = parkingService.addZone(savedParking.getParkingId(), parkingZoneDTO);
-        parkingService.getParkingZoneById(savedParking.getParkingId(),savedZone.getParkingZoneId());
+        //parkingService.getParkingZoneById(savedParking.getParkingId(),savedZone.getParkingZoneId());
 
-
-        assertEquals(parkingService.findSpotsByZoneId(savedZone.getParkingZoneId()),parkingZoneDTO.getParkingSpotDTOList());
-
+        assertEquals(
+                parkingService.findSpotsByZoneId(savedZone.getParkingZoneId()),
+                parkingZoneDTO.getParkingSpotDTOList()
+        );
     }
     @Test
     void getParkingZones(){
         ParkingDTO parkingDTO = new ParkingDTO("ParkingName");
         ParkingDTO savedParking =parkingService.addParking(parkingDTO);
 
-
         ParkingZoneDTO parkingZoneDTO = new ParkingZoneDTO("ZoneName","ZoneName");
         parkingDTO.getParkingZoneDTOList().add(parkingZoneDTO);
-
 
         assertEquals(parkingService.getParkingZones(savedParking.getParkingId()),savedParking.getParkingZoneDTOList());
     }
@@ -111,7 +109,6 @@ public class ParkingServiceImplTest {
     void addSpot(){
         ParkingDTO parkingDTO = new ParkingDTO("ParkingName");
         ParkingDTO savedParking =parkingService.addParking(parkingDTO);
-
 
         ParkingZoneDTO parkingZoneDTO = new ParkingZoneDTO("ZoneName","ZoneName");
         parkingDTO.getParkingZoneDTOList().add(parkingZoneDTO);
@@ -128,7 +125,6 @@ public class ParkingServiceImplTest {
         ParkingDTO parkingDTO = new ParkingDTO("ParkingName");
         ParkingDTO savedParking =parkingService.addParking(parkingDTO);
 
-
         ParkingZoneDTO parkingZoneDTO = new ParkingZoneDTO("ZoneName","ZoneName");
         parkingDTO.getParkingZoneDTOList().add(parkingZoneDTO);
         ParkingZoneDTO savedZone = parkingService.addZone(savedParking.getParkingId(), parkingZoneDTO);
@@ -137,13 +133,11 @@ public class ParkingServiceImplTest {
         ParkingSpotDTO savedSpot = parkingService.addSpot(parkingSpotDTO, savedZone.getParkingZoneId());
 
         assertNotNull(parkingService.findParkingSpotById(savedSpot.getId()));
-
     }
     @Test
     void findSpotsByZoneId(){
         ParkingDTO parkingDTO = new ParkingDTO("ParkingName");
         ParkingDTO savedParking =parkingService.addParking(parkingDTO);
-
 
         ParkingZoneDTO parkingZoneDTO = new ParkingZoneDTO("ZoneName","ZoneName");
         parkingDTO.getParkingZoneDTOList().add(parkingZoneDTO);
@@ -153,7 +147,4 @@ public class ParkingServiceImplTest {
 
         assertNotNull(parkingService.findSpotsByZoneId(savedZone.getParkingZoneId()));
     }
-
-
-
 }

@@ -36,11 +36,12 @@ public class ParkingSpot {
     public ParkingSpot() {
     }
 
-    public ParkingSpot(ParkingSpotDTO parkingSpotDTO) {
+    public ParkingSpot(ParkingZone zone, ParkingSpotDTO parkingSpotDTO) {
         this.id = parkingSpotDTO.getId();
         this.name = parkingSpotDTO.getName();
         this.type = parkingSpotDTO.getType();
         this.occupied = parkingSpotDTO.isOccupied();
+        this.zone = zone;
     }
 
     public ParkingSpot(String name, String type, boolean occupied) {
@@ -102,7 +103,7 @@ public class ParkingSpot {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof ParkingSpot that)) return false;
-        return getId() == that.getId() && isOccupied() == that.isOccupied() && Objects.equals(getName(), that.getName()) && Objects.equals(getType(), that.getType()) && Objects.equals(zone, that.zone);
+        return getId() == that.getId() && isOccupied() == that.isOccupied() && Objects.equals(getName(), that.getName()) && Objects.equals(getType(), that.getType());
     }
 
     @Override

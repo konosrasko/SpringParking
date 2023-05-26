@@ -56,9 +56,9 @@ public class ParkingController {
         return parkingService.findSpotsByZoneId(zoneId);
     }
 
-    @PostMapping("/parking/{parkingId}/parking-zones/{zoneId}/parking-spots")
-    public String addNewSpot(@RequestBody ParkingSpotDTO newSpotDTO, @PathVariable int parkingId, @PathVariable int zoneId){
-        newSpotDTO.setId(0);
+    @PostMapping("/parking-zones/{zoneId}/parking-spots")
+    public String addNewSpot(@RequestBody ParkingSpotDTO newSpotDTO, @PathVariable int zoneId){
+//        newSpotDTO.setId(0);
         parkingService.addSpot(newSpotDTO, zoneId);
         return ("New Spot has been added in zone with id " + zoneId);
     }

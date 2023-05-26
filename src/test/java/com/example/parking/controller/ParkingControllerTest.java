@@ -103,7 +103,7 @@ class ParkingControllerTest {
 
         given(parkingService.addSpot(spotDTO1, zoneDTO.getParkingZoneId())).willAnswer(invocation -> invocation.getArgument(0));
 
-        ResultActions response = mockMvc.perform(post("/api/parking/1/parking-zones/1/parking-spots")
+        ResultActions response = mockMvc.perform(post("/api/parking-zones/1/parking-spots")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(spotDTO1)));
 

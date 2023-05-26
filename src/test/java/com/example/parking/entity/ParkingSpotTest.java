@@ -10,24 +10,15 @@ class ParkingSpotTest {
     void EntityToDTO(){
         ParkingSpot parkingSpot = new ParkingSpot("name","type",false);
         ParkingSpotDTO parkingSpotDTOfromEntity = new ParkingSpotDTO(parkingSpot);
-
         ParkingSpotDTO parkingSpotDTO = new ParkingSpotDTO("name","type",false);
-
-
-
         assertThat(parkingSpotDTO.equals(parkingSpotDTOfromEntity)).isTrue();
-
     }
 
     @Test
     void DTOtoEntity(){
         ParkingSpotDTO parkingSpotDTO = new ParkingSpotDTO("name","type",false);
-        ParkingSpot parkingSpotFromDTO = new ParkingSpot(parkingSpotDTO);
-
+        ParkingSpot parkingSpotFromDTO = new ParkingSpot(null,parkingSpotDTO);
         ParkingSpot parkingSpot = new ParkingSpot("name","type",false);
-
         assertThat(parkingSpot.equals(parkingSpotFromDTO)).isTrue();
     }
-
-
 }

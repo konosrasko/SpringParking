@@ -40,7 +40,7 @@ public class Parking {
         this.name = parkingDTO.getName();
         this.parkingZones = parkingDTO.getParkingZoneDTOList()
                 .stream()
-                .map(ParkingZone::new)
+                .map(parkingZoneDTO -> new ParkingZone(this,parkingZoneDTO))
                 .toList();
     }
 
