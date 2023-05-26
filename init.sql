@@ -1,10 +1,9 @@
+DROP TABLE IF EXISTS `price_scale`;
+DROP TABLE IF EXISTS `price_list`;
 DROP TABLE IF EXISTS `parking_history`;
 DROP TABLE IF EXISTS `parking_spot`;
 DROP TABLE IF EXISTS `parking_zone`;
 DROP TABLE IF EXISTS `parking`;
-DROP TABLE IF EXISTS `price_scale`;
-DROP TABLE IF EXISTS `price_list`;
-
 
 CREATE TABLE `parking` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -35,20 +34,14 @@ CREATE TABLE `parking_spot` (
 
 CREATE TABLE `parking_history` (
   `id` int not null auto_increment,
-  `park_id` int NOT NULL,
-  `zone_id` int NOT NULL,
   `spot_id` int NOT NULL,
   `date_start` datetime NOT NULL,
   `date_end` datetime DEFAULT NULL,
   `total_cost` double DEFAULT NULL,
   `vehicle_plate` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `park_id` (`park_id`),
-  KEY `zone_id` (`zone_id`),
   KEY `spot_id` (`spot_id`),
-  CONSTRAINT `parking_history_ibfk_1` FOREIGN KEY (`park_id`) REFERENCES `parking` (`id`),
-  CONSTRAINT `parking_history_ibfk_2` FOREIGN KEY (`zone_id`) REFERENCES `parking_zone` (`id`),
-  CONSTRAINT `parking_history_ibfk_3` FOREIGN KEY (`spot_id`) REFERENCES `parking_spot` (`id`)
+  CONSTRAINT `parking_history_ibfk_1` FOREIGN KEY (`spot_id`) REFERENCES `parking_spot` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `price_list` (
