@@ -66,7 +66,12 @@ public class ParkingZone {
         int occupiedSpots = (int) parkingSpots.stream()
                 .filter(ParkingSpot::isOccupied)
                 .count();
-        return (float) (occupiedSpots*100 / parkingSpots.size());
+        if(parkingSpots.size() > 0){
+            return (float) (occupiedSpots*100 / parkingSpots.size());
+        }else {
+            return 0;
+        }
+
     }
 
     public  List<ParkingSpot> findEmptySpots(){

@@ -61,7 +61,11 @@ public class Parking {
         }
         System.out.println("empty : "+ sumOfEmptySpots);
         System.out.println("total :"+sumOfSpots);
-        return  100 - (float) (sumOfEmptySpots * 100 / sumOfSpots);
+        if(sumOfSpots > 0){
+            return  100 - (float) (sumOfEmptySpots * 100 / sumOfSpots);
+        }else {
+            return 0;
+        }
     }
 
     public List<ParkingSpot> findEmptySpots(){
