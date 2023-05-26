@@ -62,4 +62,16 @@ public class ParkingZone {
         return getId() == that.getId() && Objects.equals(getType(), that.getType()) && Objects.equals(getName(), that.getName()) && Objects.equals(getParkingSpots(), that.getParkingSpots());
     }
 
+    public float zoneCapacityPercentage() {
+        int occupiedSpots = (int) parkingSpots.stream()
+                .filter(ParkingSpot::isOccupied)
+                .count();
+        return (float) (occupiedSpots*100 / parkingSpots.size());
+    }
+
+    public  List<ParkingSpot> findEmptySpots(){
+        return parkingSpots.stream()
+                .filter(parkingSpot -> !parkingSpot.isOccupied())
+                .toList();
+    }
 }

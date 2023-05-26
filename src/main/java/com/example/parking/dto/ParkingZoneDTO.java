@@ -15,6 +15,7 @@ public class ParkingZoneDTO {
     private String type;
     private String name;
     private List<ParkingSpotDTO> parkingSpotDTOList;
+    private float capacityPercentage;
 
     public ParkingZoneDTO(ParkingZone parkingZone){
         this.parkingZoneId = parkingZone.getId();
@@ -24,6 +25,7 @@ public class ParkingZoneDTO {
                 .stream()
                 .map(ParkingSpotDTO::new)
                 .toList();
+        this.capacityPercentage = parkingZone.zoneCapacityPercentage();
     }
 
     @Override
@@ -36,5 +38,13 @@ public class ParkingZoneDTO {
     @Override
     public int hashCode() {
         return Objects.hash(getParkingZoneId(), getType(), getName(), getParkingSpotDTOList());
+    }
+
+    public float getCapacityPercentage() {
+        return capacityPercentage;
+    }
+
+    public void setCapacityPercentage(float capacityPercentage) {
+        this.capacityPercentage = capacityPercentage;
     }
 }

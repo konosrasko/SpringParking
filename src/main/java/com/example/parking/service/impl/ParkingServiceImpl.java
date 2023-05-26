@@ -53,7 +53,6 @@ public class ParkingServiceImpl implements ParkingService {
     public ParkingZoneDTO addZone(int parkingId, ParkingZoneDTO parkingZoneDTO) {
         Optional<Parking> foundParking = parkingRepo.findById(parkingId);
         if (foundParking.isPresent()) {
-
             ParkingZone zone = new ParkingZone(foundParking.get(), parkingZoneDTO);
             return new ParkingZoneDTO(parkingZoneRepo.save(zone));
         } else {
@@ -128,5 +127,16 @@ public class ParkingServiceImpl implements ParkingService {
 
     public Boolean findIfParkingExistById(int parkingId) {
         return parkingRepo.existsById(parkingId);
+    }
+    @Override
+    public List<ParkingSpotDTO> findEmptySpots(int parkingId){
+        Optional<Parking> parking = parkingRepo.findById(parkingId);
+        if(parking.isPresent()){
+            return parking.get().findEmptySpots().stream()
+                    .map(ParkingSpotDTO::new)
+                    .toList();
+        } else {
+            throw new ParkingException("Parking does not exist");
+        }
     }
 }

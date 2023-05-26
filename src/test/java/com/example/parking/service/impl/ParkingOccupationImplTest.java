@@ -4,10 +4,8 @@ import com.example.parking.dto.ParkingDTO;
 import com.example.parking.dto.ParkingOccupationDTO;
 import com.example.parking.dto.ParkingSpotDTO;
 import com.example.parking.dto.ParkingZoneDTO;
-import com.example.parking.entity.Parking;
 import com.example.parking.entity.ParkingOccupation;
 import com.example.parking.entity.ParkingSpot;
-import com.example.parking.entity.ParkingZone;
 import com.example.parking.service.ParkingOccupationService;
 import com.example.parking.service.ParkingService;
 import org.junit.jupiter.api.Test;
@@ -47,7 +45,7 @@ class ParkingOccupationImplTest {
 
         assertEquals(parkingOccupationDTO.getSpotId(),parkingService.findParkingSpotById(parkingOccupationDTO.getSpotId()).getId());
         assertNotNull(savedParkingOccupation);
-        assertEquals(parkingService.findParkingSpotById(savedSpot.getId()).isOccupied(), true);
+        assertTrue(parkingService.findParkingSpotById(savedSpot.getId()).isOccupied());
     }
 
     @Test

@@ -51,4 +51,24 @@ public class Parking {
     public int hashCode() {
         return Objects.hash(getId(), getName(), getParkingZones());
     }
+
+    public float totalParkingCapacityPercentage() {
+        int sumOfEmptySpots = 0;
+        int sumOfSpots=0;
+        for (ParkingZone zone : parkingZones) {
+            sumOfEmptySpots = sumOfEmptySpots + zone.findEmptySpots().size();
+            sumOfSpots = sumOfSpots + zone.getParkingSpots().size();
+        }
+        System.out.println("empty : "+ sumOfEmptySpots);
+        System.out.println("total :"+sumOfSpots);
+        return  100 - (float) (sumOfEmptySpots * 100 / sumOfSpots);
+    }
+
+    public List<ParkingSpot> findEmptySpots(){
+        return parkingZones.stream()
+                .flatMap(parkingZone -> parkingZone.findEmptySpots()
+                        .stream()
+                )
+                .toList();
+    }
 }

@@ -17,6 +17,7 @@ public class ParkingDTO {
     private int parkingId;
     private String name;
     private List<ParkingZoneDTO> parkingZoneDTOList;
+    private float parkingCapacity;
 
     public ParkingDTO(Parking parking) {
         this.parkingId = parking.getId();
@@ -25,6 +26,7 @@ public class ParkingDTO {
                 .stream()
                 .map(ParkingZoneDTO::new)
                 .toList();
+        this.parkingCapacity = parking.totalParkingCapacityPercentage();
     }
 
     @Override

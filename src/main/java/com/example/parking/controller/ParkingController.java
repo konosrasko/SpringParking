@@ -25,6 +25,11 @@ public class ParkingController {
         return parkingService.findParkingById(id);
     }
 
+    @GetMapping("/parking/{parkingId}/empty-spots")
+    public List<ParkingSpotDTO> getEmptySpots(@PathVariable int parkingId) {
+        return parkingService.findEmptySpots(parkingId);
+    }
+
     @PostMapping("/parking")
     public ParkingDTO addNewParking(@RequestBody ParkingDTO parkingDTO) {
         return parkingService.addParking(parkingDTO);
