@@ -7,6 +7,8 @@ import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
@@ -17,7 +19,7 @@ public class ParkingZoneRepoTest {
 
     @Test
     void saveTest() {
-        ParkingZone parkingZone = new ParkingZone("type", "name");
+        ParkingZone parkingZone = ParkingZone.builder().name("name").type("type").parkingSpots(new ArrayList<>()).build();
         ParkingZone savedZone = parkingZoneRepo.save(parkingZone);
         assertAll(
                 "Grouped assertions for parking zone",
@@ -28,8 +30,8 @@ public class ParkingZoneRepoTest {
 
     @Test
     void shouldReturnTheSelectedSpot() {
-        ParkingZone parkingZone1 = new ParkingZone("type", "name");
-        ParkingZone parkingZone2 = new ParkingZone("type", "name");
+        ParkingZone parkingZone1 = ParkingZone.builder().name("name").type("type").parkingSpots(new ArrayList<>()).build();
+        ParkingZone parkingZone2 = ParkingZone.builder().name("name").type("type").parkingSpots(new ArrayList<>()).build();
         parkingZoneRepo.save(parkingZone1);
         parkingZoneRepo.save(parkingZone2);
         ParkingZone zone1 = parkingZoneRepo.findById(parkingZone1.getId()).get();

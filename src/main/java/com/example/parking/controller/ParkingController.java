@@ -3,7 +3,6 @@ package com.example.parking.controller;
 import com.example.parking.dto.ParkingDTO;
 import com.example.parking.dto.ParkingSpotDTO;
 import com.example.parking.dto.ParkingZoneDTO;
-import com.example.parking.entity.Parking;
 import com.example.parking.service.ParkingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -58,7 +57,6 @@ public class ParkingController {
 
     @PostMapping("/parking-zones/{zoneId}/parking-spots")
     public String addNewSpot(@RequestBody ParkingSpotDTO newSpotDTO, @PathVariable int zoneId){
-//        newSpotDTO.setId(0);
         parkingService.addSpot(newSpotDTO, zoneId);
         return ("New Spot has been added in zone with id " + zoneId);
     }

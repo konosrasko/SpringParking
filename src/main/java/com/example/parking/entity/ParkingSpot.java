@@ -2,15 +2,18 @@ package com.example.parking.entity;
 
 import com.example.parking.dto.ParkingSpotDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import lombok.*;
 
 import java.util.Objects;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 @Builder
 @Entity
 @Table(name = "parking_spot")
-@AllArgsConstructor
 public class ParkingSpot {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,70 +36,12 @@ public class ParkingSpot {
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "parkingSpot")
     private ParkingOccupation parkingOccupation;
 
-    public ParkingSpot() {
-    }
-
     public ParkingSpot(ParkingZone zone, ParkingSpotDTO parkingSpotDTO) {
         this.id = parkingSpotDTO.getId();
         this.name = parkingSpotDTO.getName();
         this.type = parkingSpotDTO.getType();
         this.occupied = parkingSpotDTO.isOccupied();
         this.zone = zone;
-    }
-
-    public ParkingSpot(String name, String type, boolean occupied) {
-        //this.id = id;
-        this.name = name;
-        this.type = type;
-        this.occupied = occupied;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public boolean isOccupied() {
-        return occupied;
-    }
-
-    public void setOccupied(boolean occupied) {
-        this.occupied = occupied;
-    }
-
-    public ParkingZone getZone() {
-        return zone;
-    }
-
-    public void setZone(ParkingZone zone) {
-        this.zone = zone;
-    }
-
-    public ParkingOccupation getParkingOccupation() {
-        return parkingOccupation;
-    }
-
-    public void setParkingOccupation(ParkingOccupation parkingOccupation) {
-        this.parkingOccupation = parkingOccupation;
     }
 
     @Override
@@ -109,15 +54,5 @@ public class ParkingSpot {
     @Override
     public int hashCode() {
         return Objects.hash(getId(), getName(), getType(), isOccupied(), zone);
-    }
-
-    @Override
-    public String toString() {
-        return "ParkingSpot{" +
-                ", id=" + id +
-                ", name='" + name + '\'' +
-                ", type='" + type + '\'' +
-                ", occupied=" + occupied +
-                '}';
     }
 }

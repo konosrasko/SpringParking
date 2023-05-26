@@ -26,7 +26,7 @@ class ParkingSpotRepoTest {
     void shouldSaveNewSpotAndReturnIt() {
 
         //Arrange
-        ParkingSpot parkingSpot = new ParkingSpot("SpotTest", "NormalTest", false);
+        ParkingSpot parkingSpot = ParkingSpot.builder().name("name").type("type").occupied(false).build();
 
         //Act
         ParkingSpot savedSpot = parkingSpotRepo.save(parkingSpot);
@@ -40,8 +40,8 @@ class ParkingSpotRepoTest {
     @Test
     void shouldReturnAllSpots(){
 
-        ParkingSpot parkingSpot1 = new ParkingSpot("spot_1", "type_one", false);
-        ParkingSpot parkingSpot2 = new ParkingSpot("spot_1", "type_one", false);
+        ParkingSpot parkingSpot1 = ParkingSpot.builder().name("name").type("type").occupied(false).build();
+        ParkingSpot parkingSpot2 = ParkingSpot.builder().name("name2").type("type2").occupied(false).build();
 
         parkingSpotRepo.save(parkingSpot1);
         parkingSpotRepo.save(parkingSpot2);
@@ -55,7 +55,7 @@ class ParkingSpotRepoTest {
 
     @Test
     void shouldReturnTheSelectedSpot(){
-        ParkingSpot parkingSpot1 = new ParkingSpot("spot_1", "type_one", false);
+        ParkingSpot parkingSpot1 = ParkingSpot.builder().name("name").type("type").occupied(false).build();
 
         parkingSpotRepo.save(parkingSpot1);
 
@@ -66,7 +66,7 @@ class ParkingSpotRepoTest {
 
     @Test
     void shouldUpdateSpot(){
-        ParkingSpot parkingSpot1 = new ParkingSpot("spot_1", "type_one", false);
+        ParkingSpot parkingSpot1 = ParkingSpot.builder().name("name").type("type").occupied(false).build();
         parkingSpotRepo.save(parkingSpot1);
 
         ParkingSpot savedSpot = parkingSpotRepo.findById(parkingSpot1.getId()).get();
@@ -84,7 +84,7 @@ class ParkingSpotRepoTest {
 
     @Test
     void shouldDeleteSpot(){
-        ParkingSpot parkingSpot1 = new ParkingSpot("spot_1", "type_one", false);
+        ParkingSpot parkingSpot1 = ParkingSpot.builder().name("name").type("type").occupied(false).build();
         parkingSpotRepo.save(parkingSpot1);
 
         parkingSpotRepo.deleteById(parkingSpot1.getId());

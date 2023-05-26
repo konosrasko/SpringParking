@@ -43,7 +43,7 @@ class ParkingOccupationControllerTest {
     @BeforeEach
     void init(){
         OffsetDateTime offsetDateTime = OffsetDateTime.now();
-        spotDTO = new ParkingSpotDTO("name", "type", false);
+        spotDTO = ParkingSpotDTO.builder().name("name").type("type").occupied(false).build();
         occupationDTO = new ParkingOccupationDTO(1, offsetDateTime, null, 0, "abc1234");
     }
 

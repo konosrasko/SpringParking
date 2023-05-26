@@ -4,19 +4,21 @@ import com.example.parking.dto.ParkingSpotDTO;
 import com.example.parking.dto.ParkingZoneDTO;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ParkingZoneTest {
     @Test
     void zoneFromDTO(){
-        ParkingZoneDTO parkingZoneDTO = new ParkingZoneDTO("type","name");
-        ParkingSpotDTO parkingSpotDTO = new ParkingSpotDTO("name","type",false);
+        ParkingZoneDTO parkingZoneDTO = ParkingZoneDTO.builder().name("name").type("type").parkingSpotDTOList(new ArrayList<>()).build();
+        ParkingSpotDTO parkingSpotDTO = ParkingSpotDTO.builder().name("name").type("type").occupied(false).build();
         parkingZoneDTO.getParkingSpotDTOList().add(parkingSpotDTO);
 
         ParkingZone parkingZoneFromDTO = new ParkingZone(null, parkingZoneDTO);
 
-        ParkingZone parkingZone = new ParkingZone("type","name");
-        ParkingSpot parkingSpot = new ParkingSpot("name","type",false);
+        ParkingZone parkingZone = ParkingZone.builder().name("name").type("type").parkingSpots(new ArrayList<>()).build();
+        ParkingSpot parkingSpot = ParkingSpot.builder().name("name").type("type").occupied(false).build();
         parkingZone.getParkingSpots().add(parkingSpot);
 
         assertThat(parkingZoneFromDTO.equals(parkingZone)).isTrue();
@@ -25,14 +27,14 @@ class ParkingZoneTest {
 
     @Test
     void dtoFromEntity(){
-        ParkingZone parkingZone = new ParkingZone("type","name");
-        ParkingSpot parkingSpot = new ParkingSpot("name","type",false);
+        ParkingZone parkingZone = ParkingZone.builder().name("name").type("type").parkingSpots(new ArrayList<>()).build();
+        ParkingSpot parkingSpot = ParkingSpot.builder().name("name").type("type").occupied(false).build();
         parkingZone.getParkingSpots().add(parkingSpot);
 
         ParkingZoneDTO parkingZoneDTOfromEntity = new ParkingZoneDTO(parkingZone);
 
-        ParkingZoneDTO parkingZoneDTO = new ParkingZoneDTO("type","name");
-        ParkingSpotDTO parkingSpotDTO = new ParkingSpotDTO("name","type",false);
+        ParkingZoneDTO parkingZoneDTO = ParkingZoneDTO.builder().name("name").type("type").parkingSpotDTOList(new ArrayList<>()).build();
+        ParkingSpotDTO parkingSpotDTO = ParkingSpotDTO.builder().name("name").type("type").occupied(false).build();
         parkingZoneDTO.getParkingSpotDTOList().add(parkingSpotDTO);
 
         assertThat(parkingZoneDTO.equals(parkingZoneDTOfromEntity)).isTrue();

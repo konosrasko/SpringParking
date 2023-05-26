@@ -18,8 +18,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -32,17 +30,16 @@ class ParkingOccupationImplTest {
     @Autowired
     private ParkingService parkingService;
 
-
     @Test
     void saveParkingOccupation() {
-        ParkingDTO parkingDTO = new ParkingDTO("ParkingName");
+        ParkingDTO parkingDTO =  ParkingDTO.builder().name("name").parkingZoneDTOList(new ArrayList<>()).build();
         ParkingDTO savedParking = parkingService.addParking(parkingDTO);
 
-        ParkingZoneDTO parkingZoneDTO = new ParkingZoneDTO("ZoneName", "ZoneName");
+        ParkingZoneDTO parkingZoneDTO = ParkingZoneDTO.builder().name("name").type("type").parkingSpotDTOList(new ArrayList<>()).build();
         parkingDTO.getParkingZoneDTOList().add(parkingZoneDTO);
         ParkingZoneDTO savedZone = parkingService.addZone(savedParking.getParkingId(), parkingZoneDTO);
 
-        ParkingSpotDTO parkingSpotDTO = new ParkingSpotDTO("test", "test", false);
+        ParkingSpotDTO parkingSpotDTO = ParkingSpotDTO.builder().name("name").type("type").occupied(false).build();
         ParkingSpotDTO savedSpot = parkingService.addSpot(parkingSpotDTO, savedZone.getParkingZoneId());
 
         ParkingOccupationDTO parkingOccupationDTO = new ParkingOccupationDTO();
@@ -55,14 +52,14 @@ class ParkingOccupationImplTest {
 
     @Test
     void putParkingOccupation(){
-        ParkingDTO parkingDTO = new ParkingDTO("ParkingName");
+        ParkingDTO parkingDTO =  ParkingDTO.builder().name("name").parkingZoneDTOList(new ArrayList<>()).build();
         ParkingDTO savedParking = parkingService.addParking(parkingDTO);
 
-        ParkingZoneDTO parkingZoneDTO = new ParkingZoneDTO("ZoneName", "ZoneName");
+        ParkingZoneDTO parkingZoneDTO = ParkingZoneDTO.builder().name("name").type("type").parkingSpotDTOList(new ArrayList<>()).build();
         parkingDTO.getParkingZoneDTOList().add(parkingZoneDTO);
         ParkingZoneDTO savedZone = parkingService.addZone(savedParking.getParkingId(), parkingZoneDTO);
 
-        ParkingSpotDTO parkingSpotDTO = new ParkingSpotDTO("test", "test", false);
+        ParkingSpotDTO parkingSpotDTO = ParkingSpotDTO.builder().name("name").type("type").occupied(false).build();
         ParkingSpotDTO savedSpot = parkingService.addSpot(parkingSpotDTO, savedZone.getParkingZoneId());
 
         ParkingOccupationDTO parkingOccupationDTO = new ParkingOccupationDTO();
@@ -75,21 +72,24 @@ class ParkingOccupationImplTest {
 
     @Test
     void getParkingHistory(){
-        Parking parking = new Parking("name");
-        ParkingZone parkingZone = new ParkingZone("type","name");
-        ParkingSpot parkingSpot = new ParkingSpot("name","type",false);
+        ParkingDTO parking = ParkingDTO.builder().name("name").parkingZoneDTOList(new ArrayList<>()).build();
+        ParkingZoneDTO parkingZone = ParkingZoneDTO.builder().name("name").type("type").parkingSpotDTOList(new ArrayList<>()).build();
+        ParkingSpotDTO parkingSpotDTO = ParkingSpotDTO.builder().name("name").type("type").occupied(false).build();
+        ParkingSpot parkingSpot = ParkingSpot.builder().name("name").type("type").occupied(false).build();
 
-        parking.getParkingZones().add(parkingZone);
-        parkingZone.getParkingSpots().add(parkingSpot);
+        parkingZone.getParkingSpotDTOList().add(parkingSpotDTO);
+        parking.getParkingZoneDTOList().add(parkingZone);
+
+        parkingService.addParking(parking);
 
         ParkingOccupation parkingOccupation = ParkingOccupation.builder()
                 .occupationDate(null)
                 .vacancyDate(null)
                 .cost(0)
                 .plate("plate")
+                .parkingSpot(parkingSpot)
                 .build();
 
-        parkingOccupation.setParkingSpot(parkingSpot);
         ParkingOccupationDTO parkingOccupationDTO = new ParkingOccupationDTO(parkingOccupation);
 
         parkingOccupationService.saveParkingOccupation(1, parkingOccupationDTO);

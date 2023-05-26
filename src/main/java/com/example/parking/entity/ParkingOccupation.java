@@ -13,7 +13,6 @@ import java.util.Objects;
 @Setter
 @ToString
 @Builder
-
 @Entity
 @Table(name = "parking_history")
 public class ParkingOccupation {
@@ -31,8 +30,6 @@ public class ParkingOccupation {
     private float cost;
     @Column(name = "vehicle_plate")
     private String plate;
-
-
 
     public ParkingOccupation(ParkingOccupationDTO parkingOccupationDTO){
         this.occupationDate = parkingOccupationDTO.getOccupationDate();

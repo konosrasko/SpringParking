@@ -12,6 +12,7 @@ import java.util.List;
 public class ParkingOccupationController {
     @Autowired
     private ParkingOccupationService parkingOccupation;
+
     @PostMapping("/parking-spots/{spotId}")
     public String parkingAction(@PathVariable int spotId, @RequestBody ParkingOccupationDTO parkingOccupationDTO){
         parkingOccupation.saveParkingOccupation(spotId,parkingOccupationDTO);
