@@ -5,6 +5,7 @@ import com.example.parking.dto.PriceScaleDTO;
 import com.example.parking.entity.PriceList;
 import com.example.parking.entity.PriceScale;
 import com.example.parking.exception.ParkingException;
+import com.example.parking.repository.ParkingZoneRepo;
 import com.example.parking.repository.PriceListRepo;
 import com.example.parking.repository.PriceScaleRepo;
 import com.example.parking.service.PriceListService;
@@ -17,6 +18,8 @@ public class PriceListServiceImpl implements PriceListService {
     private PriceListRepo priceListRepo;
     @Autowired
     private PriceScaleRepo priceScaleRepo;
+    @Autowired
+    ParkingZoneRepo parkingZoneRepo;
 
     @Override
     public PriceListDTO addPriceList() {
@@ -41,11 +44,21 @@ public class PriceListServiceImpl implements PriceListService {
 
     @Override
     public void deleteScale(int scaleId) {
-
+        Optional<PriceScale> priceList = priceScaleRepo.findById(scaleId);
+        if (priceList.isPresent()) {
+            priceScaleRepo.deleteById(scaleId);
+        } else {
+            throw new RuntimeException("Price scale with id : " + scaleId + " does not exist");
+        }
     }
 
     @Override
     public void deletePriceList(int priceListId) {
-
+        Optional<PriceList> priceList = priceListRepo.findById(priceListId);
+        if (priceList.isPresent()) {
+            priceListRepo.deleteById(priceListId);
+        } else {
+            throw new RuntimeException("Price list with id : " + priceListId + " does not exist");
+        }
     }
 }
