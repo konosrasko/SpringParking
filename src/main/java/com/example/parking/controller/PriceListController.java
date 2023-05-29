@@ -16,12 +16,12 @@ public class PriceListController {
 
     @GetMapping("/parking-zone/{zoneId}/priceList")
     List<PriceListDTO> getPriceListsOfZone(@PathVariable int zoneId){
-        return null;
+        return priceListService.getPriceList(zoneId);
     }
 
     @PostMapping("/parking-zone/{zoneId}/priceList")
     public PriceListDTO addPriceList(@RequestBody PriceListDTO priceListDTO, @PathVariable int zoneId){
-        return null;
+        return priceListService.addPriceList(priceListDTO, zoneId);
     }
 
     @PostMapping("/pricelist/{priceListId}/priceScale")
