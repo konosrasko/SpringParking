@@ -24,7 +24,7 @@ public class PriceListController {
         return null;
     }
 
-    @PostMapping("/pricelist/{id}/priceScale")
+    @PostMapping("/pricelist/{priceListId}/priceScale")
     public void addPriceScale(@RequestBody PriceScaleDTO priceScaleDTO, @PathVariable int priceListId){
         priceListService.addPriceScales(priceListId,priceScaleDTO);
     }
