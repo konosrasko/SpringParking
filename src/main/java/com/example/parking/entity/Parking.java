@@ -12,6 +12,8 @@ import java.util.*;
 @Setter
 @ToString
 @Builder
+@EqualsAndHashCode
+
 @Entity
 @Table(name = "parking")
 public class Parking {
@@ -40,17 +42,17 @@ public class Parking {
         }
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Parking parking)) return false;
-        return getId() == parking.getId() && Objects.equals(getName(), parking.getName()) && Objects.equals(getParkingZones(), parking.getParkingZones());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getName(), getParkingZones());
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (!(o instanceof Parking parking)) return false;
+//        return getId() == parking.getId() && Objects.equals(getName(), parking.getName()) && Objects.equals(getParkingZones(), parking.getParkingZones());
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(getId(), getName(), getParkingZones());
+//    }
 
     public float totalParkingCapacityPercentage() {
         int sumOfEmptySpots = 0;
