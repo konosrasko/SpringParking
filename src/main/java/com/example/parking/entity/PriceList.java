@@ -16,6 +16,7 @@ import java.util.List;
 @Setter
 @ToString
 @Builder
+@EqualsAndHashCode
 
 @Entity
 @Table(name="price_list")

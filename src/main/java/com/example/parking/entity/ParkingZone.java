@@ -14,6 +14,8 @@ import java.util.Objects;
 @Setter
 @ToString
 @Builder
+@EqualsAndHashCode
+
 @Entity
 @Table(name = "parking_zone")
 public class ParkingZone {
@@ -56,17 +58,17 @@ public class ParkingZone {
         this.priceLists.add(priceList);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getType(), getName(), getParkingSpots(), parking);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ParkingZone that)) return false;
-        return getId() == that.getId() && Objects.equals(getType(), that.getType()) && Objects.equals(getName(), that.getName()) && Objects.equals(getParkingSpots(), that.getParkingSpots());
-    }
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(getId(), getType(), getName(), getParkingSpots(), parking);
+//    }
+//
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (!(o instanceof ParkingZone that)) return false;
+//        return getId() == that.getId() && Objects.equals(getType(), that.getType()) && Objects.equals(getName(), that.getName()) && Objects.equals(getParkingSpots(), that.getParkingSpots());
+//    }
 
     public float zoneCapacityPercentage() {
         int occupiedSpots = (int) parkingSpots.stream()

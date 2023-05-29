@@ -13,6 +13,7 @@ import java.time.OffsetDateTime;
 @Setter
 @ToString
 @Builder
+@EqualsAndHashCode
 
 @Entity
 @Table(name="price_scale")
