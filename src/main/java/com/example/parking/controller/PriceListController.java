@@ -2,7 +2,6 @@ package com.example.parking.controller;
 
 import com.example.parking.dto.PriceListDTO;
 import com.example.parking.dto.PriceScaleDTO;
-import com.example.parking.entity.PriceList;
 import com.example.parking.service.PriceListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +25,7 @@ public class PriceListController {
     }
 
     @PostMapping("/pricelist/{id}/priceScale")
-    public PriceScaleDTO addPriceScale(@PathVariable int priceListId){
-        return priceListService.addPriceScales();
+    public void addPriceScale(@RequestBody PriceScaleDTO priceScaleDTO, @PathVariable int priceListId){
+        priceListService.addPriceScales(priceListId,priceScaleDTO);
     }
 }
