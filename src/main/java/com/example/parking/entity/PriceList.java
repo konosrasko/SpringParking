@@ -1,10 +1,13 @@
 package com.example.parking.entity;
 
+import com.example.parking.dto.PriceListDTO;
+import com.example.parking.dto.PriceScaleDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -38,5 +41,18 @@ public class PriceList {
     @OneToMany(mappedBy = "priceList", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PriceScale> priceScales;
 
-
+    public PriceList(ParkingZone zone, PriceListDTO priceListDTO){
+        this.id = priceListDTO.getPriceListId();
+        this.dateStart = priceListDTO.getDateStart();
+        this.dateEnd = priceListDTO.getDateEnd();
+        this.parkingZone = zone;
+        if(priceListDTO.getPriceScaleDTOList() == null){
+            this.priceScales = new ArrayList<>();
+        }else{
+            this.priceScales = priceListDTO.getPriceScaleDTOList()
+                    .stream()
+                    .map(priceScaleDTO -> new PriceScale(this, priceScaleDTO))
+                    .toList();
+        }
+    }
 }
