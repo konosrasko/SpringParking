@@ -36,7 +36,7 @@ public class ParkingZone {
     private Parking parking;
 
     @OneToMany(mappedBy = "parkingZone",cascade = CascadeType.ALL)
-    private List<PriceList> priceLists;
+    private List<PriceList> priceLists= new ArrayList<>();
 
     public ParkingZone(Parking parking, ParkingZoneDTO parkingZoneDTO) {
         this.id = parkingZoneDTO.getParkingZoneId();
@@ -51,6 +51,9 @@ public class ParkingZone {
                 .map(parkingSpotDTO -> new ParkingSpot(this,parkingSpotDTO))
                 .toList();
         }
+    }
+    public void addPriceList(PriceList priceList){
+        this.priceLists.add(priceList);
     }
 
     @Override
