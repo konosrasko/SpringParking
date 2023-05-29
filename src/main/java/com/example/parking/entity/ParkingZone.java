@@ -35,6 +35,9 @@ public class ParkingZone {
     @JoinColumn(name = "park_id", referencedColumnName = "id")
     private Parking parking;
 
+    @OneToMany(mappedBy = "parkingZone",cascade = CascadeType.ALL)
+    private List<PriceList> priceLists;
+
     public ParkingZone(Parking parking, ParkingZoneDTO parkingZoneDTO) {
         this.id = parkingZoneDTO.getParkingZoneId();
         this.name = parkingZoneDTO.getName();
