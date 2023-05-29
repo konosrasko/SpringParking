@@ -11,17 +11,19 @@ import com.example.parking.repository.PriceListRepo;
 import com.example.parking.repository.PriceScaleRepo;
 import com.example.parking.service.PriceListService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class PriceListServiceImpl implements PriceListService {
     @Autowired
     private PriceListRepo priceListRepo;
     @Autowired
     private PriceScaleRepo priceScaleRepo;
     @Autowired
-    ParkingZoneRepo parkingZoneRepo;
+    private ParkingZoneRepo parkingZoneRepo;
 
     @Override
     public List<PriceListDTO> getPriceList(int zoneId) {

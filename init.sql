@@ -45,7 +45,7 @@ CREATE TABLE `parking_history` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `price_list` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `date_start` datetime DEFAULT NULL,
   `date_end` datetime DEFAULT NULL,
   `type` varchar(55) DEFAULT NULL,
@@ -57,8 +57,8 @@ CREATE TABLE `price_list` (
 CREATE TABLE `price_scale` (
   `id` int NOT NULL AUTO_INCREMENT,
   `price_list_id` int DEFAULT NULL,
-  `duration_of_price_scale` datetime DEFAULT NULL,
-  `scale` int DEFAULT NULL,
+  `duration_of_price_scale` double DEFAULT NULL,
+  `scale` double DEFAULT NULL,
   `cost` double DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `price_list_id` (`price_list_id`),

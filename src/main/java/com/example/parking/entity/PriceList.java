@@ -45,6 +45,7 @@ public class PriceList {
         this.id = priceListDTO.getPriceListId();
         this.dateStart = priceListDTO.getDateStart();
         this.dateEnd = priceListDTO.getDateEnd();
+        this.type = priceListDTO.getType();
         this.parkingZone = zone;
         if(priceListDTO.getPriceScaleDTOList() == null){
             this.priceScales = new ArrayList<>();
