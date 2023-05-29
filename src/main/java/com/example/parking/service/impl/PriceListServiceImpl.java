@@ -13,6 +13,7 @@ import com.example.parking.service.PriceListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +28,9 @@ public class PriceListServiceImpl implements PriceListService {
 
     @Override
     public List<PriceListDTO> getPriceList(int zoneId) {
+
         Optional<ParkingZone> foundZone = parkingZoneRepo.findById(zoneId);
+
         if(foundZone.isPresent()){
             return foundZone.get().getPriceLists().stream()
                     .map(PriceListDTO::new)
@@ -39,8 +42,10 @@ public class PriceListServiceImpl implements PriceListService {
     public PriceListDTO addPriceList(PriceListDTO priceListDTO, int zoneId) {
         Optional<ParkingZone> foundZone = parkingZoneRepo.findById(zoneId);
         if(foundZone.isPresent()){
-            PriceList priceList = new PriceList(foundZone.get() ,priceListDTO);
-            return new PriceListDTO(priceListRepo.save(priceList));
+            PriceList priceList = new PriceList(foundZone.get(),priceListDTO);
+            priceList = priceListRepo.save(priceList);
+            foundZone.get().addPriceList(priceList);
+            return new PriceListDTO(priceList);
         }else throw new ParkingException("No zone found");
     }
 
@@ -56,22 +61,24 @@ public class PriceListServiceImpl implements PriceListService {
     }
 
     @Override
-    public void deleteScale(int scaleId) {
+    public PriceScaleDTO deleteScale(int scaleId) {
         Optional<PriceScale> priceList = priceScaleRepo.findById(scaleId);
         if (priceList.isPresent()) {
             priceScaleRepo.deleteById(scaleId);
         } else {
             throw new RuntimeException("Price scale with id : " + scaleId + " does not exist");
         }
+        return null;
     }
 
     @Override
-    public void deletePriceList(int priceListId) {
+    public PriceListDTO deletePriceList(int priceListId) {
         Optional<PriceList> priceList = priceListRepo.findById(priceListId);
         if (priceList.isPresent()) {
             priceListRepo.deleteById(priceListId);
         } else {
             throw new RuntimeException("Price list with id : " + priceListId + " does not exist");
         }
+        return null;
     }
 }

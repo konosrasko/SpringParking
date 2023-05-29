@@ -2,7 +2,7 @@ package com.example.parking.service;
 
 import com.example.parking.dto.PriceListDTO;
 import com.example.parking.dto.PriceScaleDTO;
-import com.example.parking.entity.PriceScale;
+
 import java.util.List;
 
 public interface PriceListService {
@@ -11,8 +11,8 @@ public interface PriceListService {
 
     PriceScaleDTO addPriceScales(int zoneId,PriceScaleDTO priceScaleDTO);
 
-    void deleteScale(int scaleId);
-    void deletePriceList(int priceListId);
+    PriceScaleDTO deleteScale(int scaleId);
+    PriceListDTO deletePriceList(int priceListId);
 
 
 }
