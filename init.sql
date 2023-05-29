@@ -49,6 +49,8 @@ CREATE TABLE `price_list` (
   `date_start` datetime DEFAULT NULL,
   `date_end` datetime DEFAULT NULL,
   `type` varchar(55) DEFAULT NULL,
+  `zone_id` int NOT NULL,
+   CONSTRAINT `parking_zone_id_fk` FOREIGN KEY (`zone_id`) REFERENCES `parking_zone` (`id`),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -62,4 +64,3 @@ CREATE TABLE `price_scale` (
   KEY `price_list_id` (`price_list_id`),
   CONSTRAINT `price_scale_ibfk_1` FOREIGN KEY (`price_list_id`) REFERENCES `price_list` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-

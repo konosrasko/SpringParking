@@ -1,5 +1,6 @@
 package com.example.parking.dto;
 
+import com.example.parking.entity.PriceScale;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,6 +15,12 @@ public class PriceScaleDTO {
     private double scaleDuration;
     private double scalePerTimeUnit;
     private double scaleCost;
+    public PriceScaleDTO(PriceScale priceScale) {
+        this.priceScaleId = priceScale.getId();
+        this.scaleDuration = priceScale.getScaleDuration();
+        this.scalePerTimeUnit = priceScale.getScalePerTimeUnit();
+        this.scaleCost = priceScale.getScaleCost();
+    }
 
 
 }
