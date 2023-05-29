@@ -43,37 +43,19 @@ class ParkingControllerTest {
     private ParkingZoneDTO zoneDTO;
     private ParkingSpotDTO spotDTO1;
     private ParkingSpotDTO spotDTO2;
-    private List<ParkingSpotDTO> spotDTOList;
-    private List<ParkingZoneDTO> zoneDTOList;
 
     @BeforeEach
     public void init(){
-        parkingDTO = new ParkingDTO();
-        parkingDTO.setName("test_parking");
+        parkingDTO = ParkingDTO.builder().name("test_park").parkingZoneDTOList(new ArrayList<>()).build();
+        zoneDTO = ParkingZoneDTO.builder().name("test_zone").type("type").parkingSpotDTOList(new ArrayList<>()).build();
+        spotDTO1 = ParkingSpotDTO.builder().name("name").type("name").occupied(false).build();
+        spotDTO2 = ParkingSpotDTO.builder().name("name").type("name").occupied(true).build();
 
-        zoneDTO = new ParkingZoneDTO();
-        zoneDTO.setType("test_type_zone");
-        zoneDTO.setName("test_name_zone");
+        zoneDTO.getParkingSpotDTOList().add(spotDTO1);
+        zoneDTO.getParkingSpotDTOList().add(spotDTO2);
 
-        spotDTO1 = new ParkingSpotDTO();
-        spotDTO1.setName("test_name_spot1");
-        spotDTO1.setType("test_type_spot1");
-        spotDTO1.setOccupied(false);
-        spotDTO2 = new ParkingSpotDTO();
-        spotDTO2.setName("test_name1_spot2");
-        spotDTO2.setType("test_type1_spot2");
-        spotDTO2.setOccupied(true);
+        parkingDTO.getParkingZoneDTOList().add(zoneDTO);
 
-        spotDTOList = new ArrayList<>();
-        zoneDTOList = new ArrayList<>();
-
-        spotDTOList.add(spotDTO1);
-        spotDTOList.add(spotDTO2);
-
-        zoneDTO.setParkingSpotDTOList(spotDTOList);
-        zoneDTOList.add(zoneDTO);
-
-        parkingDTO.setParkingZoneDTOList(zoneDTOList);
     }
 
     @Test
@@ -136,7 +118,7 @@ class ParkingControllerTest {
     @Test
     void shouldReturnAllZonesInAParking() throws Exception {
 
-        when(parkingService.getParkingZones(1)).thenReturn(zoneDTOList);
+        when(parkingService.getParkingZones(1)).thenReturn(parkingDTO.getParkingZoneDTOList());
 
         ResultActions response = mockMvc.perform(get("/api/parking/1/parking-zones").contentType(MediaType.APPLICATION_JSON));
 
@@ -167,11 +149,22 @@ class ParkingControllerTest {
 
     @Test
     void shouldReturnSpotsInAZone() throws Exception{
-        when(parkingService.findSpotsByZoneId(1)).thenReturn(spotDTOList);
+        when(parkingService.findSpotsByZoneId(1)).thenReturn(zoneDTO.getParkingSpotDTOList());
 
         ResultActions response = mockMvc.perform(get("/api/parking-zones/1/parking-spots").contentType(MediaType.APPLICATION_JSON));
 
         response.andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    void shouldReturnEmptySpots() throws Exception{
+        List<ParkingSpotDTO> response = new ArrayList<>();
+        response.add(spotDTO2);
+        when(parkingService.findEmptySpots(1)).thenReturn(response);
+
+        ResultActions answer = mockMvc.perform(get("/api/parking/1/empty-spots").contentType(MediaType.APPLICATION_JSON));
+
+        answer.andExpect(MockMvcResultMatchers.status().isOk());
     }
 
 }

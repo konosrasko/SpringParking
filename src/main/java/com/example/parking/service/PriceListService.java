@@ -6,8 +6,8 @@ import com.example.parking.entity.PriceScale;
 import java.util.List;
 
 public interface PriceListService {
-    PriceListDTO addPriceList();
-    PriceListDTO getPriceList(int zoneId);
+    PriceListDTO addPriceList(PriceListDTO priceListDTO, int zoneId);
+    List<PriceListDTO> getPriceList(int zoneId);
 
     PriceScaleDTO addPriceScales();
 
