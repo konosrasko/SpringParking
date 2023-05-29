@@ -9,7 +9,7 @@ public interface PriceListService {
     PriceListDTO addPriceList();
     PriceListDTO getPriceList(int zoneId);
 
-    PriceScaleDTO addPriceScales();
+    PriceScaleDTO addPriceScales(int zoneId,PriceScaleDTO priceScaleDTO);
 
     void deleteScale(int scaleId);
     void deletePriceList(int priceListId);
