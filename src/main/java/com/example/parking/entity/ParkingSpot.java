@@ -12,7 +12,7 @@ import java.util.Objects;
 @Setter
 @ToString
 @Builder
-@EqualsAndHashCode
+
 
 @Entity
 @Table(name = "parking_spot")
@@ -45,4 +45,16 @@ public class ParkingSpot {
         this.occupied = parkingSpotDTO.isOccupied();
         this.zone = zone;
     }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ParkingSpot that)) return false;
+        return getId() == that.getId() && isOccupied() == that.isOccupied() && Objects.equals(getName(), that.getName()) && Objects.equals(getType(), that.getType());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getType(), isOccupied(), zone);
+    }
+
 }

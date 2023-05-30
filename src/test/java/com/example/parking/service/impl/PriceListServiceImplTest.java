@@ -86,7 +86,7 @@ class PriceListServiceImplTest {
         PriceScaleDTO deleted= priceListService.deleteScale(savedPriceScale.getPriceScaleId());
 
         System.out.println(savedPriceScale.toString());
-        assertNull(savedPriceScale);
+        assertNull(deleted);
     }
     @Test
     void deletePriceList(){
