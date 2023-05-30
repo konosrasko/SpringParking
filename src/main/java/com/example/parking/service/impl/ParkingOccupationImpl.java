@@ -73,7 +73,7 @@ public class ParkingOccupationImpl implements ParkingOccupationService {
             throw new ParkingException("Parking spot does not exist"); //response error 404
         } else {
             if (!parkingSpot.get().isOccupied()) {
-                throw new RuntimeException("Parking spot is occupied"); //response error 400
+                throw new RuntimeException("Parking spot is empty"); //response error 400
             } else {
                 Optional<ParkingOccupation> optionalParkingOccupation = parkingOccupationRepo.findAll()
                         .stream()
@@ -85,12 +85,14 @@ public class ParkingOccupationImpl implements ParkingOccupationService {
                     parkingSpot.get().setOccupied(false);
                     parkingSpotRepo.save(parkingSpot.get());
                     optionalParkingOccupation.get().setVacancyDate(OffsetDateTime.now());
-                    optionalParkingOccupation.get().setCost(0); // cost implementation method
+                    long totalDur= optionalParkingOccupation.get().totalDur();
+                    optionalParkingOccupation.get().setCost((float) parkingSpot.get().getZone().getPriceLists().get(0).totalCost(totalDur)); // cost implementation method
                     return new ParkingOccupationDTO(parkingOccupationRepo.save(optionalParkingOccupation.get()));
                 }
             }
         }
     }
+
 
 
 }

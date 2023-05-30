@@ -7,6 +7,7 @@ import lombok.*;
 import java.time.Duration;
 import java.time.OffsetDateTime;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -57,11 +58,12 @@ public class ParkingOccupation {
         return Objects.hash(getParkingSpot(), getOccupationDate(), getVacancyDate(), getCost(), getPlate());
     }
 
-    public long returnDur(){
+    public long totalDur(){
         if(vacancyDate==null){
             return Duration.between(occupationDate,OffsetDateTime.now()).toMinutes();
         }else return Duration.between(occupationDate,vacancyDate).toMinutes();
 
     }
+
 
 }

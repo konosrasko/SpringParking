@@ -58,4 +58,24 @@ public class PriceList {
                     .toList();
         }
     }
+
+    public double totalCost(long duration){
+
+        double totalCost=0;
+        int i=0;
+        while (duration>0){
+            if(duration>=priceScales.get(i).getScaleDuration()) {
+                totalCost += priceScales.get(i).getScaleCost() * (priceScales.get(i).getScaleDuration()/priceScales.get(i).getScalePerTimeUnit()) ;
+                duration -= priceScales.get(i).getScaleDuration();
+                i++;
+            }else{
+                totalCost += priceScales.get(i).getScaleCost() * ((duration/priceScales.get(i).getScalePerTimeUnit())+1) ;
+                duration=0;
+            }
+        }
+
+        System.out.println("Your total cost is: "+totalCost);
+        return totalCost;
+
+    }
 }
