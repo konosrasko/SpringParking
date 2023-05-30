@@ -31,6 +31,7 @@ public class ParkingSpot {
     @Column(name = "occupied")
     private boolean occupied;
 
+    @ToString.Exclude
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "zone_id", referencedColumnName = "id")
     private ParkingZone zone;

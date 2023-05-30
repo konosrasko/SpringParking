@@ -2,6 +2,7 @@ package com.example.parking.service;
 
 import com.example.parking.dto.PriceListDTO;
 import com.example.parking.dto.PriceScaleDTO;
+import com.example.parking.entity.PriceList;
 
 import java.util.List;
 

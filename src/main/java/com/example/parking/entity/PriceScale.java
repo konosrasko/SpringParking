@@ -32,6 +32,7 @@ public class PriceScale {
     @Column(name="cost")
     private double scaleCost;
 
+    @ToString.Exclude
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "price_list_id", referencedColumnName = "id")
     private PriceList priceList;

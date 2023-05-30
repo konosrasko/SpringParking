@@ -35,6 +35,7 @@ public class PriceList {
     @Column(name="type")
     private String type;
 
+    @ToString.Exclude
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "zone_id", referencedColumnName = "id")
     private ParkingZone parkingZone;

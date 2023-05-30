@@ -31,6 +31,7 @@ public class ParkingZone {
     @OneToMany(mappedBy = "zone", cascade = CascadeType.ALL)
     private List<ParkingSpot> parkingSpots;
 
+    @ToString.Exclude
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "park_id", referencedColumnName = "id")
     private Parking parking;

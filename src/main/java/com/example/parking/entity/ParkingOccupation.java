@@ -4,6 +4,7 @@ import com.example.parking.dto.ParkingOccupationDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.Duration;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
@@ -16,18 +17,24 @@ import java.util.Objects;
 @Entity
 @Table(name = "parking_history")
 public class ParkingOccupation {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "spot_id")
     private ParkingSpot parkingSpot;
+
     @Column(name = "date_start")
     private OffsetDateTime occupationDate;
+
     @Column(name = "date_end")
     private OffsetDateTime vacancyDate;
+
     @Column(name = "total_cost")
     private float cost;
+
     @Column(name = "vehicle_plate")
     private String plate;
 
@@ -49,4 +56,12 @@ public class ParkingOccupation {
     public int hashCode() {
         return Objects.hash(getParkingSpot(), getOccupationDate(), getVacancyDate(), getCost(), getPlate());
     }
+
+    public long returnDur(){
+        if(vacancyDate==null){
+            return Duration.between(occupationDate,OffsetDateTime.now()).toMinutes();
+        }else return Duration.between(occupationDate,vacancyDate).toMinutes();
+
+    }
+
 }

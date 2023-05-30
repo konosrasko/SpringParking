@@ -1,14 +1,9 @@
 package com.example.parking.service.impl;
 
 import com.example.parking.dto.ParkingOccupationDTO;
-import com.example.parking.entity.Parking;
-import com.example.parking.entity.ParkingOccupation;
-import com.example.parking.entity.ParkingSpot;
+import com.example.parking.entity.*;
 import com.example.parking.exception.ParkingException;
-import com.example.parking.repository.ParkingOccupationRepo;
-import com.example.parking.repository.ParkingRepo;
-import com.example.parking.repository.ParkingSpotRepo;
-import com.example.parking.repository.ParkingZoneRepo;
+import com.example.parking.repository.*;
 import com.example.parking.service.ParkingOccupationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +23,10 @@ public class ParkingOccupationImpl implements ParkingOccupationService {
     private ParkingSpotRepo parkingSpotRepo;
     @Autowired
     private ParkingOccupationRepo parkingOccupationRepo;
+    @Autowired
+    private PriceListRepo priceListRepo;
+    @Autowired
+    private PriceScaleRepo priceScaleRepo;
     @Override
     public List<ParkingOccupationDTO> getParkingHistoryByParkingId(int parkingId) {
         Optional<Parking> parking = parkingRepo.findById(parkingId);
@@ -92,4 +91,6 @@ public class ParkingOccupationImpl implements ParkingOccupationService {
             }
         }
     }
+
+
 }
