@@ -73,11 +73,13 @@ class ParkingOccupationImplTest {
 
         ParkingOccupationDTO parkingOccupationDTO = new ParkingOccupationDTO(savedSpot.getId(),OffsetDateTime.now().minusHours(1),null,0,"yes");
         ParkingOccupationDTO savedParkingOccupation = parkingOccupationService.saveParkingOccupation(savedSpot.getId(), parkingOccupationDTO);
-        ParkingOccupationDTO unParked =parkingOccupationService.updateParkingHistoryOccupation(1);
 
-       System.out.println(unParked.getVacancyDate());
+        System.out.println(savedParkingOccupation.getVacancyDate());
+        System.out.println(savedSpot.toString());
 
         assertNotNull(parkingOccupationService.updateParkingHistoryOccupation(savedSpot.getId()).getVacancyDate());
+
+
 
     }
 
