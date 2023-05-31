@@ -29,46 +29,50 @@ class PriceListServiceImplTest {
     private ParkingService parkingService;
     @Autowired
     private PriceListRepo priceListRepo;
+    private ParkingDTO parkingDTO;
+    private ParkingZoneDTO parkingZoneDTO;
+    private ParkingSpotDTO parkingSpotDTO;
+    private ParkingDTO savedParking;
+    private PriceListDTO priceListDTO;
+    private PriceListDTO savedPriceList;
+    private PriceScaleDTO priceScaleDTO;
+    private PriceScaleDTO savedPriceScale;
 
     @BeforeEach
-    void beforeEach(){
-        ParkingDTO parkingDTO =  ParkingDTO.builder().name("name").parkingZoneDTOList(new ArrayList<>()).build();
-        ParkingDTO savedParking =parkingService.addParking(parkingDTO);
+    void init(){
+        parkingDTO = ParkingDTO.builder().name("name").parkingZoneDTOList(new ArrayList<>()).build();
+        parkingZoneDTO = ParkingZoneDTO.builder().name("name").type("type").parkingSpotDTOList(new ArrayList<>()).build();
+        parkingSpotDTO = ParkingSpotDTO.builder().name("name").type("type").occupied(false).build();
 
-        ParkingZoneDTO parkingZoneDTO = ParkingZoneDTO.builder().name("name").type("type").parkingSpotDTOList(new ArrayList<>()).build();
-        parkingDTO.getParkingZoneDTOList().add(parkingZoneDTO);
-        ParkingZoneDTO savedZone = parkingService.addZone(savedParking.getParkingId(), parkingZoneDTO);
+        PriceScaleDTO priceScaleDTO = new PriceScaleDTO(1,120,30,1);
 
-        ParkingSpotDTO parkingSpotDTO = ParkingSpotDTO.builder().name("name").type("type").occupied(false).build();
-        ParkingSpotDTO savedSpot = parkingService.addSpot(parkingSpotDTO, savedZone.getParkingZoneId());
+        priceListDTO = PriceListDTO.builder().type("type").priceScaleDTOList(new ArrayList<>()).build();
+        priceListService.addPriceScales(1,priceScaleDTO);
+        savedPriceList= priceListService.addPriceList(priceListDTO,1);
+
 
     }
 
     @Test
     void addPriceList(){
-        PriceListDTO priceListDTO = new PriceListDTO();
-        PriceListDTO savedPriceList= priceListService.addPriceList(priceListDTO,1);
+
 
         assertNotNull(savedPriceList);
-        System.out.println(savedPriceList.toString());
+
     }
     @Test
     void getPriceList(){
 
-        PriceListDTO priceListDTO = new PriceListDTO();
-        priceListService.addPriceList(priceListDTO,1);
 
-        assertNotNull(priceListService.getPriceList(1));
-        assertEquals(priceListService.getPriceList(1).size(),1);
+        assertNotNull(priceListService.getPriceList(parkingZoneDTO.getParkingZoneId()));
+        assertEquals(priceListService.getPriceList(parkingZoneDTO.getParkingZoneId()).size(),1);
 
     }
     @Test
     void addPriceScale(){
-        PriceListDTO priceListDTO = new PriceListDTO();
-        PriceListDTO savedPriceList= priceListService.addPriceList(priceListDTO,1);
-        PriceScaleDTO priceScaleDTO = new PriceScaleDTO();
 
-        PriceScaleDTO savedPriceScale =priceListService.addPriceScales(1,priceScaleDTO);
+
+        PriceScaleDTO savedPriceScale =priceListService.addPriceScales(parkingZoneDTO.getParkingZoneId(),priceScaleDTO);
 
         assertNotNull(savedPriceScale);
     }

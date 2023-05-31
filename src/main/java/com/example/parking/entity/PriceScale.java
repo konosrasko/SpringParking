@@ -33,7 +33,7 @@ public class PriceScale {
     private double scaleCost;
 
     @ToString.Exclude
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "price_list_id", referencedColumnName = "id")
     private PriceList priceList;
 
