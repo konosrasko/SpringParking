@@ -86,14 +86,22 @@ public class ParkingOccupationImpl implements ParkingOccupationService {
                     parkingSpotRepo.save(parkingSpot.get());
                     optionalParkingOccupation.get().setVacancyDate(OffsetDateTime.now());
                     long totalDur= optionalParkingOccupation.get().totalDur();
+
                     ParkingSpot spot = parkingSpot.get();
                     int id  = spot.getZone().getId();
+
                     Optional<ParkingZone> zone = parkingZoneRepo.findById(id);
                     List<PriceList> priceLists = zone.get().getPriceLists();
-                    PriceList firstPriceList = priceLists.get(0);
-                    float cost = (float) firstPriceList.totalCost(totalDur);
+
                     ParkingOccupation updateOcc = optionalParkingOccupation.get();
-                    updateOcc.setCost(cost);
+
+                    if(priceLists == null || priceLists.isEmpty()){
+                        updateOcc.setCost(0);
+                    }else{
+                        PriceList firstPriceList = priceLists.get(0);
+                        float cost = (float) firstPriceList.totalCost(totalDur);
+                        updateOcc.setCost(cost);
+                    }
                     //optionalParkingOccupation.get().setCost((float) parkingSpot.get().getZone().getPriceLists().get(0).totalCost(totalDur)); // cost implementation method
                     return new ParkingOccupationDTO(parkingOccupationRepo.save(updateOcc));
                 }
