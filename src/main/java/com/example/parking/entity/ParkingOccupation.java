@@ -39,7 +39,7 @@ public class ParkingOccupation {
     @Column(name = "vehicle_plate")
     private String plate;
 
-    public ParkingOccupation(ParkingOccupationDTO parkingOccupationDTO){
+    public ParkingOccupation(ParkingSpot parkingSpot, ParkingOccupationDTO parkingOccupationDTO){
         this.occupationDate = parkingOccupationDTO.getOccupationDate();
         this.vacancyDate = parkingOccupationDTO.getVacancyDate();
         this.cost = parkingOccupationDTO.getCost();

@@ -56,10 +56,10 @@ public class ParkingOccupationImpl implements ParkingOccupationService {
             if(parkingSpot.get().isOccupied()){
                 throw new RuntimeException("Parking spot is occupied"); //response error 400
             } else {
-                ParkingOccupation parkingOccupation = new ParkingOccupation(parkingOccupationDTO);
+                ParkingOccupation parkingOccupation = new ParkingOccupation(parkingSpot.get(),parkingOccupationDTO);
                 parkingSpot.get().setOccupied(true);
-                parkingOccupation.setParkingSpot(parkingSpotRepo.save(parkingSpot.get()));
-                savedOccupation= parkingOccupationRepo.save(parkingOccupation);
+                parkingSpotRepo.save(parkingSpot.get());
+                savedOccupation = parkingOccupationRepo.save(parkingOccupation);
                 parkingOccupationDTO.setSpotId(spotId);
             }
         }
