@@ -4,6 +4,8 @@ import com.example.parking.dto.ParkingSpotDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @AllArgsConstructor
@@ -36,8 +38,8 @@ public class ParkingSpot {
     @JoinColumn(name = "zone_id", referencedColumnName = "id")
     private ParkingZone zone;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "parkingSpot")
-    private ParkingOccupation parkingOccupation;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "parkingSpot")
+    private List<ParkingOccupation> parkingOccupations = new ArrayList<>();
 
     public ParkingSpot(ParkingZone zone, ParkingSpotDTO parkingSpotDTO) {
         this.id = parkingSpotDTO.getId();

@@ -23,8 +23,9 @@ public class ParkingOccupation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "spot_id")
+    @ToString.Exclude
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "spot_id", referencedColumnName = "id")
     private ParkingSpot parkingSpot;
 
     @Column(name = "date_start")
@@ -60,11 +61,6 @@ public class ParkingOccupation {
     }
 
     public long totalDur(){
-        if(vacancyDate==null){
-            return Duration.between(occupationDate,OffsetDateTime.now()).toMinutes();
-        }else return Duration.between(occupationDate,vacancyDate).toMinutes();
-
+        return Duration.between(occupationDate, Objects.requireNonNullElseGet(vacancyDate, OffsetDateTime::now)).toMinutes();
     }
-
-
 }
