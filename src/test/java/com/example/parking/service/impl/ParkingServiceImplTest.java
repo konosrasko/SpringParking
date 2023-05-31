@@ -4,6 +4,7 @@ import com.example.parking.dto.ParkingDTO;
 import com.example.parking.dto.ParkingSpotDTO;
 import com.example.parking.dto.ParkingZoneDTO;
 import com.example.parking.service.ParkingService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
@@ -15,9 +16,7 @@ import org.springframework.context.annotation.ComponentScan;
 import java.util.ArrayList;
 import java.util.List;
 
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
@@ -27,104 +26,88 @@ public class ParkingServiceImplTest {
     @Autowired
     private ParkingService parkingService;
 
+    private ParkingDTO parkingDTO;
+    private ParkingZoneDTO parkingZoneDTO;
+    private ParkingSpotDTO parkingSpotDTO;
+    private ParkingDTO savedParking;
+
+    @BeforeEach
+    void init(){
+        parkingDTO = ParkingDTO.builder().name("name").parkingZoneDTOList(new ArrayList<>()).build();
+        parkingZoneDTO = ParkingZoneDTO.builder().name("name").type("type").parkingSpotDTOList(new ArrayList<>()).build();
+        parkingSpotDTO = ParkingSpotDTO.builder().name("name").type("type").occupied(false).build();
+
+        parkingZoneDTO.getParkingSpotDTOList().add(parkingSpotDTO);
+        parkingDTO.getParkingZoneDTOList().add(parkingZoneDTO);
+
+        savedParking = parkingService.addParking(parkingDTO);
+    }
+
     @Test
     void addParking() {
-        List<ParkingSpotDTO> parkingSpotDTO = new ArrayList<>();
-        List<ParkingZoneDTO> parkingZoneDTO = new ArrayList<>();
-        ParkingDTO parkingDTO = ParkingDTO.builder().name("name").parkingZoneDTOList(parkingZoneDTO).build();
-
-        ParkingDTO savedParking =parkingService.addParking(parkingDTO);
+        List<ParkingDTO> foundParking = parkingService.findAllParkings();
 
         assertNotNull(savedParking);
-
+        assertTrue(foundParking.contains(savedParking));
     }
+
     @Test
     void findParkingById(){
-        List<ParkingZoneDTO> parkingZoneDTO = new ArrayList<>();
-        List<ParkingZoneDTO> parkingZoneDTO1 = new ArrayList<>();
+        ParkingDTO parkingDTO1 = ParkingDTO.builder().name("name").parkingZoneDTOList(new ArrayList<>()).build();
+        ParkingDTO savedPark1 = parkingService.addParking(parkingDTO1);
 
-        ParkingDTO parkingDTO = ParkingDTO.builder().name("name").parkingZoneDTOList(parkingZoneDTO).build();
-        ParkingDTO parkingDTO1 = ParkingDTO.builder().name("name").parkingZoneDTOList(parkingZoneDTO1).build();
-
-        parkingService.addParking(parkingDTO);
-        parkingService.addParking(parkingDTO1);
-
-        assertEquals(2,parkingService.findParkingById(2).getParkingId());
+        assertEquals(savedPark1, parkingService.findParkingById(savedPark1.getParkingId()));
     }
+
     @Test
-    void findAllParkings(){
-        List<ParkingZoneDTO> parkingZoneDTO = new ArrayList<>();
-        List<ParkingZoneDTO> parkingZoneDTO1 = new ArrayList<>();
+    void findAllParking(){
+        List<ParkingDTO> listOfParking = new ArrayList<>();
+        listOfParking.add(savedParking);
 
-        ParkingDTO parkingDTO = ParkingDTO.builder().name("name").parkingZoneDTOList(parkingZoneDTO).build();
-        ParkingDTO parkingDTO1 = ParkingDTO.builder().name("name").parkingZoneDTOList(parkingZoneDTO1).build();
-
-        parkingService.addParking(parkingDTO);
-        parkingService.addParking(parkingDTO1);
-
-        assertEquals(2,parkingService.findAllParkings().size());
+        assertEquals(listOfParking.size() ,parkingService.findAllParkings().size());
     }
 
     @Test
     void addZone(){
+        ParkingZoneDTO parkingZoneDTO = ParkingZoneDTO.builder().name("name1").type("type1").parkingSpotDTOList(new ArrayList<>()).build();
 
-        ParkingDTO parkingDTO =  ParkingDTO.builder().name("name").parkingZoneDTOList(new ArrayList<>()).build();
-        ParkingDTO savedParking =parkingService.addParking(parkingDTO);
-
-        ParkingZoneDTO parkingZoneDTO = ParkingZoneDTO.builder().name("name").type("type").parkingSpotDTOList(new ArrayList<>()).build();
-        parkingDTO.getParkingZoneDTOList().add(parkingZoneDTO);
-        ParkingZoneDTO parkingZone= parkingService.addZone(savedParking.getParkingId(), parkingZoneDTO);
-
-        assertNotNull(parkingZone);
-
-    }
-    @Test
-    void getParkingZoneById(){
-        ParkingDTO parkingDTO =  ParkingDTO.builder().name("name").parkingZoneDTOList(new ArrayList<>()).build();
-        ParkingDTO savedParking =parkingService.addParking(parkingDTO);
-
-        ParkingZoneDTO parkingZoneDTO = ParkingZoneDTO.builder().name("name").type("type").parkingSpotDTOList(new ArrayList<>()).build();
-        parkingDTO.getParkingZoneDTOList().add(parkingZoneDTO);
         ParkingZoneDTO savedZone = parkingService.addZone(savedParking.getParkingId(), parkingZoneDTO);
-        //parkingService.getParkingZoneById(savedParking.getParkingId(),savedZone.getParkingZoneId());
+
+        assertNotNull(savedZone);
+    }
+
+    @Test
+    void getParkingSpotsByZoneById(){
+        ParkingZoneDTO parkingZoneDTO = ParkingZoneDTO.builder().name("name").type("type").parkingSpotDTOList(new ArrayList<>()).build();
+        ParkingZoneDTO savedZone = parkingService.addZone(savedParking.getParkingId(), parkingZoneDTO);
 
         assertEquals(
                 parkingService.findSpotsByZoneId(savedZone.getParkingZoneId()),
                 parkingZoneDTO.getParkingSpotDTOList()
         );
     }
+
     @Test
     void getParkingZones(){
-        ParkingDTO parkingDTO =  ParkingDTO.builder().name("name").parkingZoneDTOList(new ArrayList<>()).build();
-        ParkingDTO savedParking =parkingService.addParking(parkingDTO);
-
-        ParkingZoneDTO parkingZoneDTO = ParkingZoneDTO.builder().name("name").type("type").parkingSpotDTOList(new ArrayList<>()).build();
-        parkingDTO.getParkingZoneDTOList().add(parkingZoneDTO);
-
-        assertEquals(parkingService.getParkingZones(savedParking.getParkingId()),savedParking.getParkingZoneDTOList());
+        assertEquals(parkingService.getParkingZones(savedParking.getParkingId()),
+                savedParking.getParkingZoneDTOList());
     }
+
     @Test
     void addSpot(){
-        ParkingDTO parkingDTO =  ParkingDTO.builder().name("name").parkingZoneDTOList(new ArrayList<>()).build();
-        ParkingDTO savedParking =parkingService.addParking(parkingDTO);
-
         ParkingZoneDTO parkingZoneDTO = ParkingZoneDTO.builder().name("name").type("type").parkingSpotDTOList(new ArrayList<>()).build();
-        parkingDTO.getParkingZoneDTOList().add(parkingZoneDTO);
         ParkingZoneDTO savedZone = parkingService.addZone(savedParking.getParkingId(), parkingZoneDTO);
 
         ParkingSpotDTO parkingSpotDTO = ParkingSpotDTO.builder().name("name").type("type").occupied(false).build();
         ParkingSpotDTO savedSpot = parkingService.addSpot(parkingSpotDTO, savedZone.getParkingZoneId());
 
         assertNotNull(savedSpot);
+        assertEquals(savedSpot, parkingService.findParkingSpotById(savedSpot.getId()));
     }
 
     @Test
     void findParkingSpotById(){
-        ParkingDTO parkingDTO =  ParkingDTO.builder().name("name").parkingZoneDTOList(new ArrayList<>()).build();
-        ParkingDTO savedParking =parkingService.addParking(parkingDTO);
-
         ParkingZoneDTO parkingZoneDTO = ParkingZoneDTO.builder().name("name").type("type").parkingSpotDTOList(new ArrayList<>()).build();
-        parkingDTO.getParkingZoneDTOList().add(parkingZoneDTO);
         ParkingZoneDTO savedZone = parkingService.addZone(savedParking.getParkingId(), parkingZoneDTO);
 
         ParkingSpotDTO parkingSpotDTO = ParkingSpotDTO.builder().name("name").type("type").occupied(false).build();
@@ -132,17 +115,16 @@ public class ParkingServiceImplTest {
 
         assertNotNull(parkingService.findParkingSpotById(savedSpot.getId()));
     }
+
     @Test
     void findSpotsByZoneId(){
-        ParkingDTO parkingDTO =  ParkingDTO.builder().name("name").parkingZoneDTOList(new ArrayList<>()).build();
-        ParkingDTO savedParking =parkingService.addParking(parkingDTO);
-
         ParkingZoneDTO parkingZoneDTO = ParkingZoneDTO.builder().name("name").type("type").parkingSpotDTOList(new ArrayList<>()).build();
-        parkingDTO.getParkingZoneDTOList().add(parkingZoneDTO);
         ParkingZoneDTO savedZone = parkingService.addZone(savedParking.getParkingId(), parkingZoneDTO);
 
         ParkingSpotDTO parkingSpotDTO = ParkingSpotDTO.builder().name("name").type("type").occupied(false).build();
+        ParkingSpotDTO savedSpot = parkingService.addSpot(parkingSpotDTO, savedZone.getParkingZoneId());
 
         assertNotNull(parkingService.findSpotsByZoneId(savedZone.getParkingZoneId()));
+        assertEquals(savedZone.getParkingSpotDTOList(), parkingService.findSpotsByZoneId(savedZone.getParkingZoneId()));
     }
 }
