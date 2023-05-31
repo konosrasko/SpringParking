@@ -1,9 +1,6 @@
 package com.example.parking.service.impl;
 
-import com.example.parking.dto.ParkingDTO;
-import com.example.parking.dto.ParkingOccupationDTO;
-import com.example.parking.dto.ParkingSpotDTO;
-import com.example.parking.dto.ParkingZoneDTO;
+import com.example.parking.dto.*;
 import com.example.parking.entity.ParkingOccupation;
 import com.example.parking.entity.ParkingSpot;
 import com.example.parking.service.ParkingOccupationService;
@@ -15,6 +12,10 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 
+import java.util.List;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -60,12 +61,15 @@ class ParkingOccupationImplTest {
         ParkingSpotDTO parkingSpotDTO = ParkingSpotDTO.builder().name("name").type("type").occupied(false).build();
         ParkingSpotDTO savedSpot = parkingService.addSpot(parkingSpotDTO, savedZone.getParkingZoneId());
 
-        ParkingOccupationDTO parkingOccupationDTO = new ParkingOccupationDTO();
+
+
+        ParkingOccupationDTO parkingOccupationDTO = new ParkingOccupationDTO(1,OffsetDateTime.now(),null,0,"yes");
         ParkingOccupationDTO savedParkingOccupation = parkingOccupationService.saveParkingOccupation(savedSpot.getId(), parkingOccupationDTO);
 
         System.out.println(savedParkingOccupation.getVacancyDate());
 
         assertNotNull(parkingOccupationService.updateParkingHistoryOccupation(1).getVacancyDate());
+
     }
 
     @Test
@@ -95,4 +99,30 @@ class ParkingOccupationImplTest {
         assertEquals(parkingOccupationService.getParkingHistoryByParkingId(1).size(),1);
         assertTrue(parkingOccupationService.getParkingHistoryByParkingId(1).contains(parkingOccupationDTO));
     }
+
+    @Test
+    void costTest(){
+        ParkingDTO parkingDTO =  ParkingDTO.builder().name("name").parkingZoneDTOList(new ArrayList<>()).build();
+        ParkingDTO savedParking = parkingService.addParking(parkingDTO);
+
+        ParkingZoneDTO parkingZoneDTO = ParkingZoneDTO.builder().name("name").type("type").parkingSpotDTOList(new ArrayList<>()).build();
+        parkingDTO.getParkingZoneDTOList().add(parkingZoneDTO);
+        ParkingZoneDTO savedZone = parkingService.addZone(savedParking.getParkingId(), parkingZoneDTO);
+
+        ParkingSpotDTO parkingSpotDTO = ParkingSpotDTO.builder().name("name").type("type").occupied(false).build();
+        ParkingSpotDTO savedSpot = parkingService.addSpot(parkingSpotDTO, savedZone.getParkingZoneId());
+
+        List<PriceScaleDTO> priceScaleDTOList = new ArrayList<>();
+        priceScaleDTOList.add(new PriceScaleDTO());
+
+//        PriceListDTO priceListDTO = new PriceListDTO(1,OffsetDateTime.now(),OffsetDateTime.of(2023,5,31,16,0,0,0,ZoneOffset.ofHours(1)),"type",);
+
+        ParkingOccupationDTO parkingOccupationDTO = new ParkingOccupationDTO(1, OffsetDateTime.now(),null,0,"yes");
+        ParkingOccupationDTO savedParkingOccupation = parkingOccupationService.saveParkingOccupation(savedSpot.getId(), parkingOccupationDTO);
+
+
+        assertEquals(parkingOccupationService.updateParkingHistoryOccupation(1).getCost(),2.7);
+    }
+
+
 }
