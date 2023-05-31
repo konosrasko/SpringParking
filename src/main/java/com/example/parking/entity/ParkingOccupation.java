@@ -40,6 +40,7 @@ public class ParkingOccupation {
     private String plate;
 
     public ParkingOccupation(ParkingSpot parkingSpot, ParkingOccupationDTO parkingOccupationDTO){
+        this.parkingSpot = parkingSpot;
         this.occupationDate = parkingOccupationDTO.getOccupationDate();
         this.vacancyDate = parkingOccupationDTO.getVacancyDate();
         this.cost = parkingOccupationDTO.getCost();
