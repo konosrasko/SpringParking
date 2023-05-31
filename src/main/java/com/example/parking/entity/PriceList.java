@@ -69,7 +69,7 @@ public class PriceList {
                 duration -= priceScales.get(i).getScaleDuration();
                 i++;
             }else{
-                totalCost += priceScales.get(i).getScaleCost() * ((duration/priceScales.get(i).getScalePerTimeUnit())+1) ;
+                totalCost += priceScales.get(i).getScaleCost() * ((duration/priceScales.get(i).getScalePerTimeUnit())) ;
                 duration=0;
             }
         }
