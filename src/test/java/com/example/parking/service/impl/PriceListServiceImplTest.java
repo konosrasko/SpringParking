@@ -1,8 +1,6 @@
 package com.example.parking.service.impl;
 
 import com.example.parking.dto.*;
-import com.example.parking.entity.ParkingZone;
-import com.example.parking.entity.PriceList;
 import com.example.parking.repository.PriceListRepo;
 import com.example.parking.service.ParkingService;
 import com.example.parking.service.PriceListService;
@@ -13,12 +11,12 @@ import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
-import java.util.List;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import static org.assertj.core.api.FactoryBasedNavigableListAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+
 @DataJpaTest
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 @ComponentScan(basePackages = {"com.example.parking"})
@@ -29,77 +27,60 @@ class PriceListServiceImplTest {
     private ParkingService parkingService;
     @Autowired
     private PriceListRepo priceListRepo;
-    private ParkingDTO parkingDTO;
-    private ParkingZoneDTO parkingZoneDTO;
-    private ParkingSpotDTO parkingSpotDTO;
+
     private ParkingDTO savedParking;
-    private PriceListDTO priceListDTO;
-    private PriceListDTO savedPriceList;
-    private PriceScaleDTO priceScaleDTO;
-    private PriceScaleDTO savedPriceScale;
+    private ParkingZoneDTO savedZone;
+    private ParkingSpotDTO savedSpot;
+    private PriceListDTO savedList;
+    private PriceScaleDTO savedScale;
 
     @BeforeEach
     void init(){
-        parkingDTO = ParkingDTO.builder().name("name").parkingZoneDTOList(new ArrayList<>()).build();
-        parkingZoneDTO = ParkingZoneDTO.builder().name("name").type("type").parkingSpotDTOList(new ArrayList<>()).build();
-        parkingSpotDTO = ParkingSpotDTO.builder().name("name").type("type").occupied(false).build();
+        ParkingDTO parkingDTO = ParkingDTO.builder().name("name").parkingZoneDTOList(new ArrayList<>()).build();
+        savedParking = parkingService.addParking(parkingDTO);
 
-        PriceScaleDTO priceScaleDTO = new PriceScaleDTO(1,120,30,1);
+        ParkingZoneDTO parkingZoneDTO = ParkingZoneDTO.builder().name("name").type("type").parkingSpotDTOList(new ArrayList<>()).build();
+        savedZone = parkingService.addZone(savedParking.getParkingId(), parkingZoneDTO);
 
-        priceListDTO = PriceListDTO.builder().type("type").priceScaleDTOList(new ArrayList<>()).build();
-        priceListService.addPriceScales(1,priceScaleDTO);
-        savedPriceList= priceListService.addPriceList(priceListDTO,1);
+        ParkingSpotDTO parkingSpotDTO = ParkingSpotDTO.builder().name("name").type("type").occupied(false).build();
+        savedSpot = parkingService.addSpot(parkingSpotDTO, savedZone.getParkingZoneId());
 
+        PriceListDTO priceListDTO = PriceListDTO.builder().type("type").dateEnd(null).priceScaleDTOList(new ArrayList<>()).dateStart(null).build();
+        savedList = priceListService.addPriceList(priceListDTO, savedZone.getParkingZoneId());
 
+        PriceScaleDTO priceScaleDTO = PriceScaleDTO.builder().scaleDuration(120).scaleCost(1).scalePerTimeUnit(30).build();
+        savedScale = priceListService.addPriceScales(savedList.getPriceListId(), priceScaleDTO);
     }
 
     @Test
     void addPriceList(){
-
-
-        assertNotNull(savedPriceList);
-
+        PriceListDTO foundList = new PriceListDTO(priceListRepo.findById(savedList.getPriceListId()).get());
+        assertEquals(savedList, foundList);
     }
+
     @Test
     void getPriceList(){
+        PriceListDTO priceListDTO1 = PriceListDTO.builder().type("type1").dateEnd(null).priceScaleDTOList(new ArrayList<>()).dateStart(null).build();
+        priceListService.addPriceList(priceListDTO1, savedZone.getParkingZoneId());
 
-
-        assertNotNull(priceListService.getPriceList(parkingZoneDTO.getParkingZoneId()));
-        assertEquals(priceListService.getPriceList(parkingZoneDTO.getParkingZoneId()).size(),1);
-
+        List<PriceListDTO> foundListsOfZone = priceListService.getPriceList(savedZone.getParkingZoneId());
+        assertEquals(foundListsOfZone.size(), 2);
     }
+
     @Test
-    void addPriceScale(){
-
-
-        PriceScaleDTO savedPriceScale =priceListService.addPriceScales(parkingZoneDTO.getParkingZoneId(),priceScaleDTO);
-
-        assertNotNull(savedPriceScale);
+    void addPriceScale() {
+        assertNotNull(savedScale);
     }
+
     @Test
     void deleteScale(){
-        PriceListDTO priceListDTO = new PriceListDTO();
-        PriceListDTO savedPriceList= priceListService.addPriceList(priceListDTO,1);
-        PriceScaleDTO priceScaleDTO = new PriceScaleDTO();
-
-        PriceScaleDTO savedPriceScale =priceListService.addPriceScales(1,priceScaleDTO);
-        PriceScaleDTO deleted= priceListService.deleteScale(savedPriceScale.getPriceScaleId());
-
-        System.out.println(savedPriceScale.toString());
+        PriceScaleDTO deleted = priceListService.deleteScale(savedScale.getPriceScaleId());
         assertNull(deleted);
     }
+
     @Test
     void deletePriceList(){
-        PriceListDTO priceListDTO = new PriceListDTO();
-        PriceListDTO savedPriceList= priceListService.addPriceList(priceListDTO,1);
-        PriceScaleDTO priceScaleDTO = new PriceScaleDTO();
-
-        PriceScaleDTO savedPriceScale =priceListService.addPriceScales(1,priceScaleDTO);
-
-        PriceListDTO deleted = priceListService.deletePriceList(1);
-
+        PriceListDTO deleted = priceListService.deletePriceList(savedList.getPriceListId());
         assertNull(deleted);
     }
-
-
 }

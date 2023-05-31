@@ -16,7 +16,7 @@ public interface ParkingService {
 
     Boolean findIfParkingExistById(int parkingId);
 
-    ParkingZoneDTO addZone(int id, ParkingZoneDTO parkingZoneDTO);
+    ParkingZoneDTO addZone(int parkId, ParkingZoneDTO parkingZoneDTO);
 
     List<ParkingZoneDTO> getParkingZones(int id);
 

@@ -10,7 +10,7 @@ public interface PriceListService {
     PriceListDTO addPriceList(PriceListDTO priceListDTO, int zoneId);
     List<PriceListDTO> getPriceList(int zoneId);
 
-    PriceScaleDTO addPriceScales(int zoneId,PriceScaleDTO priceScaleDTO);
+    PriceScaleDTO addPriceScales(int priceListId,PriceScaleDTO priceScaleDTO);
 
     PriceScaleDTO deleteScale(int scaleId);
     PriceListDTO deletePriceList(int priceListId);
