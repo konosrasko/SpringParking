@@ -42,16 +42,12 @@ class PriceListServiceImplTest {
         ParkingSpotDTO parkingSpotDTO = ParkingSpotDTO.builder().name("name").type("type").occupied(false).build();
         ParkingSpotDTO savedSpot = parkingService.addSpot(parkingSpotDTO, savedZone.getParkingZoneId());
 
-
-
     }
 
     @Test
     void addPriceList(){
         PriceListDTO priceListDTO = new PriceListDTO();
         PriceListDTO savedPriceList= priceListService.addPriceList(priceListDTO,1);
-
-
 
         assertNotNull(savedPriceList);
         System.out.println(savedPriceList.toString());

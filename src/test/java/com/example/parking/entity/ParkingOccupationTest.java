@@ -9,7 +9,7 @@ class ParkingOccupationTest {
     @Test
     void DTOToEntity(){
         ParkingOccupationDTO parkingOccupationDTO = new ParkingOccupationDTO();
-        ParkingOccupation parkingOccupation = new ParkingOccupation();
+        ParkingOccupation parkingOccupation = ParkingOccupation.builder().parkingSpot(new ParkingSpot()).build();
         assertEquals(parkingOccupation,new ParkingOccupation(new ParkingSpot(), parkingOccupationDTO));
 
     }

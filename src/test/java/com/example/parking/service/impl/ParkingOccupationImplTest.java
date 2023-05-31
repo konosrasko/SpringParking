@@ -79,7 +79,6 @@ class ParkingOccupationImplTest {
 
         assertNotNull(parkingOccupationService.updateParkingHistoryOccupation(savedSpot.getId()).getVacancyDate());
 
-
     }
 
     @Test
