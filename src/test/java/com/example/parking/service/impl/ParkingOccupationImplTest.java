@@ -1,9 +1,6 @@
 package com.example.parking.service.impl;
 
 import com.example.parking.dto.*;
-import com.example.parking.entity.Parking;
-import com.example.parking.entity.ParkingOccupation;
-import com.example.parking.entity.ParkingSpot;
 import com.example.parking.service.ParkingOccupationService;
 import com.example.parking.service.ParkingService;
 import com.example.parking.service.PriceListService;
@@ -15,10 +12,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 
-import java.util.List;
-import java.time.LocalDate;
 import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;

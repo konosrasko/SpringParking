@@ -8,4 +8,5 @@ public interface ParkingOccupationService {
     List<ParkingOccupationDTO> getParkingHistoryByParkingId(int parkingId);
     ParkingOccupationDTO saveParkingOccupation(int spotId, ParkingOccupationDTO parkingOccupationDTO);
     ParkingOccupationDTO updateParkingHistoryOccupation(int spotId);
+    double seeCurrentCost(int spotId);
 }

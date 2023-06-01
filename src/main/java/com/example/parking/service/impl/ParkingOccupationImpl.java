@@ -1,6 +1,7 @@
 package com.example.parking.service.impl;
 
 import com.example.parking.dto.ParkingOccupationDTO;
+import com.example.parking.dto.ParkingSpotDTO;
 import com.example.parking.entity.*;
 import com.example.parking.exception.ParkingException;
 import com.example.parking.repository.*;
@@ -27,15 +28,16 @@ public class ParkingOccupationImpl implements ParkingOccupationService {
     private PriceListRepo priceListRepo;
     @Autowired
     private PriceScaleRepo priceScaleRepo;
+
     @Override
     public List<ParkingOccupationDTO> getParkingHistoryByParkingId(int parkingId) {
         Optional<Parking> parking = parkingRepo.findById(parkingId);
-        if(parking.isEmpty()) {
+        if (parking.isEmpty()) {
             throw new ParkingException("Parking does not exist");
         } else {
             return parking.get().getParkingZones()
                     .stream()
-                    .flatMap(parkingZone ->  parkingZone.getParkingSpots()
+                    .flatMap(parkingZone -> parkingZone.getParkingSpots()
                             .stream()
                             .flatMap(parkingSpot -> parkingOccupationRepo.findAll()
                                     .stream()
@@ -50,13 +52,13 @@ public class ParkingOccupationImpl implements ParkingOccupationService {
     public ParkingOccupationDTO saveParkingOccupation(int spotId, ParkingOccupationDTO parkingOccupationDTO) {
         ParkingOccupation savedOccupation = new ParkingOccupation();
         Optional<ParkingSpot> parkingSpot = parkingSpotRepo.findById(spotId);
-        if(parkingSpot.isEmpty()){
+        if (parkingSpot.isEmpty()) {
             throw new ParkingException("Parking spot does not exist"); //response error 404
         } else {
-            if(parkingSpot.get().isOccupied()){
+            if (parkingSpot.get().isOccupied()) {
                 throw new RuntimeException("Parking spot is occupied"); //response error 400
             } else {
-                ParkingOccupation parkingOccupation = new ParkingOccupation(parkingSpot.get(),parkingOccupationDTO);
+                ParkingOccupation parkingOccupation = new ParkingOccupation(parkingSpot.get(), parkingOccupationDTO);
                 parkingSpot.get().setOccupied(true);
                 parkingSpotRepo.save(parkingSpot.get());
                 savedOccupation = parkingOccupationRepo.save(parkingOccupation);
@@ -69,7 +71,7 @@ public class ParkingOccupationImpl implements ParkingOccupationService {
     @Override
     public ParkingOccupationDTO updateParkingHistoryOccupation(int spotId) {
         Optional<ParkingSpot> parkingSpot = parkingSpotRepo.findById(spotId);
-        if(parkingSpot.isEmpty()){
+        if (parkingSpot.isEmpty()) {
             throw new ParkingException("Parking spot does not exist"); //response error 404
         } else {
             if (!parkingSpot.get().isOccupied()) {
@@ -79,25 +81,25 @@ public class ParkingOccupationImpl implements ParkingOccupationService {
                         .stream()
                         .filter(parkingOccupation -> parkingOccupation.getParkingSpot().getId() == parkingSpot.get().getId())
                         .max(Comparator.comparing(ParkingOccupation::getOccupationDate));
-                if(optionalParkingOccupation.isEmpty()){
-                    throw new RuntimeException("No occupation for spot with id : "+spotId);
+                if (optionalParkingOccupation.isEmpty()) {
+                    throw new RuntimeException("No occupation for spot with id : " + spotId);
                 } else {
                     parkingSpot.get().setOccupied(false);
                     parkingSpotRepo.save(parkingSpot.get());
                     optionalParkingOccupation.get().setVacancyDate(OffsetDateTime.now());
-                    long totalDur= optionalParkingOccupation.get().totalDur();
+                    long totalDur = optionalParkingOccupation.get().totalDur();
 
                     ParkingSpot spot = parkingSpot.get();
-                    int id  = spot.getZone().getId();
+                    int id = spot.getZone().getId();
 
                     Optional<ParkingZone> zone = parkingZoneRepo.findById(id);
                     List<PriceList> priceLists = zone.get().getPriceLists();
 
                     ParkingOccupation updateOcc = optionalParkingOccupation.get();
 
-                    if(priceLists == null || priceLists.isEmpty()){
+                    if (priceLists == null || priceLists.isEmpty()) {
                         updateOcc.setCost(0);
-                    }else{
+                    } else {
                         PriceList firstPriceList = priceLists.get(0);
                         float cost = (float) firstPriceList.totalCost(totalDur);
                         updateOcc.setCost(cost);
@@ -109,6 +111,41 @@ public class ParkingOccupationImpl implements ParkingOccupationService {
         }
     }
 
+    @Override
+    public double seeCurrentCost(int spotId) {
+        float currentCost = 0;
+        Optional<ParkingSpot> parkingSpot = parkingSpotRepo.findById(spotId);
+        if (parkingSpot.isEmpty()) {
+            throw new ParkingException("Parking spot does not exist"); //response error 404
+        } else {
+            if (!parkingSpot.get().isOccupied()) {
+                throw new RuntimeException("Parking spot is empty"); //response error 400
+            } else {
+                Optional<ParkingOccupation> optionalParkingOccupation = parkingOccupationRepo.findAll()
+                        .stream()
+                        .filter(parkingOccupation -> parkingOccupation.getParkingSpot().getId() == parkingSpot.get().getId())
+                        .max(Comparator.comparing(ParkingOccupation::getOccupationDate));
 
+                optionalParkingOccupation.get().setVacancyDate(OffsetDateTime.now());
+                long totalDur = optionalParkingOccupation.get().totalDur();
+                ParkingSpot spot = parkingSpot.get();
+                int id = spot.getZone().getId();
 
+                Optional<ParkingZone> zone = parkingZoneRepo.findById(id);
+                List<PriceList> priceLists = zone.get().getPriceLists();
+
+                ParkingOccupation updateOcc = optionalParkingOccupation.get();
+
+                if (priceLists == null || priceLists.isEmpty()) {
+                    updateOcc.setCost(0);
+                } else {
+                    PriceList firstPriceList = priceLists.get(0);
+                    currentCost += (float) firstPriceList.totalCost(totalDur);
+
+                }
+            }
+        }
+    return currentCost;
+
+    }
 }

@@ -28,4 +28,8 @@ public class ParkingOccupationController {
     public ParkingOccupationDTO updateParkingHistory(@PathVariable int spotId){
         return parkingOccupation.updateParkingHistoryOccupation(spotId);
     }
+    @GetMapping("/parking-spots/{spotId}/seeCurrentCost")
+    public  double seeCurrentCost(@PathVariable int spotId){
+        return parkingOccupation.seeCurrentCost(spotId);
+    }
 }
