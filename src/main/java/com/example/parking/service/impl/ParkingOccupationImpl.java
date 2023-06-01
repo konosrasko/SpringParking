@@ -1,7 +1,6 @@
 package com.example.parking.service.impl;
 
 import com.example.parking.dto.ParkingOccupationDTO;
-import com.example.parking.dto.ParkingSpotDTO;
 import com.example.parking.entity.*;
 import com.example.parking.exception.ParkingException;
 import com.example.parking.repository.*;

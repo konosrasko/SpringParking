@@ -5,8 +5,6 @@ import com.example.parking.dto.PriceScaleDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.OffsetDateTime;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

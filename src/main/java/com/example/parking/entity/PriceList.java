@@ -1,10 +1,8 @@
 package com.example.parking.entity;
 
 import com.example.parking.dto.PriceListDTO;
-import com.example.parking.dto.PriceScaleDTO;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
