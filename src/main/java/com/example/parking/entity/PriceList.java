@@ -63,14 +63,21 @@ public class PriceList {
 
         double totalCost=0;
         int i=0;
-        while (duration>0){
-            if(duration>=priceScales.get(i).getScaleDuration()) {
-                totalCost += priceScales.get(i).getScaleCost() * (priceScales.get(i).getScaleDuration()/priceScales.get(i).getScalePerTimeUnit()) ;
-                duration -= priceScales.get(i).getScaleDuration();
-                i++;
+        int scaleListSize = priceScales.size() - 1;
+
+        while (duration > 0){
+            if(duration > priceScales.get(scaleListSize).getScaleDuration()){
+                totalCost += priceScales.get(scaleListSize).getScaleCost() * (priceScales.get(scaleListSize).getScaleDuration()/priceScales.get(scaleListSize).getScalePerTimeUnit()) ;
+                duration -= priceScales.get(scaleListSize).getScaleDuration();
             }else{
-                totalCost += priceScales.get(i).getScaleCost() * ((duration/priceScales.get(i).getScalePerTimeUnit())) ;
-                duration=0;
+                if(duration>=priceScales.get(i).getScaleDuration()) {
+                    totalCost += priceScales.get(i).getScaleCost() * (priceScales.get(i).getScaleDuration()/priceScales.get(i).getScalePerTimeUnit()) ;
+                    duration -= priceScales.get(i).getScaleDuration();
+                    i++;
+                }else{
+                    totalCost += priceScales.get(i).getScaleCost() * ((duration/priceScales.get(i).getScalePerTimeUnit())) ;
+                    duration=0;
+                }
             }
         }
 

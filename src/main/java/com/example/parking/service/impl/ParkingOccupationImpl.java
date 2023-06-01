@@ -100,9 +100,13 @@ public class ParkingOccupationImpl implements ParkingOccupationService {
                     if (priceLists == null || priceLists.isEmpty()) {
                         updateOcc.setCost(0);
                     } else {
-                        PriceList firstPriceList = priceLists.get(0);
-                        float cost = (float) firstPriceList.totalCost(totalDur);
-                        updateOcc.setCost(cost);
+                        if(priceLists.get(0).getPriceScales() == null || priceLists.get(0).getPriceScales().isEmpty()){
+                            updateOcc.setCost(0);
+                        }else{
+                            PriceList firstPriceList = priceLists.get(0);
+                            float cost = (float) firstPriceList.totalCost(totalDur);
+                            updateOcc.setCost(cost);
+                        }
                     }
                     //optionalParkingOccupation.get().setCost((float) parkingSpot.get().getZone().getPriceLists().get(0).totalCost(totalDur)); // cost implementation method
                     return new ParkingOccupationDTO(parkingOccupationRepo.save(updateOcc));
