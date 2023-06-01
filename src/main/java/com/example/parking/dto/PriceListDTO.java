@@ -1,7 +1,6 @@
 package com.example.parking.dto;
 
 import com.example.parking.entity.PriceList;
-import com.example.parking.entity.PriceScale;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -2,7 +2,6 @@ package com.example.parking.service.impl;
 
 import com.example.parking.dto.PriceListDTO;
 import com.example.parking.dto.PriceScaleDTO;
-import com.example.parking.entity.ParkingOccupation;
 import com.example.parking.entity.ParkingZone;
 import com.example.parking.entity.PriceList;
 import com.example.parking.entity.PriceScale;
