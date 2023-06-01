@@ -1,0 +1,475 @@
+{
+	"info": {
+		"_postman_id": "545a75a6-7a6a-491d-95cc-e1a981f9b546",
+		"name": "Parking Requests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET",
+			"item": [
+				{
+					"name": "get nested parking",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/parking",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"parking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get specific get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/parking/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"parking",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get empty spots of parking",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/parking/1/empty-spots",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"parking",
+								"1",
+								"empty-spots"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get zones of parking",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/parking/1/parking-zones",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"parking",
+								"1",
+								"parking-zones"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get specific spot",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/parking-spots/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"parking-spots",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get spots of a zone",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/parking-zones/1/parking-spots",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"parking-zones",
+								"1",
+								"parking-spots"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get history of parking",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"occupationDate\" : \"2023-05-30T13:35:00+01:00\",\r\n    \"vacancyDate\" : null,\r\n    \"cost\" : 0,\r\n    \"plate\" : \"aaaaax\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/parking/1/history",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"parking",
+								"1",
+								"history"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get pricelists",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/parking-zone/1/priceList",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"parking-zone",
+								"1",
+								"priceList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get specific zone of a parking",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/parking/1/parking-zones/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"parking",
+								"1",
+								"parking-zones",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "see Current Cost",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/parking-spots/1/seeCurrentCost",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"parking-spots",
+								"1",
+								"seeCurrentCost"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "POST",
+			"item": [
+				{
+					"name": "new pricelist with scale",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"normal\",\r\n    \"priceScaleDTOList\" : [\r\n        {\r\n            \"scaleDuration\" : 120,\r\n            \"scalePerTimeUnit\" : 30,\r\n            \"scaleCost\" : 1\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/parking-zone/1/priceList",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"parking-zone",
+								"1",
+								"priceList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "new nested parking",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"pakr1\",\r\n    \"parkingZoneDTOList\" : [\r\n        {\r\n            \"name\" : \"zone1\",\r\n            \"type\" : \"typezone\",\r\n            \"parkingSpotDTOList\" : [\r\n                {\r\n                    \"name\" : \"spot1\",\r\n                    \"type\" : \"normal\",\r\n                    \"occupation\" : false\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/parking",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"parking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "park in spot",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"occupationDate\" : \"2023-06-01T08:30:00+01:00\",\r\n    \"plate\" : \"abc 1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/parking-spots/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"parking-spots",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "new zone in a parking",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"typezone\",\r\n    \"name\": \"zone1\",\r\n    \"parkingSpotDTOList\": [\r\n        {\r\n            \"name\": \"spot1\",\r\n            \"type\": \"normal\",\r\n            \"occupied\": false\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/parking/1/parking-zones",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"parking",
+								"1",
+								"parking-zones"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "new spot in a zone",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n    \"name\": \"spot1\",\r\n    \"type\": \"normal\",\r\n    \"occupied\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/parking-zones/2/parking-spots",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"parking-zones",
+								"2",
+								"parking-spots"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save new price scale",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"scaleDuration\" : 120,\r\n    \"scalePerTimeUnit\" : 30,\r\n    \"scaleCost\" : 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/pricelist/1/priceScale",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"pricelist",
+								"1",
+								"priceScale"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PUT",
+			"item": [
+				{
+					"name": "unpark from spot",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/parking-spots/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"parking-spots",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
