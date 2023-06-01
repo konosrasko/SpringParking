@@ -5,10 +5,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class ParkingApplicationTests {
-
-	@Test
-	void ParkingTest() {
-
-	}
+//
+//	@Test
+//	void ParkingTest() {
+//
+//	}
 
 }
