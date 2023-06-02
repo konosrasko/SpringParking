@@ -97,4 +97,35 @@ class ParkingOccupationImplTest {
         System.out.println(unParked.getVacancyDate());
         assertEquals(2,unParked.getCost());
     }
+    @Test
+    void seeCurrentCost(){
+        ParkingOccupationDTO parkingOccupationDTO = ParkingOccupationDTO.builder().plate("abc 123").occupationDate(OffsetDateTime.now().minusHours(1)).build();
+        ParkingOccupationDTO savedParkingOccupation = parkingOccupationService.saveParkingOccupation(savedSpot.getId(), parkingOccupationDTO);
+
+        assertEquals(parkingOccupationService.seeCurrentCost(savedSpot.getId()),2);
+
+
+    }
+
+
+    @Test
+    void spotOccOnOccupiedSpot(){
+        ParkingSpotDTO parkingSpotDTO = ParkingSpotDTO.builder().name("name").type("type").occupied(true).build();
+        parkingService.addSpot(parkingSpotDTO,savedZone.getParkingZoneId());
+        ParkingOccupationDTO parkingOccupationDTO = ParkingOccupationDTO.builder().plate("abc 123").occupationDate(OffsetDateTime.now()).build();
+
+        System.out.println(savedSpot.isOccupied());
+        assertThrows(RuntimeException.class,
+                ()->{
+                    parkingOccupationService.saveParkingOccupation((savedSpot.getId()+1),parkingOccupationDTO);
+                });
+    }
+    @Test
+    void spotOccOnEmptySpot(){
+        ParkingOccupationDTO parkingOccupationDTO = ParkingOccupationDTO.builder().plate("abc 123").occupationDate(OffsetDateTime.now()).build();
+        assertThrows(RuntimeException.class,
+                ()->{
+                    parkingOccupationService.saveParkingOccupation((savedSpot.getId()+10), parkingOccupationDTO);
+                });
+    }
 }
