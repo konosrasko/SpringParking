@@ -32,4 +32,6 @@ public interface ParkingService {
 
     List<ParkingSpotDTO> findEmptySpots(int parkingId);
 
+    void deleteParking(int parkingId);
+
 }

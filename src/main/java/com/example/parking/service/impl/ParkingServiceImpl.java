@@ -144,4 +144,11 @@ public class ParkingServiceImpl implements ParkingService {
             throw new ParkingException("Parking does not exist");
         }
     }
+    @Override
+    public void deleteParking(int parkingId){
+        if (parkingRepo.existsById(parkingId)){
+            parkingRepo.deleteById(parkingId);
+        }else
+            throw new ParkingException("there is no Parking with ID :"+parkingId);
+    }
 }
